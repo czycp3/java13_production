@@ -26,16 +26,34 @@ public class DeviceController {
     @Autowired
     DeviceJson deviceJson;
 
+    /*
+     * 获取设备台账的json数据对象
+     * */
     @RequestMapping("/deviceList/list")
     @ResponseBody
-    public DeviceJson deviceList(){
-        List<Device> deviceList= deviceService.queryDeviceList();
+    public DeviceJson deviceList() {
+        List<Device> deviceList = deviceService.queryDeviceList();
         deviceJson.setTotal(deviceList.size());
         deviceJson.setRows(deviceList);
         return deviceJson;
     }
+
+    /*
+     * 动态获取渲染设备台账json对象的jsp文件
+     * */
     @RequestMapping("device/deviceList")
-    public String device(){
+    public String device() {
         return "deviceList";
+    }
+
+    /*
+    * 通过设备编号查找设备json对象
+    * */
+    @RequestMapping("/deviceList/search_device_by_deviceId")
+    public DeviceJson deviceJson(String searchValue){
+        List<Device> deviceList = deviceService.queryDeviceByDeviceId(searchValue);
+        deviceJson.setTotal(deviceList.size());
+        deviceJson.setRows(deviceList);
+        return deviceJson;
     }
 }

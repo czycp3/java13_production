@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(value = "com.cskaoyan.controller")
+@ComponentScan(basePackages = "com.cskaoyan.controller")
 public class WebConfig implements WebMvcConfigurer {
 	/**
 	 * 视图解析器

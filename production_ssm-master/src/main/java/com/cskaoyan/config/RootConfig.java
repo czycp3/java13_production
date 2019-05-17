@@ -39,7 +39,7 @@ public class RootConfig {
 	public DataSource dataSource() {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/production_ssm?useSSL=false&rewriteBatchedStatements=true&useServerPrepStmts=true&cachePrepStmts=true");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/production_ssm?serverTimezone=GMT&useSSL=false&rewriteBatchedStatements=true&useServerPrepStmts=true&cachePrepStmts=true");
 		dataSource.setUsername("root");
 		dataSource.setPassword("123456");
 		return dataSource;

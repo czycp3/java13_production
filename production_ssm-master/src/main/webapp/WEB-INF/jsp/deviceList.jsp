@@ -27,7 +27,9 @@
             <th data-options="field:'devicePurchaseDate',width:130,align:'center',formatter:TAOTAO.formatDateTime">
 				购买日期
 			</th>
-            <th data-options="field:'devicePurchasePrice',width:80,align:'center'">购买价格</th>
+            <th data-options="field:'devicePurchasePrice',width:80,align:'center'">
+				购买价格
+			</th>
             <th data-options="field:'deviceManufactureDate',width:130,align:'center',formatter:TAOTAO.formatDateTime">
 				出厂日期
 			</th>
@@ -37,7 +39,9 @@
             <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList">
 				保管人
 			</th>
-            <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">备注</th>
+            <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">
+				备注
+			</th>
         </tr>
     </thead>
 </table>
