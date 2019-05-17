@@ -4,7 +4,9 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -15,6 +17,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ImportResource("classpath:application.xml")
+@EnableTransactionManagement
 @ComponentScan(basePackages = "com.cskaoyan",
 		excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {Controller.class,EnableWebMvc.class})})
 public class RootConfig {
@@ -55,5 +58,17 @@ public class RootConfig {
 		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
 		mapperScannerConfigurer.setBasePackage("com.cskaoyan.mapper");
 		return mapperScannerConfigurer;
+	}
+
+	/**
+	 * 事务管理器
+	 * @param dataSource
+	 * @return DataSourceTransactionManager
+	 */
+	@Bean
+	public DataSourceTransactionManager transactionManager(DataSource dataSource){
+		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+		transactionManager.setDataSource(dataSource);
+		return transactionManager;
 	}
 }
