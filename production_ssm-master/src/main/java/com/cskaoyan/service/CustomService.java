@@ -33,4 +33,11 @@ public interface CustomService {
      * @return
      */
     QueryStatus deleteBatch(String[] ids) throws CustomException;
+
+    /**
+     * 选择字段更新客户信息
+     * @param record
+     * @return
+     */
+    QueryStatus updateByPrimaryKeySelective(Custom record);
 }

@@ -28,6 +28,8 @@ public class ScheduleController {
         this.customService = customService;
     }
 
+    /**********添加客户*****************/
+
     @RequestMapping("/custom/list")
     @ResponseBody
     public CustomResultVo custom(){
@@ -60,6 +62,8 @@ public class ScheduleController {
         return customService.insert(custom);
     }
 
+    /**********删除客户*****************/
+
     @RequestMapping("/custom/delete_batch")
     @ResponseBody
     public QueryStatus deleteBatch(String[] ids){
@@ -78,4 +82,25 @@ public class ScheduleController {
     public QueryStatus deleteJudge(){
         return new QueryStatus();
     }
+
+    /**********编辑客户*****************/
+
+    @RequestMapping("/custom/edit_judge")
+    @ResponseBody
+    public QueryStatus editJudge(){
+        return new QueryStatus();
+    }
+
+    @RequestMapping("/custom/edit")
+    public String edit(){
+        return "custom_edit";
+    }
+
+    @RequestMapping("/custom/update_all")
+    @ResponseBody
+    public QueryStatus updateAll(Custom custom){
+        QueryStatus queryStatus = customService.updateByPrimaryKeySelective(custom);
+        return queryStatus;
+    }
+
 }

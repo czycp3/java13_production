@@ -67,4 +67,20 @@ public class CustomServiceImpl implements CustomService {
         }
         return queryStatus;
     }
+
+    @Override
+    public QueryStatus updateByPrimaryKeySelective(Custom record) {
+        QueryStatus queryStatus = new QueryStatus();
+        try {
+            int ret = customMapper.updateByPrimaryKeySelective(record);
+            if(ret == 1) {
+                queryStatus.setStatus(200);
+                queryStatus.setMsg("OK");
+            }
+        }catch (Exception e){
+            queryStatus.setStatus(0);
+            queryStatus.setMsg("该客户编号已经存在，请更换客户编号！");
+        }
+        return queryStatus;
+    }
 }
