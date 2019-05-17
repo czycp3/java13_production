@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cskaoyan.maven</groupId>
-    <artifactId>ssm_project1</artifactId>
+    <artifactId>java13_production</artifactId>
     <version>v1.0</version>
     <packaging>war</packaging>
 
@@ -24,13 +24,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!--servlet-->
-        <!--<dependency>-->
-            <!--<groupId>javax.servlet</groupId>-->
-            <!--<artifactId>servlet-api</artifactId>-->
-            <!--<version>3.0-alpha-1</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -51,11 +44,7 @@
             <version>8.0.11</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
