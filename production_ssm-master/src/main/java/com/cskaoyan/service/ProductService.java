@@ -6,6 +6,8 @@ import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.ProductException;
 
+import java.util.List;
+
 
 /**
  * @author CZY-Y7000P
@@ -39,4 +41,11 @@ public interface ProductService {
      * @return QueryStatus
      */
     QueryStatus deleteBatch(String[] ids) throws ProductException;
+
+    /**
+     * 查询所有商品
+     * @return List<Product>
+     */
+    List<Product> selectByExample();
+
 }

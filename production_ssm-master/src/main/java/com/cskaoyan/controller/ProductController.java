@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -42,6 +43,13 @@ public class ProductController {
     public String productList(){
         return "product_list";
     }
+
+    @RequestMapping("/product/get_data")
+    @ResponseBody
+    public List<Product> getData(){
+        return productService.selectByExample();
+    }
+
 
     /*********添加产品************/
 

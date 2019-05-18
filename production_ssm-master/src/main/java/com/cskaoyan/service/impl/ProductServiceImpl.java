@@ -91,4 +91,10 @@ public class ProductServiceImpl implements ProductService {
         }
         return queryStatus;
     }
+
+    @Override
+    public List<Product> selectByExample() {
+        return productMapper.selectTotalProduct();
+
+    }
 }

@@ -160,13 +160,21 @@
         </if>
     </select>
 
-    <!--查询产品列表-->
+    <!--分页查询产品列表-->
     <select id="selectAllProduct" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from product
         limit #{rows} offset #{offset}
     </select>
+
+    <!--查询所有产品-->
+    <select id="selectTotalProduct" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+    </select>
+
 
     <update id="updateByExampleSelective" parameterType="map">
         update product

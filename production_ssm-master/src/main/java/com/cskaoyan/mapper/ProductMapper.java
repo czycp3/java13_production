@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.ProductExample;
 import org.apache.ibatis.annotations.Param;
@@ -50,4 +51,11 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+    /**
+     * 查询所有产品
+     * @return List<Product>
+     */
+    List<Product> selectTotalProduct();
+
 }
