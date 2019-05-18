@@ -1,5 +1,6 @@
 package com.cskaoyan.service;
 
+import com.cskaoyan.bean.Department;
 import com.cskaoyan.bean.Device;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface DeviceService {
 
     int insertDevice(Device device);
 
+    List<Department> getDepartment();
 }

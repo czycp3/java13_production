@@ -12,4 +12,9 @@ import java.util.List;
 public interface DeviceTypeService {
     List<DeviceType> getDeviceTypeList();
 
+    List<DeviceType> getDeviceTypeById(String searchValue);
+
+    List<DeviceType> getDeviceTypeByName(String searchValue);
+
+    DeviceType[] getDeviceTypes();
 }

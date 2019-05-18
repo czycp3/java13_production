@@ -46,14 +46,23 @@
         where device_type_name=#{deviceTypeName}
     </select>
 
-    <insert id="insertDevice" parameterType="Device">
+    <insert id="insertDevice" parameterType="device">
         insert into device (device_id,device_name,device_type_id,device_status_id,device_status,device_purchase_date,device_purchase_price,
-              device_manufacture_date,device_service_life,device_kepper_id,note)
-        values (device.deviceId,device.deviceName,device.deviceTypeId,device.deviceStatusId,device.deviceStatus,device.devicePurchaseDate,
-                device.devicePurchasePrice,device.deviceManufactureDate,device.deviceServiceLife,device.deviceKeeperId,device.note)
+              device_manufacture_date,device_service_life,device_keeper_id,note)
+        values (#{deviceBean.deviceId},#{deviceBean.deviceName},#{deviceBean.deviceTypeId},#{deviceBean.deviceStatusId},
+                #{deviceBean.deviceStatus},#{deviceBean.devicePurchaseDate},#{deviceBean.devicePurchasePrice},
+                #{deviceBean.deviceManufactureDate},#{deviceBean.deviceServiceLife},#{deviceBean.deviceKeeperId},#{deviceBean.note})
     </insert>
 
 
+    <resultMap id="departmentMap" type="department">
+        <result property="departmentId" column="department_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="note" column="note"/>
+    </resultMap>
+    <select id="getDepartment" resultMap="departmentMap">
+        select department_id,department_name,note from department
+    </select>
 
 
 </mapper>

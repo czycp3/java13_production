@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.bean.Department;
 import com.cskaoyan.bean.Device;
 import com.cskaoyan.mapper.DeviceMapper;
 import com.cskaoyan.service.DeviceService;
@@ -47,6 +48,12 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public int insertDevice(Device device) {
         int num = deviceMapper.insertDevice(device);
-        return 0;
+        return num;
+    }
+
+    @Override
+    public List<Department> getDepartment() {
+        List<Department> departmentList = deviceMapper.getDepartment();
+        return departmentList;
     }
 }

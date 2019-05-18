@@ -35,5 +35,30 @@ public class DeviceTypeController {
         baseResultVo.setRows(deviceTypeList);
         return baseResultVo;
     }
+
+    /*
+    * 通过设备种类编号模糊查询设备种类
+    * */
+    @RequestMapping("/deviceType/search_deviceType_by_deviceTypeId")
+    @ResponseBody
+    public BaseResultVo queryDeviceTypeById(String searchValue){
+        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeById(searchValue);
+        baseResultVo.setTotal(deviceTypeList.size());
+        baseResultVo.setRows(deviceTypeList);
+        return baseResultVo;
+    }
+
+    /*
+    * 通过设备种类名称模糊查询设备种类
+    * */
+    @RequestMapping("/deviceType/search_deviceType_by_deviceTypeName")
+    @ResponseBody
+    public BaseResultVo queryDeviceTypeByName(String searchValue){
+        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeByName(searchValue);
+        baseResultVo.setTotal(deviceTypeList.size());
+        baseResultVo.setRows(deviceTypeList);
+        return baseResultVo;
+    }
+
 }
 
