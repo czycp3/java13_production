@@ -42,6 +42,11 @@ public interface ProductMapper {
 
     int updateByExample(@Param("record") Product record, @Param("example") ProductExample example);
 
+    /**
+     * 按选择字段
+     * @param record
+     * @return 更新成功行数
+     */
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);

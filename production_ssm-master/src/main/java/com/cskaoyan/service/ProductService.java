@@ -4,6 +4,7 @@ package com.cskaoyan.service;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
+import com.cskaoyan.exception.ProductException;
 
 
 /**
@@ -24,4 +25,18 @@ public interface ProductService {
      * @return 成功行数
      */
     QueryStatus insert(Product product);
+
+    /**
+     * 可选择字段更新产品信息
+     * @param product
+     * @return QueryStatus
+     */
+    QueryStatus updateByPrimaryKeySelective(Product product);
+
+    /**
+     * 批量删除产品
+     * @param ids
+     * @return QueryStatus
+     */
+    QueryStatus deleteBatch(String[] ids) throws ProductException;
 }

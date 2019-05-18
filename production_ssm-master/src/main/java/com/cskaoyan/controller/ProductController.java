@@ -3,6 +3,7 @@ package com.cskaoyan.controller;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
+import com.cskaoyan.exception.ProductException;
 import com.cskaoyan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,5 +75,45 @@ public class ProductController {
         queryStatus.setError(0);
         queryStatus.setUrl(contextPath + "/pic/" + fileName);
         return queryStatus;
+    }
+
+    /*********编辑产品************/
+
+    @RequestMapping("/product/edit_judge")
+    @ResponseBody
+    public QueryStatus editJudge(){
+        return new QueryStatus();
+    }
+
+    @RequestMapping("/product/edit")
+    public String edit(){
+        return "product_edit";
+    }
+
+    @RequestMapping("/product/update_all")
+    @ResponseBody
+    public QueryStatus updateAll(Product product){
+        return productService.updateByPrimaryKeySelective(product);
+    }
+
+    /**********删除客户*****************/
+
+    @RequestMapping("/product/delete_batch")
+    @ResponseBody
+    public QueryStatus deleteBatch(String[] ids){
+        try {
+            return productService.deleteBatch(ids);
+        } catch (ProductException e) {
+            QueryStatus queryStatus = new QueryStatus();
+            queryStatus.setStatus(0);
+            queryStatus.setMsg(e.getMessage());
+            return queryStatus;
+        }
+    }
+
+    @RequestMapping("/product/delete_judge")
+    @ResponseBody
+    public QueryStatus deleteJudge(){
+        return new QueryStatus();
     }
 }
