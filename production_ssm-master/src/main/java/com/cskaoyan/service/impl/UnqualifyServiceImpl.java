@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class UnqualifyServiceImpl implements UnqualifyService {
 
-    @Autowired
+
     UnqualifyMapper unqualifyMapper;
 
     //分页查询不合格品列表

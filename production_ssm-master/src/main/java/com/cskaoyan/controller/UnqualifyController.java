@@ -22,9 +22,6 @@ public class UnqualifyController {
     @Autowired
     UnqualifyService unqualifyService;
 
-    @Autowired
-    BaseResultVo baseResultVo;
-
 
     /**
      * 通过访问/unqualify/find，返回unqualify_list.jsp
@@ -47,14 +44,14 @@ public class UnqualifyController {
     @ResponseBody
     public BaseResultVo<Unqualify> findUnqualifyList(Integer page, Integer rows){
 
-
+        BaseResultVo baseResultVo = new BaseResultVo();
 
         int offset = (page - 1) * rows;
         List<Unqualify> unqualifyList = unqualifyService.findList(rows,offset);
-        baseResultVo.setTotal(unqualifyService.findAllList().size());
-        baseResultVo.setRows(unqualifyList);
+        baseResultVo .setTotal(unqualifyService.findAllList().size());
+        baseResultVo .setRows(unqualifyList);
 
-        return baseResultVo;
+        return baseResultVo ;
     }
 
     /**
