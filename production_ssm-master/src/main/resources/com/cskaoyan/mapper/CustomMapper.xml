@@ -39,6 +39,83 @@
         select count(*) from custom
   </select>
 
+
+  <select id="selectCountCustomByCondition" resultType="java.lang.Integer">
+        select count(*) from custom
+      <where>
+          <if test="record.customId != null">
+              custom_id like #{record.customId}
+          </if>
+          <if test="record.customName != null">
+              and custom_name like #{record.customName}
+          </if>
+          <if test="record.fullName != null">
+              and full_name like #{record.fullName}
+          </if>
+          <if test="record.address != null">
+              and address like #{record.address}
+          </if>
+          <if test="record.fax != null">
+              and fax like #{record.fax}
+          </if>
+          <if test="record.email != null">
+              and email like #{record.email}
+          </if>
+          <if test="record.ownerName != null">
+              and owner_name like #{record.ownerName}
+          </if>
+          <if test="record.ownerTel != null">
+              and owner_tel like #{record.ownerTel}
+          </if>
+          <if test="record.status != null">
+              and status like #{record.status}
+          </if>
+          <if test="record.note != null">
+              and note like #{record.note}
+          </if>
+      </where>
+  </select>
+
+    <!--按条件查询custom-->
+  <select id="searchCustomByCondition" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from custom
+      <where>
+          <if test="record.customId != null">
+              custom_id like #{record.customId}
+          </if>
+          <if test="record.customName != null">
+              and custom_name like #{record.customName}
+          </if>
+          <if test="record.fullName != null">
+              and full_name like #{record.fullName}
+          </if>
+          <if test="record.address != null">
+              and address like #{record.address}
+          </if>
+          <if test="record.fax != null">
+              and fax like #{record.fax}
+          </if>
+          <if test="record.email != null">
+              and email like #{record.email}
+          </if>
+          <if test="record.ownerName != null">
+              and owner_name like #{record.ownerName}
+          </if>
+          <if test="record.ownerTel != null">
+              and owner_tel like #{record.ownerTel}
+          </if>
+          <if test="record.status != null">
+              and status like #{record.status}
+          </if>
+          <if test="record.note != null">
+              and note like #{record.note}
+          </if>
+      </where>
+      limit #{rows} offset #{offset}
+  </select>
+
     <!--按customId删除客户-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from custom

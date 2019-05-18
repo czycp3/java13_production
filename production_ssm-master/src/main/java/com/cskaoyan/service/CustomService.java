@@ -1,5 +1,6 @@
 package com.cskaoyan.service;
 
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Custom;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.CustomException;
@@ -48,4 +49,23 @@ public interface CustomService {
      * @return 总条目数
      */
     int selectCountCustom();
+
+
+    /**
+     * 按ID模糊查询客户
+     * @param searchValue
+     * @param page 当页页数
+     * @param rows 每页行数
+     * @return BaseResultVo
+     */
+    BaseResultVo searchCustomById(String searchValue, int page, int rows);
+
+    /**
+     * 按name模糊查询客户
+     * @param searchValue
+     * @param page 当页页数
+     * @param rows 每页行数
+     * @return BaseResultVo
+     */
+    BaseResultVo searchCustomByName(String searchValue, int page, int rows);
 }

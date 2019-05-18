@@ -68,4 +68,20 @@ public interface CustomMapper {
      */
     int selectCountCustom();
 
+    /**
+     * 按条件查询custom表中总条目数
+     * @param  record 封装的条件
+     * @return 总条目数
+     */
+    int selectCountCustomByCondition(@Param("record") Custom record);
+
+    /**
+     * 按条件查询custom
+     * @param  record 封装的条件
+     * @param  rows 查询条目数
+     * @param offset 偏移量
+     * @return 总条目数
+     */
+    List<Custom> searchCustomByCondition(@Param("record") Custom record, @Param("rows") int rows, @Param("offset") int offset);
+
 }

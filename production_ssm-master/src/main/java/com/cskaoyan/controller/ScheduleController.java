@@ -101,4 +101,19 @@ public class ScheduleController {
         return customService.updateByPrimaryKeySelective(custom);
     }
 
+    /**********查询客户*****************/
+
+    @RequestMapping("/custom/search_custom_by_customId")
+    @ResponseBody
+    public BaseResultVo searchCustomById(String searchValue,int page, int rows){
+        return customService.searchCustomById(searchValue,page,rows);
+    }
+
+    @RequestMapping("/custom/search_custom_by_customName")
+    @ResponseBody
+    public BaseResultVo searchCustom(String searchValue,int page, int rows){
+        return customService.searchCustomByName(searchValue,page,rows);
+    }
+
+
 }

@@ -1,10 +1,12 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Custom;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.mapper.CustomMapper;
 import com.cskaoyan.service.CustomService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +20,7 @@ import java.util.List;
 @Service
 public class CustomServiceImpl implements CustomService {
     private final CustomMapper customMapper;
+    Logger logger = Logger.getLogger(this.getClass());
 
     @Autowired
     public CustomServiceImpl(CustomMapper customMapper) {
@@ -93,4 +96,44 @@ public class CustomServiceImpl implements CustomService {
     public int selectCountCustom() {
         return customMapper.selectCountCustom();
     }
+
+    @Override
+    public BaseResultVo searchCustomById(String searchValue, int page, int rows) {
+        BaseResultVo<Custom> baseResultVo = new BaseResultVo<>();
+        //按条件查询总条目
+        Custom custom = new Custom();
+        //searchValue = "%" + searchValue +"%";
+        custom.setCustomId("%" + searchValue +"%");
+        int total = customMapper.selectCountCustomByCondition(custom);
+
+        //查询分页信息
+        //如果总数小于单页条目数，则修改查询数目为total
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<Custom> customs = customMapper.searchCustomByCondition(custom, rows, offset);
+        logger.debug(customs);
+        //封装list和total
+        baseResultVo.setRows(customs);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
+    }
+
+    @Override
+    public BaseResultVo searchCustomByName(String searchValue, int page, int rows) {
+        BaseResultVo<Custom> baseResultVo = new BaseResultVo<>();
+        //按条件查询总条目
+        Custom custom = new Custom();
+        custom.setCustomName("%" + searchValue +"%");
+        int total = customMapper.selectCountCustomByCondition(custom);
+
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<Custom> customs = customMapper.searchCustomByCondition(custom, rows, offset);
+        //封装list和total
+        baseResultVo.setRows(customs);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
+    }
+
+
 }
