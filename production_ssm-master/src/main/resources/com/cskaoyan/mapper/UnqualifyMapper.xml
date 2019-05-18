@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.UnqualifyMapper">
+    <!--其他数据表都建好之后在查询产品名称和申请人-->
+    <resultMap id="findUnqualifyByPages" type="com.cskaoyan.bean.Unqualify">
+        <id column="unqualify_apply_id" property="unqualifyApplyId" />
+        <result column="product_id" property="productId" />
+        <result column="unqualify_item" property="unqualifyItem" />
+        <result column="unqualify_count" property="unqualifyCount" />
+        <result column="assembly_date" property="assemblyDate" />
+        <result column="emp_id" property="empId" />
+        <result column="apply_date" property="applyDate" />
+        <result column="note" property="note" />
+        <result column="product_name" property="productName" />
+        <result column="emp_name" property="empName" />
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        unqualify_apply_id,product_id,unqualify_item,unqualify_count,assembly_date,emp_id,apply_date,note
+    </sql>
+
+
+    <!--mapper中的数据库表名均为许辛鹏的数据库表名，最后在全部整合-->
+    <!--分页查找-->
+    <select id="findList" resultMap="findUnqualifyByPages" >
+        select un.unqualify_apply_id,
+ 				un.product_id,
+ 				un.unqualify_item,
+ 				un.unqualify_count,
+ 				un.assembly_date,
+ 				un.emp_id,
+ 				un.apply_date,
+ 				un.note,
+ 				p.product_name,
+ 				e.emp_name
+
+ 				from unqualify_apply un
+ 				inner join product p on un.product_id = p.product_id
+ 				inner join employee e on un.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--查找所有信息-->
+    <select id="findAllList" resultMap="findUnqualifyByPages" >
+        select unqualify_apply_id from unqualify_apply
+    </select>
+
+
+
+    <!--插入新的不良品信息-->
+    <insert id="insert" >
+        insert into unqualify_apply (<include refid="Base_Column_List" />) value (#{unqualify.unqualifyApplyId},
+        #{unqualify.productId},#{unqualify.unqualifyItem},#{unqualify.unqualifyCount},
+        #{unqualify.assemblyDate},#{unqualify.empId},#{unqualify.applyDate},
+        #{unqualify.note},)
+    </insert>
+
+
+
+    
+    
+</mapper>
