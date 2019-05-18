@@ -3,6 +3,7 @@ package com.cskaoyan.service.impl;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.ProductExample;
+import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.mapper.ProductMapper;
 import com.cskaoyan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,21 @@ public class ProductServiceImpl implements ProductService {
         baseResultVo.setRows(products);
         baseResultVo.setTotal(total);
         return baseResultVo;
+    }
+
+    @Override
+    public QueryStatus insert(Product product) {
+        QueryStatus queryStatus = new QueryStatus();
+        try {
+            int ret = productMapper.insertSelective(product);
+            if(ret == 1) {
+                queryStatus.setStatus(200);
+                queryStatus.setMsg("OK");
+            }
+        }catch (Exception e){
+            queryStatus.setStatus(0);
+            queryStatus.setMsg("该产品编号已经存在，请更换客户编号！");
+        }
+        return queryStatus;
     }
 }

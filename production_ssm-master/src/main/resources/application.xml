@@ -12,4 +12,11 @@
     <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
     <mvc:resources mapping="/image/**" location="/WEB-INF/image/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
+    <mvc:resources mapping="/pic/**" location="/WEB-INF/image/upload/"/>
+
+    <!--fileupload-->
+    <bean id = "multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048576"/>
+    </bean>
+
 </beans>
