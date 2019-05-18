@@ -30,8 +30,13 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
-    public List<Custom> selectAllCustom() {
-        return customMapper.selectAllCustom();
+    public List<Custom> selectAllCustom(int page,int rows) {
+        //查询custom总记录数
+        int total = customMapper.selectCountCustom();
+        //如果总数小于单页条目数，则修改查询数目为total
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        return customMapper.selectAllCustom(rows,offset);
     }
 
     @Override
@@ -82,5 +87,10 @@ public class CustomServiceImpl implements CustomService {
             queryStatus.setMsg("该客户编号已经存在，请更换客户编号！");
         }
         return queryStatus;
+    }
+
+    @Override
+    public int selectCountCustom() {
+        return customMapper.selectCountCustom();
     }
 }

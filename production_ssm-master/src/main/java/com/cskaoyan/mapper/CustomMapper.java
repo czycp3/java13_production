@@ -56,8 +56,16 @@ public interface CustomMapper {
 
     /**
      * 查询客户列表
-     * @return List<Custom>
+     *  @param offset 偏移量
+     *  @param rows 每页行数
+     *  @return List<Custom>
      */
-    List<Custom> selectAllCustom();
+    List<Custom> selectAllCustom(@Param("rows") int rows,@Param("offset") int offset);
+
+    /**
+     * 查询custom表中总条目数
+     * @return 总条目数
+     */
+    int selectCountCustom();
 
 }

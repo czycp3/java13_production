@@ -1,5 +1,9 @@
 package com.cskaoyan.bean;
 
+/**
+ * 封装查询的状态
+ * @author CZY
+ */
 public class QueryStatus {
     private int status;
     private String msg;

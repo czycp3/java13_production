@@ -31,9 +31,15 @@
     select
     <include refid="Base_Column_List" />
     from custom
+    limit #{rows} offset #{offset}
   </select>
 
-  <!--按customId删除客户-->
+  <!--查询客户的总条目数-->
+  <select id="selectCountCustom" resultType="java.lang.Integer">
+        select count(*) from custom
+  </select>
+
+    <!--按customId删除客户-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from custom
     where custom_id = #{customId,jdbcType=VARCHAR}

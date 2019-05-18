@@ -1,14 +1,12 @@
 package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Custom;
-import com.cskaoyan.bean.CustomResultVo;
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.CustomException;
-import com.cskaoyan.mapper.CustomMapper;
 import com.cskaoyan.service.CustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,13 +30,13 @@ public class ScheduleController {
 
     @RequestMapping("/custom/list")
     @ResponseBody
-    public CustomResultVo custom(){
-        CustomResultVo customResultVo = new CustomResultVo();
-        List<Custom> customs = customService.selectAllCustom();
-        int total = customs.size();
-        customResultVo.setRows(customs);
-        customResultVo.setTotal(total);
-        return customResultVo;
+    public BaseResultVo custom(int page, int rows){
+        BaseResultVo baseResultVo = new BaseResultVo();
+        List<Custom> customs = customService.selectAllCustom(page,rows);
+        int total = customService.selectCountCustom();
+        baseResultVo.setRows(customs);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
     }
 
     @RequestMapping("/custom/find")
@@ -48,11 +46,12 @@ public class ScheduleController {
 
     @RequestMapping("/custom/add_judge")
     public String customAddJudge(){
-        return "forward:/custom/list";
+        return "custom_add";
     }
 
     @RequestMapping("/custom/add")
     public String customAdd(){
+
         return "custom_add";
     }
 
@@ -99,8 +98,7 @@ public class ScheduleController {
     @RequestMapping("/custom/update_all")
     @ResponseBody
     public QueryStatus updateAll(Custom custom){
-        QueryStatus queryStatus = customService.updateByPrimaryKeySelective(custom);
-        return queryStatus;
+        return customService.updateByPrimaryKeySelective(custom);
     }
 
 }

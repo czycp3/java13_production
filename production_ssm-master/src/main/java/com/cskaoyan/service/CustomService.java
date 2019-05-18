@@ -16,9 +16,11 @@ public interface CustomService {
 
     /**
      * 查询客户列表
+     * @param page 当前页数
+     * @param rows 每页行数
      * @return List<Custom>
      */
-    List<Custom> selectAllCustom();
+    List<Custom> selectAllCustom(int page,int rows);
 
     /**
      * 插入一个客户
@@ -40,4 +42,10 @@ public interface CustomService {
      * @return
      */
     QueryStatus updateByPrimaryKeySelective(Custom record);
+
+    /**
+     * 查询custom表中总条目数
+     * @return 总条目数
+     */
+    int selectCountCustom();
 }
