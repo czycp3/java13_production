@@ -28,7 +28,7 @@ public class UnqualifyController {
      * @return
      */
     @RequestMapping("/unqualify/find")
-    public String find(){
+    public String find() {
         return "unqualify_list";
     }
 
