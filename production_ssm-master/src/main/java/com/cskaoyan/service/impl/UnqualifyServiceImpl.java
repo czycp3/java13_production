@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.bean.Unqualify;
 import com.cskaoyan.mapper.UnqualifyMapper;
@@ -7,6 +8,7 @@ import com.cskaoyan.service.UnqualifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -130,5 +132,38 @@ public class UnqualifyServiceImpl implements UnqualifyService {
     public List<Unqualify> searchAllUnqualifyByUnqualifyId(String searchValue) {
         List<Unqualify> unqualifyList = unqualifyMapper.searchAllUnqualifyByUnqualifyId(searchValue);
         return unqualifyList;
+    }
+
+    @Override
+    public List<Unqualify> searchUnqualifyByProductName(String searchValue, Integer rows, int offset) {
+        List<Product> productList = unqualifyMapper.findProductId(searchValue);
+        List<Unqualify> all = new ArrayList<>();
+        for (int i = 0; i < productList.size() ; i++) {
+            List<Unqualify> searchAllUnqualifyByProductName = unqualifyMapper.searchAllUnqualifyByProductName(productList.get(i).getProductId());
+            all.addAll(searchAllUnqualifyByProductName);
+        }
+
+        List<Unqualify> allByPage = new ArrayList<>();
+
+        rows = ((all.size() - offset)) > rows ? rows : all.size() - offset;
+
+        for (int i = offset; i < rows ; i++) {
+            allByPage.add(all.get(i));
+        }
+
+        return allByPage;
+    }
+
+    @Override
+    public List<Unqualify> searchAllUnqualifyByProductName(String searchValue) {
+        List<Product> productList = unqualifyMapper.findProductId(searchValue);
+
+        List<Unqualify> all = new ArrayList<>();
+        for (int i = 0; i < productList.size() ; i++) {
+            List<Unqualify> searchAllUnqualifyByProductName = unqualifyMapper.searchAllUnqualifyByProductName(productList.get(i).getProductId());
+            all.addAll(searchAllUnqualifyByProductName);
+        }
+
+        return all;
     }
 }

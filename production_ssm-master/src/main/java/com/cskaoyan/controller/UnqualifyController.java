@@ -124,4 +124,18 @@ public class UnqualifyController {
 
         return baseResultVo;
     }
+
+
+    //根据产品名称查询
+    @RequestMapping("unqualify/search_unqualify_by_productName")
+    @ResponseBody
+    public BaseResultVo<Unqualify> searchUnqualifyByProductName(String searchValue,Integer page, Integer rows){
+
+        int offset = (page - 1) * rows;
+        List<Unqualify> unqualifyList = unqualifyService.searchUnqualifyByProductName(searchValue,rows,offset);
+        baseResultVo.setTotal(unqualifyService.searchAllUnqualifyByProductName(searchValue).size());
+        baseResultVo.setRows(unqualifyList);
+
+        return baseResultVo;
+    }
 }

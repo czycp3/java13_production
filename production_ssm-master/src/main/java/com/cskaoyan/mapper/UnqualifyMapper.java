@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.Unqualify;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +36,9 @@ public interface UnqualifyMapper {
     //根据ID来查找不良产品/所有条目
     List<Unqualify> searchAllUnqualifyByUnqualifyId(@Param("searchValue") String searchValue);
 
+    //根据product的名字模糊查询product的id
+    List<Product> findProductId(@Param("searchValue") String searchValue);
+
+    //根据product的名字模糊查询--所有记录数
+    List<Unqualify> searchAllUnqualifyByProductName(@Param("productId") String productId);
 }

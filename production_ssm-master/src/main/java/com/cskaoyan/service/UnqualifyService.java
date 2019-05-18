@@ -3,6 +3,7 @@ package com.cskaoyan.service;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.bean.Unqualify;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -35,5 +36,9 @@ public interface UnqualifyService {
     //根据id查找的所有条目
     List<Unqualify> searchAllUnqualifyByUnqualifyId(String searchValue);
 
+    //根据产品名称查找分页
+    List<Unqualify> searchUnqualifyByProductName(String searchValue, Integer rows, int offset);
 
+    //根据产品名称查找所有条目
+    List<Unqualify> searchAllUnqualifyByProductName(String searchValue);
 }
