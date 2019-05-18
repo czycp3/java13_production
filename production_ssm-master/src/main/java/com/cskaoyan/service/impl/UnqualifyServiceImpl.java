@@ -42,9 +42,12 @@ public class UnqualifyServiceImpl implements UnqualifyService {
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
+            } else {
+                queryStatus.setStatus(404);
+                queryStatus.setMsg("插入失败");
             }
       }catch (Exception e){
-            queryStatus.setStatus(0);
+            queryStatus.setStatus(404);
             queryStatus.setMsg("不合格品申请编号重复，请重新申请");
         }
         return queryStatus;
