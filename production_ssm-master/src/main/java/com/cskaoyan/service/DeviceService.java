@@ -14,4 +14,10 @@ public interface DeviceService {
 
     List<Device> queryDeviceByDeviceId(String searchValue);
 
+    List<Device> queryDeviceByDeviceName(String searchValue);
+
+    List<Device> queryDeviceByDeviceTypeName(String searchValue);
+
+    int insertDevice(Device device);
+
 }

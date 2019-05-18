@@ -14,4 +14,10 @@ public interface DeviceMapper {
     List<Device> queryDeviceList();
 
     List<Device> queryDeviceByDeviceId(@Param("deviceId") String searchValue);
+
+    List<Device> queryDeviceByDeviceName(@Param("deviceName") String searchValue);
+
+    List<Device> queryDeviceByDeviceTypeName(@Param("deviceTypeName") String searchValue);
+
+    int insertDevice(@Param("device") Device device);
 }

@@ -22,12 +22,31 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<Device> queryDeviceList() {
         List<Device> deviceList = deviceMapper.queryDeviceList();
+
         return deviceList;
     }
 
     @Override
     public List<Device> queryDeviceByDeviceId(String searchValue) {
         List<Device> deviceList = deviceMapper.queryDeviceByDeviceId(searchValue);
-        return null;
+        return deviceList;
+    }
+
+    @Override
+    public List<Device> queryDeviceByDeviceName(String searchValue) {
+        List<Device> deviceList = deviceMapper.queryDeviceByDeviceName(searchValue);
+        return deviceList;
+    }
+
+    @Override
+    public List<Device> queryDeviceByDeviceTypeName(String searchValue) {
+        List<Device> deviceList = deviceMapper.queryDeviceByDeviceTypeName(searchValue);
+        return deviceList;
+    }
+
+    @Override
+    public int insertDevice(Device device) {
+        int num = deviceMapper.insertDevice(device);
+        return 0;
     }
 }

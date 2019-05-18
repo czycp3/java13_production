@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.DeviceTypeMapper">
+    <sql id="baseSql">
+        select
+        device_type_id,device_type_name,device_type_model,device_type_spec,device_type_supplier,
+        device_type_producer,device_type_quantity,device_type_warranty
+        from device_type
+    </sql>
+    <resultMap id="baseMap" type="deviceType">
+        <result property="deviceTypeId" column="device_type_id"/>
+        <result property="deviceTypeIdd" column=""/>
+        <result property="deviceTypeModel" column="device_type_model"/>
+        <result property="deviceTypeName" column="device_type_name"/>
+        <result property="deviceTypeProducer" column="device_type_producer"/>
+        <result property="deviceTypeQuantity" column="device_type_quantity"/>
+        <result property="deviceTypeSpec" column="device_type_spec"/>
+        <result property="deviceTypeSupplier" column="device_type_supplier"/>
+        <result property="deviceTypeWarranty" column="device_type_warranty"/>
+    </resultMap>
+    <select id="getDeviceTypeList" resultMap="baseMap">
+        <include refid="baseSql"/>
+    </select>
+</mapper>
