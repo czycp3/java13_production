@@ -83,17 +83,15 @@
 		</a>
 	</div>
 
+
 	<div class="datagrid-btn-separator"></div>  
 	
-	<div style="float: left;">
-
+	<div style="float: left;">  
 		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="unqualify_reload()">
 			刷新
 		</a>
 	</div>  
-
-
-	<%--搜索不合格产品--%>
+	
     <div id="search_unqualify" style="float: right;">
         <input id="search_text_unqualify" class="easyui-searchbox"  
             data-options="searcher:doSearch_unqualify,prompt:'请输入...',menu:'#menu_unqualify'"  
@@ -230,17 +228,17 @@
 	iconCls:'icon-save'" style="width:55%;height:80%;padding:10px">
 	<form id="unqualifyNoteForm" method="post">
 		<input type="hidden" name="unqualifyApplyId"/>
-		<table cellpadding="5" >
-			<tr>
-				<td>备注:</td>
-				<td>
-					<textarea style="width:800px;height:300px;visibility:hidden;" name="note"></textarea>
-				</td>
-			</tr>
-		</table>
+	    <table cellpadding="5" >
+	        <tr>
+	            <td>备注:</td>
+	            <td>
+	                <textarea style="width:800px;height:300px;visibility:hidden;" name="note"></textarea>
+	            </td>
+	        </tr>
+	    </table>
 	</form>
 	<div style="padding:5px">
-		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="updateNote()">保存</a>
+	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="updateNote()">保存</a>
 	</div>
 </div>
   
