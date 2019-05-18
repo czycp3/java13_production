@@ -1,6 +1,7 @@
 package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.BaseResultVo;
+import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.bean.Unqualify;
 import com.cskaoyan.service.UnqualifyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import java.util.List;
  */
 @Controller
 public class UnqualifyController {
-
     @Autowired
     UnqualifyService unqualifyService;
 
@@ -51,14 +51,77 @@ public class UnqualifyController {
         return baseResultVo;
     }
 
+    //增加
     @RequestMapping("/unqualify/add_judge")
     @ResponseBody
     public String add_judge(){
         return "";
     }
 
+    //增加
     @RequestMapping("unqualify/add")
     public String add(){
         return "unqualify_add";
+    }
+
+    //增加
+    @RequestMapping("unqualify/insert")
+    @ResponseBody
+    public QueryStatus insert(Unqualify unqualify){
+        return unqualifyService.insert(unqualify);
+    }
+
+    //修改全部信息
+    @RequestMapping("/unqualify/edit_judge")
+    @ResponseBody
+    public String edit_judge(){
+        return "";
+    }
+
+    //修改全部信息
+    @RequestMapping("/unqualify/edit")
+    public String edit(){
+        return "unqualify_edit";
+    }
+
+    //修改全部信息
+    @RequestMapping("/unqualify/update_all")
+    @ResponseBody
+    public QueryStatus update_all(Unqualify unqualify){
+        return unqualifyService.update_all(unqualify);
+    }
+
+    @RequestMapping("unqualify/update_note")
+    @ResponseBody
+    public QueryStatus update_note(String unqualifyApplyId, String note){
+        return unqualifyService.update_note(unqualifyApplyId,note);
+    }
+
+
+    //删除
+    @RequestMapping("/unqualify/delete_judge")
+    @ResponseBody
+    public String delete_judgee(){
+        return "";
+    }
+
+    //删除
+    @RequestMapping("unqualify/delete_batch")
+    @ResponseBody
+    public QueryStatus delete_batch(int[] ids){
+        return unqualifyService.delete_batch(ids);
+    }
+
+    //根据id查询
+    @RequestMapping("unqualify/search_unqualify_by_unqualifyId")
+    @ResponseBody
+    public BaseResultVo<Unqualify> searchUnqualifyByUnqualifyId(String searchValue,Integer page, Integer rows){
+
+        int offset = (page - 1) * rows;
+        List<Unqualify> unqualifyList = unqualifyService.searchUnqualifyByUnqualifyId(searchValue,rows,offset);
+        baseResultVo.setTotal(unqualifyService.searchAllUnqualifyByUnqualifyId(searchValue).size());
+        baseResultVo.setRows(unqualifyList);
+
+        return baseResultVo;
     }
 }

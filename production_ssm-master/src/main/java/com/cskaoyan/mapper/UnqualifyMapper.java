@@ -20,4 +20,19 @@ public interface UnqualifyMapper {
     //新增不合格品信息
     int insert(@Param("unqualify") Unqualify unqualify);
 
+    //修改不合格信息
+    int update_all(@Param("unqualify") Unqualify unqualify);
+
+    //修改不合格备注信息
+    int update_note(@Param("unqualifyApplyId") String unqualifyApplyId, @Param("note") String note);
+
+    //删除
+    int delete_batch(@Param("id") int id);
+
+    //根据ID来查找不良产品/分页
+    List<Unqualify> searchUnqualifyByUnqualifyId(@Param("searchValue") String searchValue, @Param("rows") Integer rows,@Param("offset") int offset);
+
+    //根据ID来查找不良产品/所有条目
+    List<Unqualify> searchAllUnqualifyByUnqualifyId(@Param("searchValue") String searchValue);
+
 }

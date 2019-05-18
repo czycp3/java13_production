@@ -14,7 +14,7 @@
         <result column="product_name" property="productName" />
         <result column="emp_name" property="empName" />
     </resultMap>
-    
+
     <sql id="Base_Column_List">
         unqualify_apply_id,product_id,unqualify_item,unqualify_count,assembly_date,emp_id,apply_date,note
     </sql>
@@ -23,7 +23,7 @@
     <!--mapper中的数据库表名均为许辛鹏的数据库表名，最后在全部整合-->
     <!--分页查找-->
     <select id="findList" resultMap="findUnqualifyByPages" >
-        select un.unqualify_apply_id,
+        select  un.unqualify_apply_id,
  				un.product_id,
  				un.unqualify_item,
  				un.unqualify_count,
@@ -35,8 +35,8 @@
  				e.emp_name
 
  				from unqualify_apply un
- 				inner join product p on un.product_id = p.product_id
- 				inner join employee e on un.emp_id = e.emp_id
+ 				left join product p on un.product_id = p.product_id
+ 				left join employee e on un.emp_id = e.emp_id
                 limit #{offset} , #{rows}
     </select>
 
@@ -52,11 +52,55 @@
         insert into unqualify_apply (<include refid="Base_Column_List" />) value (#{unqualify.unqualifyApplyId},
         #{unqualify.productId},#{unqualify.unqualifyItem},#{unqualify.unqualifyCount},
         #{unqualify.assemblyDate},#{unqualify.empId},#{unqualify.applyDate},
-        #{unqualify.note},)
+        #{unqualify.note})
     </insert>
 
+    <!--修改不良信息-->
+    <update id="update_all">
+        update unqualify_apply set product_id = #{unqualify.productId},
+                                   unqualify_item = #{unqualify.unqualifyItem},
+                                   unqualify_count = #{unqualify.unqualifyCount},
+                                   assembly_date = #{unqualify.assemblyDate},
+                                   emp_id = #{unqualify.empId},
+                                   apply_date = #{unqualify.applyDate},
+                                   note = #{unqualify.note}
+
+                                    where unqualify_apply_id = #{unqualify.unqualifyApplyId}
+    </update>
+
+    <!--修改不良备注信息-->
+    <update id="update_note">
+         update unqualify_apply set note = #{note} where unqualify_apply_id = #{unqualifyApplyId}
+    </update>
 
 
-    
-    
+    <!-- 删除不良品信息 -->
+    <delete id="delete_batch">
+        delete from unqualify_apply where unqualify_apply_id = #{id}
+    </delete>
+
+    <!-- 根据id分页查询 -->
+    <select id="searchUnqualifyByUnqualifyId" resultMap="findUnqualifyByPages" >
+        select un.unqualify_apply_id,
+ 				un.product_id,
+ 				un.unqualify_item,
+ 				un.unqualify_count,
+ 				un.assembly_date,
+ 				un.emp_id,
+ 				un.apply_date,
+ 				un.note,
+ 				p.product_name,
+ 				e.emp_name
+
+ 				from unqualify_apply un
+ 				left join product p on un.product_id = p.product_id
+ 				left join employee e on un.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+                where unqualify_apply_id like #{searchValue}
+    </select>
+
+    <!--根据id查询所有信息-->
+    <select id="searchAllUnqualifyByUnqualifyId" resultMap="findUnqualifyByPages" >
+        select unqualify_apply_id from unqualify_apply where unqualify_apply_id like #{searchValue}
+    </select>
 </mapper>
