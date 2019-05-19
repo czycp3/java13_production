@@ -23,6 +23,15 @@ public class Department implements Serializable {
      */
     private String note;
 
+    public Department() {
+    }
+
+    public Department(String departmentId, String departmentName, String note) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.note = note;
+    }
+
     public String getDepartmentId() {
         return departmentId;
     }
@@ -46,4 +55,5 @@ public class Department implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
 }
