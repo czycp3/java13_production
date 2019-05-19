@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cskaoyan.mapper.TechnologyMapper">
+
+    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Technology">
+        <id column="technology_id" jdbcType="VARCHAR" property="technologyId" />
+        <result column="technology_name" jdbcType="VARCHAR" property="technologyName" />
+        <result column="price" jdbcType="VARCHAR" property="price" />
+        <result column="vital_process_period" jdbcType="VARCHAR" property="vitalProcessPeriod" />
+        <result column="standard_capacity" jdbcType="VARCHAR" property="standardCapacity" />
+        <result column="overtime_standard_capacity" jdbcType="VARCHAR" property="overtimeStandardCapacity" />
+        <result column="overtime_overfulfil_capacity" jdbcType="VARCHAR" property="overtimeOverfulfilCapacity" />
+        <result column="double_capacity" jdbcType="VARCHAR" property="doubleCapacity" />
+        <result column="overfulfil_capacity" jdbcType="INTEGER" property="overfulfilCapacity" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        technology_id,
+        technology_name,
+        price,
+        vital_process_period,
+        standard_capacity,
+        overtime_standard_capacity,
+        overtime_overfulfil_capacity,
+        double_capacity,
+        overfulfil_capacity
+    </sql>
+
+    <!--查询工艺列表-->
+    <select id="selectAllTechnology" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from technology
+            limit #{rows} offset #{offset}
+    </select>
+
+    <!--查询工艺表的总条目数-->
+    <select id="selectCountTechnology" resultType="java.lang.Integer">
+        select count(*) from technology
+    </select>
+
+    <!--插入一条数据-->
+    <select id="insert"  parameterType="com.cskaoyan.bean.Technology">
+        insert into technology(<include refid="Base_Column_List"/>)
+            values(#{technologyId},#{technologyName},#{price},#{vitalProcessPeriod},
+                  #{standardCapacity},#{overtimeStandardCapacity},#{overtimeOverfulfilCapacity},#{doubleCapacity},#{overfulfilCapacity})
+    </select>
+
+    <!--按technologyId删除工艺-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from technology
+          where technology_id = #{technologyId}
+  </delete>
+
+    <!--更新某个工艺-->
+    <select id="updateAll" parameterType="com.cskaoyan.bean.Technology">
+        update technology
+          set technology_name = #{technologyName},
+            price = #{price},
+            vital_process_period = #{vitalProcessPeriod},
+            standard_capacity = #{standardCapacity},
+            overtime_standard_capacity = #{overtimeStandardCapacity},
+            overtime_overfulfil_capacity = #{overtimeOverfulfilCapacity},
+            double_capacity = #{doubleCapacity},
+            overfulfil_capacity = #{overfulfilCapacity}
+          where technology_id = #{technologyId}
+    </select>
+
+    <select id="selectCountTechnologyByCondition" resultType="integer">
+        select count(*) from technology
+        <where>
+          <if test="record.technologyId != null">
+              technology_id like #{record.technologyId}
+          </if>
+            <if test="record.technologyName != null">
+                technology_name like #{record.technologyName}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchTechnologyByCondition" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from technology
+        <where>
+            <if test="technology.technologyId != null">
+                technology_id like #{technology.technologyId}
+            </if>
+            <if test="technology.technologyName != null">
+                technology_name like #{technology.technologyName}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
+</mapper>
