@@ -46,12 +46,12 @@ public class OrderController {
     /*********添加订单************/
 
     @RequestMapping("/order/add_judge")
-    public String customAddJudge(){
+    public String orderAddJudge(){
         return "order_add";
     }
 
     @RequestMapping("/order/add")
-    public String customAdd(){
+    public String orderAdd(){
 
         return "order_add";
     }
@@ -161,7 +161,7 @@ public class OrderController {
 
     @RequestMapping("/order/search_order_by_orderId")
     @ResponseBody
-    public BaseResultVo searchProductById(String searchValue,int page, int rows){
+    public BaseResultVo searchOrderById(String searchValue,int page, int rows){
         return orderService.searchOrderById(searchValue,page,rows);
     }
 
