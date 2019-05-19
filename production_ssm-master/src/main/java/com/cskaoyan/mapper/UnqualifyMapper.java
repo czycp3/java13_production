@@ -28,7 +28,7 @@ public interface UnqualifyMapper {
     int update_note(@Param("unqualifyApplyId") String unqualifyApplyId, @Param("note") String note);
 
     //删除
-    int delete_batch(@Param("id") int id);
+    int delete_batch(@Param("id") String id);
 
     //根据ID来查找不良产品/分页
     List<Unqualify> searchUnqualifyByUnqualifyId(@Param("searchValue") String searchValue, @Param("rows") Integer rows,@Param("offset") int offset);
@@ -39,7 +39,6 @@ public interface UnqualifyMapper {
     //根据product的名字模糊查询product的id
     List<Product> findProductId(@Param("searchValue") String searchValue);
 
-    //根据product的名字模糊查询--所有记录数
 
 
     //根据product的名字模糊查询--分页
