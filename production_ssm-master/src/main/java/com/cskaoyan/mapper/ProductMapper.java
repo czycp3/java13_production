@@ -27,6 +27,7 @@ public interface ProductMapper {
 
     int insertSelective(Product record);
 
+
     List<Product> selectByExample(ProductExample example);
 
     /**
@@ -37,6 +38,11 @@ public interface ProductMapper {
      */
     List<Product> selectAllProduct(@Param("rows") int rows,@Param("offset") int offset);
 
+    /**
+     * 按ID查询产品
+     * @param productId
+     * @return Product
+     */
     Product selectByPrimaryKey(String productId);
 
     int updateByExampleSelective(@Param("record") Product record, @Param("example") ProductExample example);

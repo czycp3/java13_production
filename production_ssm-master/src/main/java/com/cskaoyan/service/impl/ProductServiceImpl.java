@@ -132,4 +132,9 @@ public class ProductServiceImpl implements ProductService {
         product.setProductType("%" + searchValue +"%");
         return pageHandle(product,rows,page);
     }
+
+    @Override
+    public Product searchProductDetail(String productId) {
+        return productMapper.selectByPrimaryKey(productId);
+    }
 }

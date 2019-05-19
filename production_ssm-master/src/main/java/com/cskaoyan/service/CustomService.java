@@ -68,4 +68,11 @@ public interface CustomService {
      * @return BaseResultVo
      */
     BaseResultVo searchCustomByName(String searchValue, int page, int rows);
+
+    /**
+     * 查询客户细节
+     * @param customID
+     * @return
+     */
+    Custom searchCustomDetail(String customID);
 }

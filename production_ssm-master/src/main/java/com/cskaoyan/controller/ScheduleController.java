@@ -7,6 +7,7 @@ import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.service.CustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -113,6 +114,14 @@ public class ScheduleController {
     @ResponseBody
     public BaseResultVo searchCustom(String searchValue,int page, int rows){
         return customService.searchCustomByName(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/custom/get/{customId}")
+    @ResponseBody
+    public Custom searchCustomDetail(@PathVariable("customId") String customID){
+        return customService.searchCustomDetail(customID);
     }
 
 

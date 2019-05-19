@@ -135,5 +135,10 @@ public class CustomServiceImpl implements CustomService {
         return baseResultVo;
     }
 
+    @Override
+    public Custom searchCustomDetail(String customID) {
+        return customMapper.selectByPrimaryKey(customID);
+    }
+
 
 }

@@ -7,6 +7,7 @@ import com.cskaoyan.exception.ProductException;
 import com.cskaoyan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -143,5 +144,13 @@ public class ProductController {
     @ResponseBody
     public BaseResultVo searchProductByType(String searchValue,int page, int rows){
         return productService.searchProductByType(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/product/get/{productId}")
+    @ResponseBody
+    public Product searchProductDetail(@PathVariable("productId") String productId){
+        return productService.searchProductDetail(productId);
     }
 }

@@ -74,4 +74,11 @@ public interface ProductService {
      * @return BaseResultVo
      */
     BaseResultVo searchProductByType(String searchValue, int page, int rows);
+
+    /**
+     * 查询产品的详情
+     * @param productId
+     * @return List<Product>
+     */
+    Product searchProductDetail(String productId);
 }

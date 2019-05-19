@@ -86,12 +86,15 @@
             order by ${orderByClause}
         </if>
     </select>
+
+    <!--按主键查询-->
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from product
         where product_id = #{productId,jdbcType=VARCHAR}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from product
     where product_id = #{productId,jdbcType=VARCHAR}

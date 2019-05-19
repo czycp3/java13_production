@@ -222,9 +222,11 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="product_id" jdbcType="VARCHAR" property="productId"/>
         <association property="custom" javaType="com.cskaoyan.bean.Custom">
+            <result column="custom_id" property="customId"/>
             <result column="custom_name" property="customName"/>
         </association>
         <association property="product" javaType="com.cskaoyan.bean.Product">
+            <result column="product_id" property="productId"/>
             <result column="product_name" property="productName"/>
         </association>
     </resultMap>
