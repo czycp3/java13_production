@@ -208,7 +208,7 @@
     </select>
 
     <!--分页查询所有订单-->
-    <resultMap id="myResultMap" type="com.cskaoyan.bean.Order">
+    <resultMap id="myResultmap" type="com.cskaoyan.bean.Order">
         <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
         <result column="custom_id" jdbcType="VARCHAR" property="customId"/>
         <result column="order_date" jdbcType="TIMESTAMP" property="orderDate"/>
@@ -230,50 +230,11 @@
             <result column="product_name" property="productName"/>
         </association>
     </resultMap>
-    <select id="selectAllOrder" resultMap="myResultMap">
+    <select id="selectAllOrder" resultMap="myResultmap">
         SELECT o.order_id,o.custom_id,c.custom_name,o.product_id,p.product_name,
            o.order_date,o.request_date,o.note,o.quantity,o.unit_price,o.unit,o.image,o.file,o.`status`
         FROM c_order o,product p, custom c
         WHERE o.custom_id = c.custom_id AND o.product_id = p.product_id
-        limit #{rows} offset #{offset}
-    </select>
-
-    <!--按条件查询订单总数-->
-    <select id="selectCountOrderByCondition" resultType="java.lang.Integer">
-        select count(*)
-        FROM c_order o,product p, custom c
-        <where>
-            o.custom_id = c.custom_id AND o.product_id = p.product_id
-            <if test="order.orderId != null">
-                and order_id like #{order.orderId}
-            </if>
-            <if test="order.product.productName != null">
-                and product_name like #{order.product.productName}
-            </if>
-            <if test="order.custom.customName != null">
-                and custom_name like #{order.custom.customName}
-            </if>
-        </where>
-    </select>
-
-    <!--按条件查询订单-->
-    <select id="searchOrderByCondition" resultMap="myResultMap">
-        SELECT o.order_id,o.custom_id,c.custom_name,o.product_id,p.product_name,
-        o.order_date,o.request_date,o.note,o.quantity,o.unit_price,o.unit,o.image,o.file,o.`status`
-        FROM c_order o,product p, custom c
-
-        <where>
-            o.custom_id = c.custom_id AND o.product_id = p.product_id
-            <if test="order.orderId != null">
-                and order_id like #{order.orderId}
-            </if>
-            <if test="order.product.productName != null">
-                and product_name like #{order.product.productName}
-            </if>
-            <if test="order.custom.customName != null">
-                and custom_name like #{order.custom.customName}
-            </if>
-        </where>
         limit #{rows} offset #{offset}
     </select>
 

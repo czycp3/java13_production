@@ -36,18 +36,4 @@ public interface OrderMapper {
      * @return List<Order>
      */
     List<Order> selectAllOrder(@Param("rows") int rows, @Param("offset") int offset);
-
-    /**
-     * 按条件查询订单的总数
-     * @param order
-     * @return 总数
-     */
-    int selectCountOrderByCondition(@Param("order") Order order);
-
-    /**
-     * 按条件查询订单
-     * @param order
-     * @return List<Order>
-     */
-    List<Order> searchOrderByCondition(@Param("order") Order order, @Param("rows") int rows, @Param("offset") int offset);
 }
