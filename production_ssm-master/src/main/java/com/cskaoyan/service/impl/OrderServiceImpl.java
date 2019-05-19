@@ -1,13 +1,13 @@
 package com.cskaoyan.service.impl;
 
-import com.cskaoyan.bean.BaseResultVo;
-import com.cskaoyan.bean.Order;
-import com.cskaoyan.bean.OrderExample;
-import com.cskaoyan.bean.QueryStatus;
+import com.cskaoyan.bean.*;
+import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.mapper.OrderMapper;
 import com.cskaoyan.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,5 +53,94 @@ public class OrderServiceImpl implements OrderService {
             queryStatus.setMsg("该订单编号已经存在，请更换客户编号！");
         }
         return queryStatus;
+    }
+
+    @Override
+    public QueryStatus updateByPrimaryKeySelective(Order order) {
+        QueryStatus queryStatus = new QueryStatus();
+        try {
+            int ret = orderMapper.updateByPrimaryKeySelective(order);
+            if(ret == 1) {
+                queryStatus.setStatus(200);
+                queryStatus.setMsg("OK");
+            }
+        }catch (Exception e){
+            queryStatus.setStatus(0);
+            queryStatus.setMsg("更新失败！请重新尝试！");
+        }
+        return queryStatus;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public QueryStatus deleteBatch(String[] ids) throws OrderException {
+        QueryStatus queryStatus = new QueryStatus();
+        try {
+            for (String id : ids) {
+                orderMapper.deleteByPrimaryKey(id);
+            }
+            queryStatus.setStatus(200);
+            queryStatus.setMsg("OK");
+        }catch (Exception e){
+            queryStatus.setStatus(0);
+            queryStatus.setMsg("删除出现故障，请重新尝试");
+            throw new OrderException("删除出现故障，请重新尝试");
+        }
+        return queryStatus;
+    }
+
+
+    public BaseResultVo pageHandle(Order order,int rows,int page){
+        BaseResultVo<Order> baseResultVo = new BaseResultVo<>();
+        int total = orderMapper.selectCountOrderByCondition(order);
+        //查询分页信息
+        //如果总数小于单页条目数，则修改查询数目为total
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<Order> orders = orderMapper.searchOrderByCondition(order, rows, offset);
+        //封装list和total
+        baseResultVo.setRows(orders);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
+    }
+
+    @Override
+    public BaseResultVo searchOrderById(String searchValue, int page, int rows) {
+        Order order = new Order();
+        Product product = new Product();
+        Custom custom = new Custom();
+        order.setOrderId("%" + searchValue +"%");
+        order.setCustom(custom);
+        order.setProduct(product);
+        return pageHandle(order,rows,page);
+    }
+
+    @Override
+    public BaseResultVo searchOrderByCustomName(String searchValue, int page, int rows) {
+        Custom custom = new Custom();
+        custom.setCustomName("%" + searchValue +"%");
+        Product product = new Product();
+        Order order = new Order();
+        order.setCustom(custom);
+        order.setProduct(product);
+
+        return pageHandle(order,rows,page);
+    }
+
+    @Override
+    public BaseResultVo searchOrderByProductName(String searchValue, int page, int rows) {
+        Product product = new Product();
+        product.setProductName("%" + searchValue +"%");
+        Custom custom = new Custom();
+        Order order = new Order();
+        order.setProduct(product);
+        order.setCustom(custom);
+
+        return pageHandle(order,rows,page);
+    }
+
+    @Override
+    public Order searchOrderDetail(String orderId) {
+        return orderMapper.selectByPrimaryKey(orderId);
     }
 }
