@@ -140,5 +140,10 @@ public class CustomServiceImpl implements CustomService {
         return customMapper.selectByPrimaryKey(customID);
     }
 
+    @Override
+    public List<Custom> selectByExample() {
+        return customMapper.selectTotalCustom();
+    }
+
 
 }

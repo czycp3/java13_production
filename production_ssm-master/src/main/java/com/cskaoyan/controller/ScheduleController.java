@@ -2,6 +2,7 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Custom;
 import com.cskaoyan.bean.BaseResultVo;
+import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.service.CustomService;
@@ -43,6 +44,12 @@ public class ScheduleController {
     @RequestMapping("/custom/find")
     public String customList(){
         return "custom_list";
+    }
+
+    @RequestMapping("/custom/get_data")
+    @ResponseBody
+    public List<Custom> getData(){
+        return customService.selectByExample();
     }
 
     @RequestMapping("/custom/add_judge")

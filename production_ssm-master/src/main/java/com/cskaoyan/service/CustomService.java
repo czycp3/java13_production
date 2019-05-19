@@ -75,4 +75,10 @@ public interface CustomService {
      * @return
      */
     Custom searchCustomDetail(String customID);
+
+    /**
+     * 查询所有客户
+     * @return List<Product>
+     */
+    List<Custom> selectByExample();
 }

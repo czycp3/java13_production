@@ -17,9 +17,9 @@ public class Order {
 
     private Product product;
 
-    private Date orderDate;
+    private String orderDate;
 
-    private Date requestDate;
+    private String requestDate;
 
     private String note;
 
@@ -59,19 +59,19 @@ public class Order {
         this.productId = productId == null ? null : productId.trim();
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getRequestDate() {
+    public String getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
+    public void setRequestDate(String requestDate) {
         this.requestDate = requestDate;
     }
 

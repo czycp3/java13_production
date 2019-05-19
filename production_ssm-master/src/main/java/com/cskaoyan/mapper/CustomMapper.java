@@ -84,4 +84,9 @@ public interface CustomMapper {
      */
     List<Custom> searchCustomByCondition(@Param("record") Custom record, @Param("rows") int rows, @Param("offset") int offset);
 
+    /**
+     * 查询所有客户
+     * @return List<Custom>
+     */
+    List<Custom> selectTotalCustom();
 }
