@@ -53,10 +53,6 @@ public class MeasureServiceImpl implements MeasureService {
             queryStatus.setMsg("不合格品申请编号重复，请重新申请");
         }
         return queryStatus;
-
-
-
-
     }
 
 
