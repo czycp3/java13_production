@@ -48,4 +48,30 @@ public interface ProductService {
      */
     List<Product> selectByExample();
 
+    /**
+     * 按照ID模糊搜索
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchProductById(String searchValue, int page, int rows);
+
+    /**
+     * 按照Name模糊搜索
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchProductByName(String searchValue, int page, int rows);
+
+    /**
+     * 按照Name模糊搜索
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchProductByType(String searchValue, int page, int rows);
 }
