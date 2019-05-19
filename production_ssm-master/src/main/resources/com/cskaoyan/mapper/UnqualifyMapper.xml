@@ -104,18 +104,9 @@
         select unqualify_apply_id from unqualify_apply where unqualify_apply_id LIKE '%${searchValue}%'
     </select>
 
-    <!--根据product的名字查询product的idfindProductId-->
-    <resultMap id="findProductIdByName" type="com.cskaoyan.bean.Product">
-        <result column="product_id" property="productId" />
-        <result column="product_name" property="productName" />
-    </resultMap>
 
-    <select id="findProductId" resultMap="findProductIdByName">
-        select product_id from product where product_name LIKE '%${searchValue}%'
-    </select>
-
-    <!--根据product_id查询总记录数-->
-    <select id="searchAllUnqualifyByProductName" resultMap="findUnqualifyByPages" >
+    <!--根据product_id查询总记录数/分页-->
+    <select id="searchUnqualifyByPAgeByProductName" resultMap="findUnqualifyByPages" >
          select  un.unqualify_apply_id,
  				 un.product_id,
  				 un.unqualify_item,
@@ -127,11 +118,24 @@
  				 p.product_name,
  				 e.emp_name
 
- 				 from unqualify_apply un
- 				 left join product p on un.product_id = p.product_id
- 				 left join employee e on un.emp_id = e.emp_id
-                 where un.product_id = #{productId}
+ 				from unqualify_apply un
+ 				left join product p on un.product_id = p.product_id
+ 				left join employee e on un.emp_id = e.emp_id
+ 				where p.product_name LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
     </select>
+
+    <!--根据product_id查询总记录数-->
+    <select id="searchAllUnqualifyByProductName" resultMap="findUnqualifyByPages" >
+         select  un.unqualify_apply_id,
+ 				 p.product_name
+
+ 				from unqualify_apply un
+ 				left join product p on un.product_id = p.product_id
+ 				where p.product_name LIKE '%${searchValue}%'
+    </select>
+
+
 
 
 </mapper>

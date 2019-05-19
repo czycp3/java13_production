@@ -132,7 +132,7 @@ public class UnqualifyController {
     public BaseResultVo<Unqualify> searchUnqualifyByProductName(String searchValue,Integer page, Integer rows){
 
         int offset = (page - 1) * rows;
-        List<Unqualify> unqualifyList = unqualifyService.searchUnqualifyByProductName(searchValue,rows,offset);
+        List<Unqualify> unqualifyList = unqualifyService.searchUnqualifyByPAgeByProductName(searchValue,rows,offset);
         baseResultVo.setTotal(unqualifyService.searchAllUnqualifyByProductName(searchValue).size());
         baseResultVo.setRows(unqualifyList);
 

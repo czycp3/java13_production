@@ -37,7 +37,7 @@ public interface UnqualifyService {
     List<Unqualify> searchAllUnqualifyByUnqualifyId(String searchValue);
 
     //根据产品名称查找分页
-    List<Unqualify> searchUnqualifyByProductName(String searchValue, Integer rows, int offset);
+    List<Unqualify> searchUnqualifyByPAgeByProductName(String searchValue, Integer rows, int offset);
 
     //根据产品名称查找所有条目
     List<Unqualify> searchAllUnqualifyByProductName(String searchValue);

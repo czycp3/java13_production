@@ -135,35 +135,15 @@ public class UnqualifyServiceImpl implements UnqualifyService {
     }
 
     @Override
-    public List<Unqualify> searchUnqualifyByProductName(String searchValue, Integer rows, int offset) {
-        List<Product> productList = unqualifyMapper.findProductId(searchValue);
-        List<Unqualify> all = new ArrayList<>();
-        for (int i = 0; i < productList.size() ; i++) {
-            List<Unqualify> searchAllUnqualifyByProductName = unqualifyMapper.searchAllUnqualifyByProductName(productList.get(i).getProductId());
-            all.addAll(searchAllUnqualifyByProductName);
-        }
+    public List<Unqualify> searchUnqualifyByPAgeByProductName(String searchValue, Integer rows, int offset) {
+        List<Unqualify> unqualifyListByPage = unqualifyMapper.searchUnqualifyByPAgeByProductName(searchValue,rows,offset);
 
-        List<Unqualify> allByPage = new ArrayList<>();
-
-        rows = ((all.size() - offset)) > rows ? rows : all.size() - offset;
-
-        for (int i = offset; i < rows ; i++) {
-            allByPage.add(all.get(i));
-        }
-
-        return allByPage;
+        return unqualifyListByPage;
     }
 
     @Override
     public List<Unqualify> searchAllUnqualifyByProductName(String searchValue) {
-        List<Product> productList = unqualifyMapper.findProductId(searchValue);
-
-        List<Unqualify> all = new ArrayList<>();
-        for (int i = 0; i < productList.size() ; i++) {
-            List<Unqualify> searchAllUnqualifyByProductName = unqualifyMapper.searchAllUnqualifyByProductName(productList.get(i).getProductId());
-            all.addAll(searchAllUnqualifyByProductName);
-        }
-
-        return all;
+        List<Unqualify> unqualifyList = unqualifyMapper.searchAllUnqualifyByProductName(searchValue);
+        return unqualifyList;
     }
 }

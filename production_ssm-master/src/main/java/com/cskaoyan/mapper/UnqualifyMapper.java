@@ -40,5 +40,11 @@ public interface UnqualifyMapper {
     List<Product> findProductId(@Param("searchValue") String searchValue);
 
     //根据product的名字模糊查询--所有记录数
-    List<Unqualify> searchAllUnqualifyByProductName(@Param("productId") String productId);
+
+
+    //根据product的名字模糊查询--分页
+    List<Unqualify> searchUnqualifyByPAgeByProductName(@Param("searchValue") String searchValue, @Param("rows") Integer rows,@Param("offset") int offset);
+
+    //根据product的名字模糊查询--分页
+    List<Unqualify> searchAllUnqualifyByProductName(@Param("searchValue")String searchValue);
 }
