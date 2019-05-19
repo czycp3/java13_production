@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 <table class="easyui-datagrid" id="departmentList" title="部门列表" data-options="singleSelect:false,collapsible:true,
-		pagination:true,rownumbers:true,url:'department/list', ethod:'get',pageSize:20,
+		pagination:true,rownumbers:true,url:'department/list', method:'get',pageSize:20,
 		fitColumns:true,toolbar:toolbar_department">
     <thead>
         <tr>
@@ -18,25 +18,25 @@
 
 <div  id="toolbar_department" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
 	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
-		<c:if test="${per=='department:add' }" >
+	<%--<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
+		<c:if test="${per=='department:add' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="department_add()">新增</a>  
 		    </div>  
-		</c:if>
-		<c:if test="${per=='department:edit' }" >
+		<%--</c:if>
+		<c:if test="${per=='department:edit' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" 
 		        	onclick="department_edit()">编辑</a>  
 		    </div>  
-		</c:if>
-		<c:if test="${per=='department:delete' }" >
+		<%--</c:if>
+		<c:if test="${per=='department:delete' }" >--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" 
 		        	onclick="department_delete()">删除</a>  
 		    </div>  
-		</c:if>
-	</c:forEach>
+		<%--</c:if>
+	</c:forEach>--%>
 	
 	<div class="datagrid-btn-separator"></div>  
 	
@@ -48,7 +48,7 @@
         <input id="search_text_department" class="easyui-searchbox"  
             data-options="searcher:doSearch_department,prompt:'请输入...',menu:'#menu_department'"  
             style="width:250px;vertical-align: middle;">
-        </input>
+	    </input>
         <div id="menu_department" style="width:120px"> 
 			<div data-options="name:'departmentId'">部门编号</div> 
 			<div data-options="name:'departmentName'">部门名称</div>
