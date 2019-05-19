@@ -58,4 +58,19 @@ public interface ProductMapper {
      */
     List<Product> selectTotalProduct();
 
+    /**
+     * 按条件查询product条目数
+     * @param product
+     * @return 数目
+     */
+    int selectCountProductByCondition(@Param("product") Product product);
+
+    /**
+     * 按条件查询product列表
+     * @param product
+     * @param rows
+     * @param offset
+     * @return product列表
+     */
+    List<Product> searchProductByCondition(@Param("product") Product product, @Param("rows") int rows, @Param("offset") int offset);
 }

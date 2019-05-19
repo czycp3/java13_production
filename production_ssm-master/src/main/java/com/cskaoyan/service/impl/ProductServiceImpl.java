@@ -97,4 +97,39 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.selectTotalProduct();
 
     }
+
+    @Override
+    public BaseResultVo searchProductById(String searchValue, int page, int rows) {
+        Product product = new Product();
+        product.setProductId("%" + searchValue +"%");
+        return pageHandle(product,rows,page);
+    }
+
+    @Override
+    public BaseResultVo searchProductByName(String searchValue, int page, int rows) {
+        Product product = new Product();
+        product.setProductName("%" + searchValue +"%");
+        return pageHandle(product,rows,page);
+    }
+
+    public BaseResultVo pageHandle(Product product,int rows,int page){
+        BaseResultVo<Product> baseResultVo = new BaseResultVo<>();
+        int total = productMapper.selectCountProductByCondition(product);
+        //查询分页信息
+        //如果总数小于单页条目数，则修改查询数目为total
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<Product> products = productMapper.searchProductByCondition(product, rows, offset);
+        //封装list和total
+        baseResultVo.setRows(products);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
+    }
+
+    @Override
+    public BaseResultVo searchProductByType(String searchValue, int page, int rows) {
+        Product product = new Product();
+        product.setProductType("%" + searchValue +"%");
+        return pageHandle(product,rows,page);
+    }
 }

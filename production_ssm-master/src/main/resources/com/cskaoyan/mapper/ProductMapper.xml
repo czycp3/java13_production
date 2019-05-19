@@ -175,6 +175,41 @@
         from product
     </select>
 
+    <!--条件查询product数目-->
+    <select id="selectCountProductByCondition" resultType="java.lang.Integer">
+        select count(*) from product
+        <where>
+        <if test="product.productId != null">
+            product_id like #{product.productId}
+        </if>
+        <if test="product.productName != null">
+            and product_name like #{product.productName}
+        </if>
+        <if test="product.productType != null">
+            and product_type like #{product.productType}
+        </if>
+        </where>
+    </select>
+
+    <!--按条件查询产品列表-->
+    <select id="searchProductByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        <where>
+            <if test="product.productId != null">
+                product_id like #{product.productId}
+            </if>
+            <if test="product.productName != null">
+                and product_name like #{product.productName}
+            </if>
+            <if test="product.productType != null">
+                and product_type like #{product.productType}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
 
     <update id="updateByExampleSelective" parameterType="map">
         update product

@@ -124,4 +124,24 @@ public class ProductController {
     public QueryStatus deleteJudge(){
         return new QueryStatus();
     }
+
+    /**********查询产品*****************/
+
+    @RequestMapping("/product/search_product_by_productId")
+    @ResponseBody
+    public BaseResultVo searchProductById(String searchValue,int page, int rows){
+        return productService.searchProductById(searchValue,page,rows);
+    }
+
+    @RequestMapping("/product/search_product_by_productName")
+    @ResponseBody
+    public BaseResultVo searchProductByName(String searchValue,int page, int rows){
+        return productService.searchProductByName(searchValue,page,rows);
+    }
+
+    @RequestMapping("/product/search_product_by_productType")
+    @ResponseBody
+    public BaseResultVo searchProductByType(String searchValue,int page, int rows){
+        return productService.searchProductByType(searchValue,page,rows);
+    }
 }
