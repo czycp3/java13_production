@@ -7,6 +7,7 @@ import com.cskaoyan.exception.ProductException;
 import com.cskaoyan.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -42,6 +44,13 @@ public class ProductController {
     public String productList(){
         return "product_list";
     }
+
+    @RequestMapping("/product/get_data")
+    @ResponseBody
+    public List<Product> getData(){
+        return productService.selectByExample();
+    }
+
 
     /*********添加产品************/
 
@@ -115,5 +124,33 @@ public class ProductController {
     @ResponseBody
     public QueryStatus deleteJudge(){
         return new QueryStatus();
+    }
+
+    /**********查询产品*****************/
+
+    @RequestMapping("/product/search_product_by_productId")
+    @ResponseBody
+    public BaseResultVo searchProductById(String searchValue,int page, int rows){
+        return productService.searchProductById(searchValue,page,rows);
+    }
+
+    @RequestMapping("/product/search_product_by_productName")
+    @ResponseBody
+    public BaseResultVo searchProductByName(String searchValue,int page, int rows){
+        return productService.searchProductByName(searchValue,page,rows);
+    }
+
+    @RequestMapping("/product/search_product_by_productType")
+    @ResponseBody
+    public BaseResultVo searchProductByType(String searchValue,int page, int rows){
+        return productService.searchProductByType(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/product/get/{productId}")
+    @ResponseBody
+    public Product searchProductDetail(@PathVariable("productId") String productId){
+        return productService.searchProductDetail(productId);
     }
 }

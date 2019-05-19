@@ -13,9 +13,9 @@ public class Unqualify {
     private String productId; //不合格产品的ID，最终变为产品名称，超链接可以修改产品信息
     private String unqualifyItem; //不合格项目
     private Integer unqualifyCount; //不合格数量
-    private Date assemblyDate; //加工时间
+    private String assemblyDate; //加工时间
     private String empId; //申请人ID，最终变为申请人姓名，超链接可以修改申请人信息
-    private Date applyDate; //申请时间
+    private String applyDate; //申请时间
     private String note; //备注
     private String productName; //商品名
     private String empName; //雇员姓名
@@ -23,7 +23,7 @@ public class Unqualify {
     public Unqualify() {
     }
 
-    public Unqualify(String unqualifyApplyId, String productId, String unqualifyItem, Integer unqualifyCount, Date assemblyDate, String empId, Date applyDate, String note, String productName, String empName) {
+    public Unqualify(String unqualifyApplyId, String productId, String unqualifyItem, Integer unqualifyCount, String assemblyDate, String empId, String applyDate, String note, String productName, String empName) {
         this.unqualifyApplyId = unqualifyApplyId;
         this.productId = productId;
         this.unqualifyItem = unqualifyItem;
@@ -68,11 +68,11 @@ public class Unqualify {
         this.unqualifyCount = unqualifyCount;
     }
 
-    public Date getAssemblyDate() {
+    public String getAssemblyDate() {
         return assemblyDate;
     }
 
-    public void setAssemblyDate(Date assemblyDate) {
+    public void setAssemblyDate(String assemblyDate) {
         this.assemblyDate = assemblyDate;
     }
 
@@ -84,11 +84,11 @@ public class Unqualify {
         this.empId = empId;
     }
 
-    public Date getApplyDate() {
+    public String getApplyDate() {
         return applyDate;
     }
 
-    public void setApplyDate(Date applyDate) {
+    public void setApplyDate(String applyDate) {
         this.applyDate = applyDate;
     }
 
@@ -123,9 +123,9 @@ public class Unqualify {
                 ", productId='" + productId + '\'' +
                 ", unqualifyItem='" + unqualifyItem + '\'' +
                 ", unqualifyCount=" + unqualifyCount +
-                ", assemblyDate=" + assemblyDate +
+                ", assemblyDate='" + assemblyDate + '\'' +
                 ", empId='" + empId + '\'' +
-                ", applyDate=" + applyDate +
+                ", applyDate='" + applyDate + '\'' +
                 ", note='" + note + '\'' +
                 ", productName='" + productName + '\'' +
                 ", empName='" + empName + '\'' +

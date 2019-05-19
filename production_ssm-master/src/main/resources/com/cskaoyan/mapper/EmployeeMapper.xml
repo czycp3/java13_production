@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.EmployeeMapper">
+<resultMap id="baseMap" type="employee">
+    <result property="birthday" column="birthday"/>
+    <result property="degree" column="degree"/>
+    <result property="education" column="education"/>
+    <result property="educationForm" column="education_form"/>
+    <result property="empId" column="emp_id"/>
+    <result property="empName" column="emp_name"/>
+    <result property="graduateSchool" column="graduate_school"/>
+    <result property="idCode" column="id_code"/>
+    <result property="joinDate" column="join_date"/>
+    <result property="major" column="major"/>
+    <result property="sex" column="sex"/>
+    <result property="status" column="status"/>
+    <association property="department" javaType="department">
+        <result property="departmentId" column="department_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="note" column="note"/>
+    </association>
+</resultMap>
+    <select id="getEmployees" resultMap="baseMap">
+        select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
+        from employee left join department on employee.department_id=department.department_id
+    </select>
+</mapper>

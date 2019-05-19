@@ -1,0 +1,122 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.MeasureMapper">
+
+    <resultMap id="findMeasureByPages" type="com.cskaoyan.bean.Measure">
+        <id column="f_measure_check_id" property="fMeasureCheckId" />
+        <result column="order_id" property="orderId" />
+        <result column="check_item" property="checkItem" />
+        <result column="cdate" property="cdate" />
+        <result column="measure_data" property="measureData" />
+        <result column="emp_id" property="empId" />
+        <result column="emp_name" property="empName" />
+        <result column="result" property="result" />
+        <result column="note" property="note" />
+    </resultMap>
+
+
+    <!--分页查找-->
+    <select id="findList" resultMap="findMeasureByPages" >
+        select  fm.f_measure_check_id,
+                fm.order_id,
+ 				fm.check_item,
+ 				fm.cdate,
+ 				fm.measure_data,
+ 				fm.emp_id,
+ 				e.emp_name,
+ 				fm.result,
+ 				fm.note
+
+ 				from final_measuret_check fm
+ 				left join employee e on fm.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--查找所有信息-->
+    <select id="findAllList" resultMap="findMeasureByPages" >
+        select order_id from final_measuret_check
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" >
+        insert into final_measuret_check (f_measure_check_id,order_id,check_item,cdate,measure_data,emp_id,result,note)
+         value
+         (#{measure.fMeasureCheckId},#{measure.orderId},#{measure.checkItem},#{measure.cdate},
+         #{measure.measureData},#{measure.empId},#{measure.result},#{measure.note})
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update_all">
+        update final_measuret_check set  order_id = #{measure.orderId},
+                                        check_item = #{measure.checkItem},
+                                        cdate = #{measure.cdate},
+                                        measure_data = #{measure.measureData},
+                                        emp_id = #{measure.empId},
+                                        result = #{measure.result},
+                                        note = #{measure.note}
+                                        where f_measure_check_id = #{measure.fMeasureCheckId}
+    </update>
+
+    <!--修改备注信息-->
+    <update id="update_note">
+         update final_measuret_check set note = #{note} where f_measure_check_id = #{fMeasureCheckId}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete_batch">
+        delete from final_measuret_check where f_measure_check_id = #{id}
+    </delete>
+
+    <!--根据ID分页查询-->
+    <select id="searchfMeasureCheckByfMeasureCheckId" resultMap="findMeasureByPages">
+        select  fm.f_measure_check_id,
+                fm.order_id,
+ 				fm.check_item,
+ 				fm.cdate,
+ 				fm.measure_data,
+ 				fm.emp_id,
+ 				e.emp_name,
+ 				fm.result,
+ 				fm.note
+
+ 				from final_measuret_check fm
+ 				left join employee e on fm.emp_id = e.emp_id
+ 				where f_measure_check_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据ID所有-->
+    <select id="searchAllfMeasureCheckByfMeasureCheckId" resultMap="findMeasureByPages">
+        select f_measure_check_id from final_measuret_check where f_measure_check_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+    <!--根据订单ID分页查询-->
+    <select id="searchfMeasureCheckByOrderId" resultMap="findMeasureByPages">
+        select  fm.f_measure_check_id,
+                fm.order_id,
+ 				fm.check_item,
+ 				fm.cdate,
+ 				fm.measure_data,
+ 				fm.emp_id,
+ 				e.emp_name,
+ 				fm.result,
+ 				fm.note
+
+ 				from final_measuret_check fm
+ 				left join employee e on fm.emp_id = e.emp_id
+ 				where order_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据订单ID所有-->
+    <select id="searchAllfMeasureCheckByOrderId" resultMap="findMeasureByPages">
+        select order_id from final_measuret_check where order_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+
+</mapper>

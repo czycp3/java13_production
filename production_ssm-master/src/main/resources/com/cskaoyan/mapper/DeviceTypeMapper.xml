@@ -23,4 +23,21 @@
     <select id="getDeviceTypeList" resultMap="baseMap">
         <include refid="baseSql"/>
     </select>
+
+    <select id="getDeviceTypes" resultMap="baseMap">
+        <include refid="baseSql"/>
+    </select>
+
+    <select id="getDeviceTypeById" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_type_id like concat('%',#{deviceTypeId},'%')
+    </select>
+
+    <select id="getDeviceTypeByName" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_type_name like concat('%',#{deviceTypeName},'%')
+    </select>
+
+
+
 </mapper>

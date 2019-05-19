@@ -1,6 +1,7 @@
 package com.cskaoyan.mapper;
 
 import com.cskaoyan.bean.DeviceType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,4 +12,10 @@ import java.util.List;
  */
 public interface DeviceTypeMapper {
     List<DeviceType> getDeviceTypeList();
+
+    List<DeviceType> getDeviceTypeById(@Param("deviceTypeId") String searchValue);
+
+    List<DeviceType> getDeviceTypeByName(@Param("deviceTypeName") String searchValue);
+
+    DeviceType[] getDeviceTypes();
 }

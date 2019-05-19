@@ -86,12 +86,15 @@
             order by ${orderByClause}
         </if>
     </select>
+
+    <!--按主键查询-->
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from product
         where product_id = #{productId,jdbcType=VARCHAR}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from product
     where product_id = #{productId,jdbcType=VARCHAR}
@@ -160,13 +163,56 @@
         </if>
     </select>
 
-    <!--查询产品列表-->
+    <!--分页查询产品列表-->
     <select id="selectAllProduct" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from product
         limit #{rows} offset #{offset}
     </select>
+
+    <!--查询所有产品-->
+    <select id="selectTotalProduct" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+    </select>
+
+    <!--条件查询product数目-->
+    <select id="selectCountProductByCondition" resultType="java.lang.Integer">
+        select count(*) from product
+        <where>
+        <if test="product.productId != null">
+            product_id like #{product.productId}
+        </if>
+        <if test="product.productName != null">
+            and product_name like #{product.productName}
+        </if>
+        <if test="product.productType != null">
+            and product_type like #{product.productType}
+        </if>
+        </where>
+    </select>
+
+    <!--按条件查询产品列表-->
+    <select id="searchProductByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from product
+        <where>
+            <if test="product.productId != null">
+                product_id like #{product.productId}
+            </if>
+            <if test="product.productName != null">
+                and product_name like #{product.productName}
+            </if>
+            <if test="product.productType != null">
+                and product_type like #{product.productType}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
 
     <update id="updateByExampleSelective" parameterType="map">
         update product

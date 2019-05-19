@@ -2,11 +2,13 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.Custom;
 import com.cskaoyan.bean.BaseResultVo;
+import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.CustomException;
 import com.cskaoyan.service.CustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,6 +44,12 @@ public class ScheduleController {
     @RequestMapping("/custom/find")
     public String customList(){
         return "custom_list";
+    }
+
+    @RequestMapping("/custom/get_data")
+    @ResponseBody
+    public List<Custom> getData(){
+        return customService.selectByExample();
     }
 
     @RequestMapping("/custom/add_judge")
@@ -113,6 +121,14 @@ public class ScheduleController {
     @ResponseBody
     public BaseResultVo searchCustom(String searchValue,int page, int rows){
         return customService.searchCustomByName(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/custom/get/{customId}")
+    @ResponseBody
+    public Custom searchCustomDetail(@PathVariable("customId") String customID){
+        return customService.searchCustomDetail(customID);
     }
 
 

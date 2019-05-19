@@ -1,5 +1,6 @@
 package com.cskaoyan.mapper;
 
+import com.cskaoyan.bean.Department;
 import com.cskaoyan.bean.Device;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,5 +20,7 @@ public interface DeviceMapper {
 
     List<Device> queryDeviceByDeviceTypeName(@Param("deviceTypeName") String searchValue);
 
-    int insertDevice(@Param("device") Device device);
+    int insertDevice(@Param("deviceBean") Device device);
+
+    List<Department> getDepartment();
 }

@@ -1,48 +1,46 @@
 package com.cskaoyan.service.impl;
 
-import com.cskaoyan.bean.Product;
+import com.cskaoyan.bean.Measure;
 import com.cskaoyan.bean.QueryStatus;
-import com.cskaoyan.bean.Unqualify;
-import com.cskaoyan.mapper.UnqualifyMapper;
-import com.cskaoyan.service.UnqualifyService;
+import com.cskaoyan.mapper.MeasureMapper;
+import com.cskaoyan.service.MeasureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @auther 芮狼Dan
- * @date 2019-05-17 23:46
+ * @date 2019-05-19 11:30
  */
-
 @Service
-public class UnqualifyServiceImpl implements UnqualifyService {
-
+public class MeasureServiceImpl implements MeasureService {
     @Autowired
-    UnqualifyMapper unqualifyMapper;
+    MeasureMapper measureMapper;
 
-    //分页查询不合格品列表
+
+    //分页查找
     @Override
-    public List<Unqualify> findList(int rows, int offset) {
-        List<Unqualify> unqualifyList = unqualifyMapper.findList(rows, offset);
-        return unqualifyList;
+    public List<Measure> findList(int rows, int offset) {
+        List<Measure> measureList = measureMapper.findList(rows, offset);
+        return measureList;
     }
 
-    //查询总的记录数
+    //查找所有
     @Override
-    public List<Unqualify> findAllList() {
-        List<Unqualify> unqualifyList = unqualifyMapper.findAllList();
-        return unqualifyList;
+    public List<Measure> findAllList() {
+        List<Measure> measureAllList = measureMapper.findAllList();
+        return measureAllList;
     }
 
-    //新增不合格信息
+
+    //增加
     @Override
-    public QueryStatus insert(Unqualify unqualify) {
+    public QueryStatus insert(Measure measure) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = unqualifyMapper.insert(unqualify);
+            int i = measureMapper.insert(measure);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -55,15 +53,20 @@ public class UnqualifyServiceImpl implements UnqualifyService {
             queryStatus.setMsg("不合格品申请编号重复，请重新申请");
         }
         return queryStatus;
+
+
+
+
     }
 
-    //修改不合格产品所有信息
+
+    //修改所有
     @Override
-    public QueryStatus update_all(Unqualify unqualify) {
+    public QueryStatus update_all(Measure measure) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = unqualifyMapper.update_all(unqualify);
+            int i = measureMapper.update_all(measure);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -78,14 +81,13 @@ public class UnqualifyServiceImpl implements UnqualifyService {
         return queryStatus;
     }
 
-
-    //修改不合格产品备注信息
+    //修改备注信息
     @Override
-    public QueryStatus update_note(String unqualifyApplyId, String note) {
+    public QueryStatus update_note(String fMeasureCheckId, String note) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = unqualifyMapper.update_note(unqualifyApplyId , note);
+            int i = measureMapper.update_note(fMeasureCheckId , note);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -107,7 +109,7 @@ public class UnqualifyServiceImpl implements UnqualifyService {
 
         try {
             for (int i = 0; i < ids.length; i++) {
-                unqualifyMapper.delete_batch(ids[i]);
+                measureMapper.delete_batch(ids[i]);
             }
             queryStatus.setStatus(200);
             queryStatus.setMsg("OK");
@@ -120,31 +122,30 @@ public class UnqualifyServiceImpl implements UnqualifyService {
         return queryStatus;
     }
 
-    //根据ID来查找不良产品/分页
+    //根据id查询-分页
     @Override
-    public List<Unqualify> searchUnqualifyByUnqualifyId(String searchValue, Integer rows, int offset) {
-        List<Unqualify> unqualifyList = unqualifyMapper.searchUnqualifyByUnqualifyId(searchValue,rows, offset);
-        return unqualifyList;
+    public List<Measure> searchfMeasureCheckByfMeasureCheckId(String searchValue, Integer rows, int offset) {
+        List<Measure> measureList = measureMapper.searchfMeasureCheckByfMeasureCheckId(searchValue,rows,offset);
+        return measureList;
     }
 
-    //根据ID来查找不良产品/所有条目
+    //根据id查询-所有
     @Override
-    public List<Unqualify> searchAllUnqualifyByUnqualifyId(String searchValue) {
-        List<Unqualify> unqualifyList = unqualifyMapper.searchAllUnqualifyByUnqualifyId(searchValue);
-        return unqualifyList;
-    }
-
-
-    @Override
-    public List<Unqualify> searchUnqualifyByPAgeByProductName(String searchValue, Integer rows, int offset) {
-        List<Unqualify> unqualifyListByPage = unqualifyMapper.searchUnqualifyByPAgeByProductName(searchValue,rows,offset);
-
-        return unqualifyListByPage;
+    public List<Measure> searchAllfMeasureCheckByfMeasureCheckId(String searchValue) {
+        List<Measure> measureAllList = measureMapper.searchAllfMeasureCheckByfMeasureCheckId(searchValue);
+        return measureAllList;
     }
 
     @Override
-    public List<Unqualify> searchAllUnqualifyByProductName(String searchValue) {
-        List<Unqualify> unqualifyList = unqualifyMapper.searchAllUnqualifyByProductName(searchValue);
-        return unqualifyList;
+    public List<Measure> searchfMeasureCheckByOrderId(String searchValue, Integer rows, int offset) {
+        List<Measure> measureList = measureMapper.searchfMeasureCheckByOrderId(searchValue,rows,offset);
+        return measureList;
     }
+
+    @Override
+    public List<Measure> searchAllfMeasureCheckByOrderId(String searchValue) {
+        List<Measure> measureAllList = measureMapper.searchAllfMeasureCheckByOrderId(searchValue);
+        return measureAllList;
+    }
+
 }

@@ -116,6 +116,13 @@
       limit #{rows} offset #{offset}
   </select>
 
+    <!--查询所有客户-->
+    <select id="selectTotalCustom" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from custom
+    </select>
+
     <!--按customId删除客户-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from custom

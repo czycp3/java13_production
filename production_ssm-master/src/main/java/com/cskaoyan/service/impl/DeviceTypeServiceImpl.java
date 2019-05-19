@@ -27,4 +27,26 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         logger.info(deviceTypeList);
         return deviceTypeList;
     }
+
+    @Override
+    public List<DeviceType> getDeviceTypeById(String searchValue) {
+        List<DeviceType> deviceTypeList = deviceTypeMapper.getDeviceTypeById(searchValue);
+        logger = this.logger.getLogger(this.getClass());
+        logger.info(deviceTypeList);
+        return deviceTypeList;
+    }
+
+    @Override
+    public List<DeviceType> getDeviceTypeByName(String searchValue) {
+        List<DeviceType> deviceTypeList = deviceTypeMapper.getDeviceTypeByName(searchValue);
+        logger = this.logger.getLogger(this.getClass());
+        logger.info(deviceTypeList);
+        return deviceTypeList;
+    }
+
+    @Override
+    public DeviceType[] getDeviceTypes() {
+        DeviceType[] deviceTypes = deviceTypeMapper.getDeviceTypes();
+        return deviceTypes;
+    }
 }
