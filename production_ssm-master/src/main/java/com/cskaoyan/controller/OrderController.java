@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.UUID;
 
 /**
@@ -84,5 +85,33 @@ public class OrderController {
         queryStatus.setError(0);
         queryStatus.setUrl(contextPath + "/file/" + fileName);
         return queryStatus;
+    }
+
+    @RequestMapping("/file/download")
+    @ResponseBody
+    public QueryStatus download(String fileName, HttpServletRequest req,HttpServletResponse resp){
+        String path = req.getServletContext().getRealPath("/");
+        String contextPath = req.getContextPath();
+        String replace = fileName.replace(contextPath, "WEB-INF");
+
+        int index = replace.lastIndexOf("/");
+        String downloadFile = replace.substring(index + 1);
+
+        resp.setCharacterEncoding("utf-8");
+        resp.setContentType("multipart/form-data");
+        resp.setHeader("Content-Disposition","attachment;fileName=" + downloadFile);
+
+        try (InputStream inputStream = new FileInputStream(path + "/" + replace);
+             ServletOutputStream outputStream = resp.getOutputStream()){
+
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0){
+                outputStream.write(b,0,length);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new QueryStatus();
     }
 }
