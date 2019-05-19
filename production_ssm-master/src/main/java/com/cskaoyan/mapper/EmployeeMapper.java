@@ -1,8 +1,7 @@
 package com.cskaoyan.mapper;
 
 import com.cskaoyan.bean.Employee;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: zero
@@ -12,4 +11,7 @@ import java.util.List;
 public interface EmployeeMapper {
     Employee[] getEmployees();
 
+    Employee selectEmployeeById(@Param("deviceKeeperId") String deviceKeeperId);
+
+    int updateEmployee(@Param("updateEmployeeBean") Employee employee);
 }

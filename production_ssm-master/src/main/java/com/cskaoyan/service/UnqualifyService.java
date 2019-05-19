@@ -28,7 +28,7 @@ public interface UnqualifyService {
     QueryStatus update_note(String unqualifyApplyId, String note);
 
     //删除信息
-    QueryStatus delete_batch(int[] ids);
+    QueryStatus delete_batch(String[] ids);
 
     //根据id查找分页
     List<Unqualify> searchUnqualifyByUnqualifyId(String searchValue, Integer rows, int offset);

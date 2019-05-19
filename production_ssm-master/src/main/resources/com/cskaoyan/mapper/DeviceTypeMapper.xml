@@ -38,6 +38,36 @@
         where device_type_name like concat('%',#{deviceTypeName},'%')
     </select>
 
+    <select id="selectDeviceTypeById" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_type_id=#{deviceTypeId}
+    </select>
 
-
+    <update id="updateDeviceType">
+        update device_type
+        <set>
+            <if test="updateDeviceTypeBean.deviceTypeModel != null">
+                device_type_model = #{updateDeviceTypeBean.deviceTypeModel},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeName != null">
+                device_type_name = #{updateDeviceTypeBean.deviceTypeName},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeProducer != null">
+                device_type_producer = #{updateDeviceTypeBean.deviceTypeProducer},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeQuantity != null">
+                device_type_quantity = #{updateDeviceTypeBean.deviceTypeQuantity},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeSpec != null">
+                device_type_spec = #{updateDeviceTypeBean.deviceTypeSpec},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeSupplier != null">
+                device_type_supplier = #{updateDeviceTypeBean.deviceTypeSupplier},
+            </if>
+            <if test="updateDeviceTypeBean.deviceTypeWarranty != null">
+                device_type_warranty = #{updateDeviceTypeBean.deviceTypeWarranty},
+            </if>
+        </set>
+       where device_type_id = #{updateDeviceTypeBean.deviceTypeId}
+    </update>
 </mapper>

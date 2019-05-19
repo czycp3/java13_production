@@ -65,7 +65,7 @@
                                    apply_date = #{unqualify.applyDate},
                                    note = #{unqualify.note}
 
-                                    where unqualify_apply_id = #{unqualify.unqualifyApplyId}
+                                   where unqualify_apply_id = #{unqualify.unqualifyApplyId}
     </update>
 
     <!--修改不良备注信息-->

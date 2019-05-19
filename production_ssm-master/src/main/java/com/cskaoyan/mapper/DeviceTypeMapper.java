@@ -18,4 +18,8 @@ public interface DeviceTypeMapper {
     List<DeviceType> getDeviceTypeByName(@Param("deviceTypeName") String searchValue);
 
     DeviceType[] getDeviceTypes();
+
+    DeviceType selectDeviceTypeById(@Param("deviceTypeId") String deviceTypeId);
+
+    int updateDeviceType(@Param("updateDeviceTypeBean") DeviceType deviceType);
 }

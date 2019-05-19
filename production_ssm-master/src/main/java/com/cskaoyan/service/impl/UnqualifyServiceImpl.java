@@ -102,7 +102,7 @@ public class UnqualifyServiceImpl implements UnqualifyService {
 
     //删除
     @Override
-    public QueryStatus delete_batch(int[] ids) {
+    public QueryStatus delete_batch(String[] ids) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
@@ -133,6 +133,7 @@ public class UnqualifyServiceImpl implements UnqualifyService {
         List<Unqualify> unqualifyList = unqualifyMapper.searchAllUnqualifyByUnqualifyId(searchValue);
         return unqualifyList;
     }
+
 
     @Override
     public List<Unqualify> searchUnqualifyByPAgeByProductName(String searchValue, Integer rows, int offset) {

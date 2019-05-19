@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.DepartmentMapper">
+    <resultMap id="DepartmentMap" type="com.cskaoyan.bean.Department">
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="note" property="note"/>
+    </resultMap>
+
+    <!--查询所有部门的列表-->
+    <select id="findAllDepartment" resultMap="DepartmentMap">
+        select department_id,department_name,note from department limit #{offset} , #{rows}
+    </select>
+
+    <!--查询部门总数-->
+    <select id="findTotal" resultType="int">
+        select count(*) from department
+    </select>
+
+    <!--新增部门-->
+    <insert id="insertDepartment" parameterType="com.cskaoyan.bean.Department">
+        insert into department (department_id,department_name,note) values (#{departmentId},#{departmentName},#{note})
+    </insert>
+
+    <!--获取部门信息-->
+    <select id="getDepartmentData" resultMap="DepartmentMap">
+        select department_id,department_name,note from department
+    </select>
+
+    <!--编辑部门-->
+    <update id="departmentUpdateAll" parameterType="com.cskaoyan.bean.Department">
+        update department set department_name = #{departmentName},note = #{note}
+        where department_id = #{departmentId}
+    </update>
+
+    <!--删除部门-->
+    <delete id="departmentDeleteBatch" parameterType="java.lang.String">
+        delete from department where department_id = #{id}
+    </delete>
+
+    <!--通过部门编号查询部门信息-->
+    <select id="searchDepartmentById" parameterType="java.lang.String">
+        select * from department where department_id = #{id}
+    </select>
+</mapper>

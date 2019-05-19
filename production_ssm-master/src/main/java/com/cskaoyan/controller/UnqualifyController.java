@@ -91,6 +91,7 @@ public class UnqualifyController {
         return unqualifyService.update_all(unqualify);
     }
 
+    //修改note
     @RequestMapping("unqualify/update_note")
     @ResponseBody
     public QueryStatus update_note(String unqualifyApplyId, String note){
@@ -108,7 +109,7 @@ public class UnqualifyController {
     //删除
     @RequestMapping("unqualify/delete_batch")
     @ResponseBody
-    public QueryStatus delete_batch(int[] ids){
+    public QueryStatus delete_batch(String[] ids){
         return unqualifyService.delete_batch(ids);
     }
 

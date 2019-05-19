@@ -26,4 +26,51 @@
         select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
         from employee left join department on employee.department_id=department.department_id
     </select>
+   <select id="selectEmployeeById" resultMap="baseMap">
+       select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
+        from employee left join department on employee.department_id=department.department_id
+        where employee.emp_id=#{deviceKeeperId}
+   </select>
+    <update id="updateEmployee">
+        update employee
+        <set>
+            <if test="updateEmployeeBean.birthday != null">
+                birthday = #{updateEmployeeBean.birthday},
+            </if>
+            <if test="updateEmployeeBean.degree != null">
+                degree = #{updateEmployeeBean.degree},
+            </if>
+            <if test="updateEmployeeBean.education != null">
+                education = #{updateEmployeeBean.education},
+            </if>
+            <if test="updateEmployeeBean.educationForm != null">
+                education_form = #{updateEmployeeBean.educationForm},
+            </if>
+            <if test="updateEmployeeBean.empName != null">
+                emp_name = #{updateEmployeeBean.empName},
+            </if>
+            <if test="updateEmployeeBean.graduateSchool != null">
+                graduate_school = #{updateEmployeeBean.graduateSchool},
+            </if>
+            <if test="updateEmployeeBean.idCode != null">
+                id_code = #{updateEmployeeBean.idCode},
+            </if>
+            <if test="updateEmployeeBean.joinDate != null">
+                join_date = #{updateEmployeeBean.joinDate},
+            </if>
+            <if test="updateEmployeeBean.major != null">
+                major = #{updateEmployeeBean.major},
+            </if>
+            <if test="updateEmployeeBean.sex != null">
+                sex = #{updateEmployeeBean.sex},
+            </if>
+            <if test="updateEmployeeBean.status != null">
+                status = #{updateEmployeeBean.status},
+            </if>
+            <if test="updateEmployeeBean.departmentId != null">
+                department_id = #{updateEmployeeBean.departmentId}
+            </if>
+        </set>
+        where emp_id = #{updateEmployeeBean.empId}
+    </update>
 </mapper>
