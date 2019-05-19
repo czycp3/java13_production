@@ -2,6 +2,7 @@ package com.cskaoyan.service;
 
 import com.cskaoyan.bean.Department;
 import com.cskaoyan.bean.Device;
+import com.cskaoyan.bean.QueryStatus;
 
 import java.util.List;
 
@@ -11,15 +12,17 @@ import java.util.List;
  * @Version 1.0
  */
 public interface DeviceService {
-    List<Device> queryDeviceList();
+    List<Device> queryDeviceList(int rows,int page);
 
-    List<Device> queryDeviceByDeviceId(String searchValue);
+    List<Device> queryDeviceByDeviceId(String searchValue, int rows, int page);
 
-    List<Device> queryDeviceByDeviceName(String searchValue);
+    List<Device> queryDeviceByDeviceName(String searchValue,int rows,int page);
 
-    List<Device> queryDeviceByDeviceTypeName(String searchValue);
+    List<Device> queryDeviceByDeviceTypeName(String searchValue,int rows,int page);
 
-    int insertDevice(Device device);
+    QueryStatus insertDevice(Device device);
 
-    List<Department> getDepartment();
+    QueryStatus updateDevice(Device device);
+
+    QueryStatus deleteDeviceByIds(String[] ids);
 }

@@ -15,13 +15,15 @@
         <result column="device_service_life" property="deviceServiceLife"/>
         <result column="emp_name" property="deviceKeeper"/>
         <result column="note" property="note"/>
+        <result column="device_type_id" property="deviceTypeId"/>
+        <result column="device_keeper_id" property="deviceKeeperId"/>
     </resultMap>
 
 
 
     <sql id="baseSql">
         select d.device_id,d.device_name,d.device_type_id,dt.device_type_name,d.device_status,d.device_status_id,d.device_purchase_date,d.device_purchase_price,
-              d.device_manufacture_date,d.device_service_life,emp.emp_name,d.note
+              d.device_manufacture_date,d.device_service_life,emp.emp_name,d.note,d.device_keeper_id,d.device_type_id
              from device d
              left join device_type dt on d.device_type_id = dt.device_type_id
              left join employee emp on d.device_keeper_id = emp.emp_id
@@ -29,30 +31,85 @@
 
     <select id="queryDeviceList" resultMap="baseMap">
         <include refid="baseSql"/>
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="queryDeviceByDeviceId" resultMap="baseMap">
         <include refid="baseSql"/>
-          where device_id=#{deviceId}
+        where device_id like concat('%',#{deviceId},'%')
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="queryDeviceByDeviceName" resultMap="baseMap">
         <include refid="baseSql"/>
-        where device_name=#{deviceName}
+        where device_name like concat('%',#{deviceName},'%')
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="queryDeviceByDeviceTypeName" resultMap="baseMap">
         <include refid="baseSql"/>
-        where device_type_name=#{deviceTypeName}
+        where device_type_name like concat('%',#{deviceTypeName},'%')
+        limit #{rows} offset #{offset}
     </select>
 
     <insert id="insertDevice" parameterType="device">
         insert into device (device_id,device_name,device_type_id,device_status_id,device_status,device_purchase_date,device_purchase_price,
               device_manufacture_date,device_service_life,device_keeper_id,note)
-        values (#{deviceBean.deviceId},#{deviceBean.deviceName},#{deviceBean.deviceTypeId},#{deviceBean.deviceStatusId},
-                #{deviceBean.deviceStatus},#{deviceBean.devicePurchaseDate},#{deviceBean.devicePurchasePrice},
-                #{deviceBean.deviceManufactureDate},#{deviceBean.deviceServiceLife},#{deviceBean.deviceKeeperId},#{deviceBean.note})
+        values (#{insertDeviceBean.deviceId},#{insertDeviceBean.deviceName},#{insertDeviceBean.deviceTypeId},#{insertDeviceBean.deviceStatusId},
+                #{insertDeviceBean.deviceStatus},#{insertDeviceBean.devicePurchaseDate},#{insertDeviceBean.devicePurchasePrice},
+                #{insertDeviceBean.deviceManufactureDate},#{insertDeviceBean.deviceServiceLife},#{insertDeviceBean.deviceKeeperId},#{insertDeviceBean.note})
     </insert>
+
+    <update id="updateDevice" parameterType="device">
+        update device
+        <set>
+            <if test="updateDeviceBean.deviceName != null">
+                device_name = #{updateDeviceBean.deviceName},
+            </if>
+            <if test="updateDeviceBean.deviceTypeId != null">
+                device_type_id = #{updateDeviceBean.deviceTypeId},
+            </if>
+            <if test="updateDeviceBean.deviceStatusId != null">
+                device_status_id = #{updateDeviceBean.deviceStatusId},
+            </if>
+            <if test="updateDeviceBean.deviceStatus != null">
+                device_status = #{updateDeviceBean.deviceStatusId},
+            </if>
+            <if test="updateDeviceBean.devicePurchaseDate != null">
+            device_purchase_date = #{updateDeviceBean.devicePurchaseDate},
+            </if>
+            <if test="updateDeviceBean.devicePurchasePrice != null">
+            device_purchase_price = #{updateDeviceBean.devicePurchasePrice},
+            </if>
+            <if test="updateDeviceBean.deviceManufactureDate != null">
+            device_manufacture_date = #{updateDeviceBean.deviceManufactureDate},
+            </if>
+            <if test="updateDeviceBean.deviceServiceLife != null">
+            device_service_life = #{updateDeviceBean.deviceServiceLife},
+            </if>
+            <if test="updateDeviceBean.deviceKeeperId != null">
+            device_keeper_id = #{updateDeviceBean.deviceKeeperId},
+            </if>
+            <if test="updateDeviceBean.note != null">
+            note = #{updateDeviceBean.note}
+            </if>
+        </set>
+        where device_id = #{updateDeviceBean.deviceId}
+    </update>
+
+    <delete id="deleteDeviceByIds" parameterType="java.lang.String">
+        delete from device
+        <choose>
+            <when test="ids!=null">
+                <where>
+                    device_id in
+                    <foreach collection="ids" item="item" open="(" close=")" separator=",">
+                        #{item}
+                    </foreach>
+                </where>
+            </when>
+        </choose>
+    </delete>
 
 
     <resultMap id="departmentMap" type="department">

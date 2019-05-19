@@ -11,4 +11,5 @@ public interface EmployeeService {
 
     Employee[] getEmployees();
 
+    Employee selectEmployeeById(String deviceKeeperId);
 }

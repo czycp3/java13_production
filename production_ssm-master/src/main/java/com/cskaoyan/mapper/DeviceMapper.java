@@ -1,6 +1,5 @@
 package com.cskaoyan.mapper;
 
-import com.cskaoyan.bean.Department;
 import com.cskaoyan.bean.Device;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,15 +11,17 @@ import java.util.List;
  * @Version 1.0
  */
 public interface DeviceMapper {
-    List<Device> queryDeviceList();
+    List<Device> queryDeviceList(@Param("rows") int rows,@Param("offset") int offset);
 
-    List<Device> queryDeviceByDeviceId(@Param("deviceId") String searchValue);
+    List<Device> queryDeviceByDeviceId(@Param("deviceId") String searchValue,@Param("rows") int rows,@Param("offset") int offset);
 
-    List<Device> queryDeviceByDeviceName(@Param("deviceName") String searchValue);
+    List<Device> queryDeviceByDeviceName(@Param("deviceName") String searchValue,@Param("rows") int rows,@Param("offset") int offset);
 
-    List<Device> queryDeviceByDeviceTypeName(@Param("deviceTypeName") String searchValue);
+    List<Device> queryDeviceByDeviceTypeName(@Param("deviceTypeName") String searchValue,@Param("rows") int rows,@Param("offset") int offset);
 
-    int insertDevice(@Param("deviceBean") Device device);
+    int insertDevice(@Param("insertDeviceBean") Device device);
 
-    List<Department> getDepartment();
+    int updateDevice(@Param("updateDeviceBean") Device device);
+
+    int deleteDeviceByIds(@Param("ids") String[] ids);
 }

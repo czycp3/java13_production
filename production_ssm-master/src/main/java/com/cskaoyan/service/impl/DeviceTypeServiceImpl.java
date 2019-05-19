@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
 import com.cskaoyan.mapper.DeviceTypeMapper;
 import com.cskaoyan.service.DeviceTypeService;
@@ -48,5 +49,12 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     public DeviceType[] getDeviceTypes() {
         DeviceType[] deviceTypes = deviceTypeMapper.getDeviceTypes();
         return deviceTypes;
+    }
+
+    @Override
+    public DeviceType selectDeviceTypeById(String deviceTypeId) {
+        DeviceType deviceType = deviceTypeMapper.selectDeviceTypeById(deviceTypeId);
+
+        return deviceType;
     }
 }

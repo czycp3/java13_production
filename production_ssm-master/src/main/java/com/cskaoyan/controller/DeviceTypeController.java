@@ -3,9 +3,11 @@ package com.cskaoyan.controller;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
 import com.cskaoyan.service.DeviceTypeService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,5 +62,17 @@ public class DeviceTypeController {
         return baseResultVo;
     }
 
+
+
+
+    /*
+     * 查询其他表的详情
+     * */
+    @RequestMapping("/deviceType/get/{deviceTypeId}")
+    @ResponseBody
+    public DeviceType selectDeviceTypeById(@PathVariable("deviceTypeId")String deviceTypeId){
+        DeviceType deviceType =deviceTypeService.selectDeviceTypeById(deviceTypeId);
+        return deviceType;
+    }
 }
 

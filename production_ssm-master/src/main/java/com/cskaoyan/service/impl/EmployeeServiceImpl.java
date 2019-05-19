@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
  * @Date: 2019/5/18 21:22
  * @Version 1.0
  */
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
@@ -21,5 +22,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee[] getEmployees() {
         Employee[] employees = employeeMapper.getEmployees();
         return employees;
+    }
+
+    @Override
+    public Employee selectEmployeeById(String deviceKeeperId) {
+        Employee employee = employeeMapper.selectEmployeeById(deviceKeeperId);
+        return employee;
     }
 }

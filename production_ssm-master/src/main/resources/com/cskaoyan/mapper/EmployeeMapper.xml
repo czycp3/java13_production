@@ -26,4 +26,9 @@
         select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
         from employee left join department on employee.department_id=department.department_id
     </select>
+   <select id="selectEmployeeById" resultMap="baseMap">
+       select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
+        from employee left join department on employee.department_id=department.department_id
+        where employee.emp_id=#{deviceKeeperId}
+   </select>
 </mapper>

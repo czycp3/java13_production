@@ -38,6 +38,10 @@
         where device_type_name like concat('%',#{deviceTypeName},'%')
     </select>
 
+    <select id="selectDeviceTypeById" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_type_id=#{deviceTypeId}
+    </select>
 
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.cskaoyan.service;
 
+import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface DeviceTypeService {
     List<DeviceType> getDeviceTypeByName(String searchValue);
 
     DeviceType[] getDeviceTypes();
+
+    DeviceType selectDeviceTypeById(String deviceTypeId);
 }

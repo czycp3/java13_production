@@ -26,7 +26,7 @@
 
     <!--获取部门信息-->
     <select id="getDepartmentData" resultMap="DepartmentMap">
-        select (department_id,department_name,note) from department
+        select department_id,department_name,note from department
     </select>
 
     <!--编辑部门-->
