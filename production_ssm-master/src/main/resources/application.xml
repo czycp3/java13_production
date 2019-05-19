@@ -9,10 +9,21 @@
 
     <!-- bean definitions here -->
 
+    <mvc:annotation-driven conversion-service="myConversionService"/>
+
+    <bean id="myConversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.cskaoyan.converter.DateConverter"/>
+            </set>
+        </property>
+    </bean>
+
     <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
     <mvc:resources mapping="/image/**" location="/WEB-INF/image/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
     <mvc:resources mapping="/pic/**" location="/WEB-INF/image/upload/"/>
+    <mvc:resources mapping="/file/**" location="/WEB-INF/file/"/>
 
     <!--fileupload-->
     <bean id = "multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
