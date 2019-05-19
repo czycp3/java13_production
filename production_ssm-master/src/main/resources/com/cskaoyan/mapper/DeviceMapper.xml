@@ -34,6 +34,10 @@
         limit #{rows} offset #{offset}
     </select>
 
+    <select id="getDeviceList" resultMap="baseMap">
+        <include refid="baseSql"/>
+    </select>
+
     <select id="queryDeviceByDeviceId" resultMap="baseMap">
         <include refid="baseSql"/>
         where device_id like concat('%',#{deviceId},'%')
@@ -111,15 +115,9 @@
         </choose>
     </delete>
 
-
-    <resultMap id="departmentMap" type="department">
-        <result property="departmentId" column="department_id"/>
-        <result property="departmentName" column="department_name"/>
-        <result property="note" column="note"/>
-    </resultMap>
-    <select id="getDepartment" resultMap="departmentMap">
-        select department_id,department_name,note from department
+    <select id="selectDeviceById" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_id = #{deviceId}
     </select>
-
 
 </mapper>

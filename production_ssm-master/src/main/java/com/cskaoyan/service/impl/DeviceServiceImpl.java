@@ -94,4 +94,15 @@ public class DeviceServiceImpl implements DeviceService {
         }
         return queryStatus;
     }
+
+    @Override
+    public List<Device> getDeviceList() {
+        List<Device> deviceList = deviceMapper.getDeviceList();
+        return deviceList;
+    }
+
+    @Override
+    public Device selectDeviceById(String deviceId) {
+        return deviceMapper.selectDeviceById(deviceId);
+    }
 }

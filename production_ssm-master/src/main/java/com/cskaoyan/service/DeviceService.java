@@ -25,4 +25,8 @@ public interface DeviceService {
     QueryStatus updateDevice(Device device);
 
     QueryStatus deleteDeviceByIds(String[] ids);
+
+    List<Device> getDeviceList();
+
+    Device selectDeviceById(String deviceId);
 }

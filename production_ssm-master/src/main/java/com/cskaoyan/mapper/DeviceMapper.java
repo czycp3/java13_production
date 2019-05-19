@@ -24,4 +24,8 @@ public interface DeviceMapper {
     int updateDevice(@Param("updateDeviceBean") Device device);
 
     int deleteDeviceByIds(@Param("ids") String[] ids);
+
+    List<Device> getDeviceList();
+
+    Device selectDeviceById(@Param("deviceId") String deviceId);
 }

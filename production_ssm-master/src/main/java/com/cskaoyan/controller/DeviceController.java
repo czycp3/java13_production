@@ -160,5 +160,17 @@ public class DeviceController {
         return employee;
     }
 
+    @RequestMapping("/deviceList/get_data")
+    @ResponseBody
+    public List<Device> getDeviceList(){
+        List<Device> deviceList = deviceService.getDeviceList();
+        return deviceList;
+    }
+
+    @RequestMapping("/deviceList/get/{deviceId}")
+    @ResponseBody
+    public Device selectDeviceById(@PathVariable("deviceId")String deviceId){
+        return deviceService.selectDeviceById(deviceId);
+    }
 
 }
