@@ -20,6 +20,8 @@ public class FCountCheck {
     private String result; //检验结果
     private String note; //备注
 
+
+
     public FCountCheck() {
     }
 
