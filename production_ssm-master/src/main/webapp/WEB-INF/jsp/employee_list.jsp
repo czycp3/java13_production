@@ -140,7 +140,7 @@ function doSearch_employee(value,name){ //用户输入用户名,点击搜素,触
 				{field : 'birthday', width : 130, title : '生日', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'joinDate', width : 130, title : '入职日期', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'status',  width : 100, title : '员工状态', align:'center'}
-	        ] ],  1
+	        ] ],
 	    });
 	}
 }
