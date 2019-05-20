@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.MaterialMessageMapper">
+    <resultMap id="baseMap" type="materialMessage">
+        <result column="material_id" property="materialId"/>
+        <result column="material_type" property="materialType"/>
+        <result column="status" property="status"/>
+        <result column="remaining" property="remaining"/>
+        <result column="note" property="note"/>
+    </resultMap>
+    <select id="queryAllMaterialMessage" resultMap="baseMap">
+      select material_id,material_type,status,remaining,note
+             from material
+    </select>
+
+    <select id="queryMaterialById" resultMap="baseMap">
+        select material_id,material_type,status,remaining,note from material
+        where material_id = #{id}
+    </select>
+
+    <select id="queryMaterialByType" resultMap="baseMap">
+        select material_id,material_type,status,remaining,note from material
+        where material_type = #{type}
+    </select>
+
+    <insert id="inserMaterialMessage">
+        insert into material (material_id,material_type,status,remaining,note)
+        values (#{materialId},#{materialType},#{status},#{remaining},#{note});
+    </insert>
+
+    <insert id="inserMaterialMessage1">
+        insert into material
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">
+                material_id,
+            </if>
+            <if test="materialType != null">
+                material_type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remaining != null">
+                remaining,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">
+                #{customId,jdbcType=VARCHAR},
+            </if>
+            <if test="materialType != null">
+                #{materialType,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remaining != null">
+                #{remaining,jdbcType=INTERGE},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteMaterialById">
+        delete from material
+        <choose>
+            <when test="ids!=null">
+                <where>
+                    material_id in
+                    <foreach collection="ids" item="item" open="(" close=")" separator=",">
+                        #{item}
+                    </foreach>
+                </where>
+            </when>
+        </choose>
+    </delete>
+
+    <update id="materialEdit">
+        update material
+        <set>
+            <if test="materialId != null">
+                material_id = #{materialId},
+            </if>
+            <if test="materialType != null">
+                material_type = #{materialType},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remaining != null">
+                remaining = #{remaining},
+            </if>
+            <if test="note != null">
+                note = #{note},
+            </if>
+        </set>
+        where material_id = #{materialId}
+    </update>
+</mapper>
