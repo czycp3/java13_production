@@ -7,8 +7,11 @@ import com.cskaoyan.exception.ManufactureException;
 import com.cskaoyan.service.ManufactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author CZY-Y7000P
@@ -111,5 +114,19 @@ public class ManufactureController {
     @ResponseBody
     public BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue,int page, int rows){
         return manufactureService.searchManufactureByManufactureTechnologyName(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/manufacture/get/{manufactureId}")
+    @ResponseBody
+    public Manufacture searchManufactureDetail(@PathVariable("manufactureId") String manufactureId){
+        return manufactureService.searchManufactureDetail(manufactureId);
+    }
+
+    @RequestMapping("/manufacture/get_data")
+    @ResponseBody
+    public List<Manufacture> searchOrderData() {
+        return manufactureService.searchManufactureList();
     }
 }

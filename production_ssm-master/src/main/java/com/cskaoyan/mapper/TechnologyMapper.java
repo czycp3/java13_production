@@ -64,4 +64,6 @@ public interface TechnologyMapper {
      * @return
      */
     List<Technology> selectToTalTechnology();
+
+    Technology selectByTechnologyId(String technologyId);
 }

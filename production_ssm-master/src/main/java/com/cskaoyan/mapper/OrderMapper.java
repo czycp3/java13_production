@@ -50,4 +50,6 @@ public interface OrderMapper {
      * @return List<Order>
      */
     List<Order> searchOrderByCondition(@Param("order") Order order, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<Order> selectOrderList();
 }

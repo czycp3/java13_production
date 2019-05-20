@@ -276,6 +276,11 @@
         </where>
         limit #{rows} offset #{offset}
     </select>
+    <select id="selectOrderList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from c_order;
+    </select>
 
     <update id="updateByExampleSelective" parameterType="map">
         update c_order

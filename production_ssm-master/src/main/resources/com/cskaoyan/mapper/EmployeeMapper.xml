@@ -26,51 +26,51 @@
         select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
         from employee left join department on employee.department_id=department.department_id
     </select>
-   <select id="selectEmployeeById" resultMap="baseMap">
-       select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
+    <select id="selectEmployeeById" resultMap="baseMap">
+        select birthday,degree,education,education_form,emp_id,emp_name,graduate_school,id_code,join_date,major,sex,status,department.department_id
         from employee left join department on employee.department_id=department.department_id
         where employee.emp_id=#{deviceKeeperId}
-   </select>
-    <update id="updateEmployee">
-        update employee
-        <set>
-            <if test="updateEmployeeBean.birthday != null">
-                birthday = #{updateEmployeeBean.birthday},
-            </if>
-            <if test="updateEmployeeBean.degree != null">
-                degree = #{updateEmployeeBean.degree},
-            </if>
-            <if test="updateEmployeeBean.education != null">
-                education = #{updateEmployeeBean.education},
-            </if>
-            <if test="updateEmployeeBean.educationForm != null">
-                education_form = #{updateEmployeeBean.educationForm},
-            </if>
-            <if test="updateEmployeeBean.empName != null">
-                emp_name = #{updateEmployeeBean.empName},
-            </if>
-            <if test="updateEmployeeBean.graduateSchool != null">
-                graduate_school = #{updateEmployeeBean.graduateSchool},
-            </if>
-            <if test="updateEmployeeBean.idCode != null">
-                id_code = #{updateEmployeeBean.idCode},
-            </if>
-            <if test="updateEmployeeBean.joinDate != null">
-                join_date = #{updateEmployeeBean.joinDate},
-            </if>
-            <if test="updateEmployeeBean.major != null">
-                major = #{updateEmployeeBean.major},
-            </if>
-            <if test="updateEmployeeBean.sex != null">
-                sex = #{updateEmployeeBean.sex},
-            </if>
-            <if test="updateEmployeeBean.status != null">
-                status = #{updateEmployeeBean.status},
-            </if>
-            <if test="updateEmployeeBean.departmentId != null">
-                department_id = #{updateEmployeeBean.departmentId}
-            </if>
-        </set>
-        where emp_id = #{updateEmployeeBean.empId}
+    </select>
+    <select id="findAllEmployees" resultMap="baseMap">
+        SELECT d.emp_id,d.emp_name,d.sex,d.id_code,d.birthday,d.join_date,d.status,d.education,
+        d.degree,d.major,d.graduate_school,d.education_form,d.department_id,u.department_id AS departmentId,u.department_Name,u.note FROM
+        employee d LEFT JOIN department u
+        ON d.department_id = u.department_id
+        limit #{offset} , #{rows}
+    </select>
+
+    <!--查询用户总数-->
+    <select id="findEmployeeTotal" resultType="int">
+        select count(*) from employee
+    </select>
+
+    <!--获取departmentData-->
+    <select id="getDepartmentData" resultType="com.cskaoyan.bean.Department">
+        select department_id as departmentId,department_name as departmentName,
+        note from department where department_id = #{id}
+    </select>
+
+    <!--编辑员工-->
+    <update id="employeeUpdateAll" parameterType="com.cskaoyan.bean.Employee">
+        update employee set birthday = #{birthday},degree = #{degree},education = #{education},
+        education_form = #{educationForm},
+        emp_name = #{empName},graduate_school = #{graduateSchool} ,department_id = #{departmentId},
+        id_code = #{idCode},join_date = #{joinDate},
+        major = #{major},sex = #{sex},status = #{status} where emp_id = #{empId}
     </update>
+
+    <!--新增员工-->
+    <insert id="insertEmployee" parameterType="com.cskaoyan.bean.Employee">
+        insert into employee (birthday,degree,education,education_form,emp_id,
+        emp_name,graduate_school,id_code,join_date,major,sex,status,
+        department_id) values (#{birthday},#{degree},#{education},#{educationForm},
+        #{empId},#{empName},#{graduateSchool},#{idCode},#{joinDate},#{major},
+        #{sex},#{status},#{departmentId})
+    </insert>
+
+    <!--删除员工-->
+    <delete id="employeeDeleteBatch" parameterType="String">
+        delete from employee where emp_id = #{id}
+    </delete>
+
 </mapper>

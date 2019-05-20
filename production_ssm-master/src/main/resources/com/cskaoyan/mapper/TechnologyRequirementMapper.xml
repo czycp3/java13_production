@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cskaoyan.mapper.TechnologyRequirementMapper">
+    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.TechnologyRequirement">
+        <id column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <result column="technology_name" property="technologyName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        technology_requirement_id,
+        technology_id,
+        requirement,
+        add_time,
+        revise_time
+    </sql>
+
+    <!--分页查询列表-->
+    <select id="selectAllTechnologyRequirement" resultMap="BaseResultMap">
+       select
+	        technology_requirement_id,
+		    technology_name,
+            a.technology_id,
+            requirement,
+            add_time,
+            revise_time
+			from technology_requirement a,technology b
+			where a.technology_id = b.technology_id
+        limit #{rows} offset #{offset}
+    </select>
+    <select id="selectCountTechnologyRequirement" resultType="integer">
+        select count(*) from technology_requirement
+    </select>
+
+    <!--添加-->
+    <select id="insert"  parameterType="com.cskaoyan.bean.TechnologyRequirement">
+        insert into technology_requirement (<include refid="Base_Column_List"/>)
+        values (#{technologyRequirementId},#{technologyId},#{requirement},#{addTime},#{reviseTime})
+    </select>
+
+    <!--批量删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from technology_requirement
+          where technology_requirement_id = #{technologyRequirementId}
+    </delete>
+
+    <select id="updateAllByTechnologyRequirementId" parameterType="com.cskaoyan.bean.TechnologyRequirement">
+        update technology_requirement
+        set
+            technology_id = #{technologyId},
+            requirement = #{requirement},
+            add_time = #{addTime},
+            revise_time = #{reviseTime}
+          where technology_requirement_id = #{technologyRequirementId}
+    </select>
+
+    <!--模糊查询-->
+    <select id="selectCountTechnologyRequirementByCondition" resultType="integer">
+        <if test="technologyRequirement.technologyRequirementId != null">
+            select count(*)
+            from technology_requirement
+            where technology_requirement_id like #{technologyRequirement.technologyRequirementId}
+        </if>
+        <if test="technologyRequirement.technologyName != null">
+            select count(*) from technology_requirement a,technology b
+            where a.technology_id=b.technology_id and technology_name like #{technologyRequirement.technologyName}
+        </if>
+    </select>
+
+    <select id="searchTechnologyRequirementByCondition" resultMap="BaseResultMap">
+        select
+            technology_requirement_id,
+            technology_name,
+            a.technology_id,
+            requirement,
+            add_time,
+            revise_time
+        from technology_requirement a,technology b
+        <where>
+            a.technology_id = b.technology_id
+            <if test="technologyRequirement.technologyRequirementId != null">
+                and technology_requirement_id like #{technologyRequirement.technologyRequirementId}
+            </if>
+            <if test="technologyRequirement.technologyName != null">
+                and technology_name like #{technologyRequirement.technologyName}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
+    <!--根据Id更新某个工艺要求-->
+    <select id="updateRequirementById" >
+        update technology_requirement
+        set requirement = #{technologyRequirement.requirement}
+        where technology_requirement_id = #{technologyRequirement.technologyRequirementId}
+    </select>
+</mapper>

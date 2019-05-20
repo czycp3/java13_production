@@ -5,6 +5,8 @@ import com.cskaoyan.bean.Manufacture;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.ManufactureException;
 
+import java.util.List;
+
 /**
  * @author CZY-Y7000P
  */
@@ -64,4 +66,9 @@ public interface ManufactureService {
      * @return BaseResultVo
      */
     BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue, int page, int rows);
+
+
+    List<Manufacture> searchManufactureList();
+
+    Manufacture searchManufactureDetail(String manufactureId);
 }

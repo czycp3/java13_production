@@ -8,8 +8,10 @@ import com.cskaoyan.service.ProcessService;
 import com.cskaoyan.service.TechnologyPlanService;
 import com.cskaoyan.service.TechnologyService;
 import com.cskaoyan.service.impl.ProcessServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,10 +26,23 @@ public class ProcessController {
     @Autowired
     TechnologyService technologyService;
 
+    //--------接口--------
     @RequestMapping("/technologyPlan/get_data")
     @ResponseBody
     public List<TechnologyPlan> getTechnologyPlanData(){
         return technologyPlanService.selectByExample();
+    }
+
+    @RequestMapping("/process/get_data")
+    @ResponseBody
+    public List<Process> getData(){
+        return processService.selectAll();
+    }
+
+    @RequestMapping("/process/get/{processId}")
+    @ResponseBody
+    public Process getData(@PathVariable("processId") String processId){
+        return processService.selectByProcessId(processId);
     }
 
     @RequestMapping("/technology/get_data")
@@ -35,8 +50,6 @@ public class ProcessController {
     public List<Technology> getTechnologyData(){
         return technologyService.selectByExample();
     }
-
-
 
     @RequestMapping("/process/list")
     @ResponseBody
@@ -125,17 +138,4 @@ public class ProcessController {
         return processService.searchProcessByTechnologyPlanId(searchValue,page,rows);
     }
 
-    //------工艺计划编号列--------
-    @RequestMapping("/technologyPlan/edit_judge")
-    @ResponseBody
-    public QueryStatus technologyPlanEditJudge(){
-        return new QueryStatus();
-    }
-
-    //更新工艺计划信息
-    @RequestMapping("technologyPlan/update_all")
-    @ResponseBody
-    public QueryStatus updateAll(TechnologyPlan technologyPlan){
-        return technologyPlanService.updateAll(technologyPlan);
-    }
 }

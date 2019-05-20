@@ -133,4 +133,9 @@ public class TechnologyServiceImpl implements TechnologyService {
         return technologyMapper.selectToTalTechnology();
     }
 
+    @Override
+    public Technology selectByTechnologyId(String technologyId) {
+        return technologyMapper.selectByTechnologyId(technologyId);
+    }
+
 }

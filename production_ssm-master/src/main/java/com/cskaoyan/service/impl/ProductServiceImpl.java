@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Product;
 import com.cskaoyan.bean.ProductExample;
@@ -28,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo<Product> selectAllProduct(int page, int rows) {
         BaseResultVo<Product> baseResultVo = new BaseResultVo<>();
         ProductExample productExample = new ProductExample();
@@ -43,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Product product) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -59,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Product product) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -75,6 +79,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws ProductException {
         QueryStatus queryStatus = new QueryStatus();
@@ -93,12 +98,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public List<Product> selectByExample() {
         return productMapper.selectTotalProduct();
 
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchProductById(String searchValue, int page, int rows) {
         Product product = new Product();
         product.setProductId("%" + searchValue +"%");
@@ -106,6 +113,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchProductByName(String searchValue, int page, int rows) {
         Product product = new Product();
         product.setProductName("%" + searchValue +"%");
@@ -127,6 +135,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchProductByType(String searchValue, int page, int rows) {
         Product product = new Product();
         product.setProductType("%" + searchValue +"%");
@@ -134,6 +143,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @ProceedTime
     public Product searchProductDetail(String productId) {
         return productMapper.selectByPrimaryKey(productId);
     }

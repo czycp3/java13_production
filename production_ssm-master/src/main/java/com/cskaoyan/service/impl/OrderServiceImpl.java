@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.exception.OrderException;
 import com.cskaoyan.mapper.OrderMapper;
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo selectAllOrder(int page, int rows) {
         BaseResultVo<Order> baseResultVo = new BaseResultVo<>();
         OrderExample orderExample = new OrderExample();
@@ -40,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Order order) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -56,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Order order) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -72,6 +76,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws OrderException {
         QueryStatus queryStatus = new QueryStatus();
@@ -93,8 +98,7 @@ public class OrderServiceImpl implements OrderService {
     public BaseResultVo pageHandle(Order order,int rows,int page){
         BaseResultVo<Order> baseResultVo = new BaseResultVo<>();
         int total = orderMapper.selectCountOrderByCondition(order);
-        //查询分页信息
-        //如果总数小于单页条目数，则修改查询数目为total
+
         rows = total < rows ? total : rows;
         int offset = (page - 1) * rows;
         List<Order> orders = orderMapper.searchOrderByCondition(order, rows, offset);
@@ -105,6 +109,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchOrderById(String searchValue, int page, int rows) {
         Order order = new Order();
         Product product = new Product();
@@ -116,6 +121,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchOrderByCustomName(String searchValue, int page, int rows) {
         Custom custom = new Custom();
         custom.setCustomName("%" + searchValue +"%");
@@ -128,6 +134,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchOrderByProductName(String searchValue, int page, int rows) {
         Product product = new Product();
         product.setProductName("%" + searchValue +"%");
@@ -140,7 +147,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @ProceedTime
     public Order searchOrderDetail(String orderId) {
         return orderMapper.selectByPrimaryKey(orderId);
+    }
+
+    @Override
+    @ProceedTime
+    public List<Order> searchOrderList() {
+        return orderMapper.selectOrderList();
     }
 }

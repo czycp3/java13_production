@@ -16,6 +16,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 
 /**
@@ -183,5 +184,11 @@ public class OrderController {
     @ResponseBody
     public Order searchOrderDetail(@PathVariable("orderId") String orderId){
         return orderService.searchOrderDetail(orderId);
+    }
+
+    @RequestMapping("/order/get_data")
+    @ResponseBody
+    public List<Order> searchOrderData(){
+        return orderService.searchOrderList();
     }
 }

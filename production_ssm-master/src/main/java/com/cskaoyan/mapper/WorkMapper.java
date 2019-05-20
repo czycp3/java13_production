@@ -51,4 +51,8 @@ public interface WorkMapper {
      * @return List<Work>
      */
     List<Work> searchWorkByCondition(@Param("work") Work work, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<Work> selectWork();
+
+    Work selectMultByPrimaryKey(@Param("workId") String workId);
 }

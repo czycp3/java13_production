@@ -29,23 +29,23 @@
 
 <div  id="toolbar_task" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
 	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
-		<c:if test="${per=='task:add'}">
+	<%--<c:forEach items="${sessionScope.sysPermissionList}" var="per" >--%>
+		<%--<c:if test="${per=='task:add'}">--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="task_add()">新增</a>  
 		    </div>  
-		</c:if>
-		<c:if test="${per=='task:edit'}">
+		<%--</c:if>--%>
+		<%--<c:if test="${per=='task:edit'}">--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="task_edit()">编辑</a>  
 		    </div>  
-		</c:if>
-		<c:if test="${per=='task:delete'}">
+		<%--</c:if>--%>
+		<%--<c:if test="${per=='task:delete'}">--%>
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="task_delete()">删除</a>  
 		    </div>  
-		</c:if>
-	</c:forEach>
+		<%--</c:if>--%>
+	<%--</c:forEach>--%>
 	
 	<div class="datagrid-btn-separator"></div>  
 	
@@ -180,8 +180,8 @@ function doSearch_task(value,name){ //用户输入用户名,点击搜素,触发�
 				{field : 'workId', width : 100, align : 'center', title : '作业编号', formatter:formatTaskWork},
 				{field : 'manufactureSn', width : 100, align : 'center', title : '生产批号',
 					formatter:formatTaskManufacture},
-				{field : 'workingHours', width : 100, title : '派工数量', align:'center'},
-				{field : 'unitPrice', width : 100, title : '派工工时', align:'center'},
+				{field : 'taskQuantity', width : 100, title : '派工数量', align:'center'},
+				{field : 'workingHours', width : 100, title : '派工工时', align:'center'},
 	        ] ],  
 	    });
 	}else{
@@ -195,8 +195,8 @@ function doSearch_task(value,name){ //用户输入用户名,点击搜素,触发�
 				{field : 'workId', width : 100, align : 'center', title : '作业编号', formatter:formatTaskWork},
 				{field : 'manufactureSn', width : 100, align : 'center', title : '生产批号',
 					formatter:formatTaskManufacture},
-				{field : 'workingHours', width : 100, title : '派工数量', align:'center'},
-				{field : 'unitPrice', width : 100, title : '派工工时', align:'center'},
+				{field : 'taskQuantity', width : 100, title : '派工数量', align:'center'},
+				{field : 'workingHours', width : 100, title : '派工工时', align:'center'},
 	        ] ],  
 	    });
 	}

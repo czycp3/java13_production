@@ -240,6 +240,30 @@
         </where>
         limit #{rows} offset #{offset}
     </select>
+    <select id="selectWork" resultMap="workMap">
+        select w.work_id,w.process_number,w.device_id,d.device_name,
+               w.process_id,w.product_id,pt.product_name,w.rating
+        from work w
+        LEFT JOIN process ps
+        ON ps.process_id = w.process_id
+        LEFT JOIN product pt
+        ON pt.product_id = w.product_id
+        LEFT JOIN device d
+        ON d.device_id = w.device_id
+    </select>
+
+    <select id="selectMultByPrimaryKey" resultMap="workMap">
+        select w.work_id,w.process_number,w.device_id,d.device_name,
+               w.process_id,w.product_id,pt.product_name,w.rating
+        from work w
+        LEFT JOIN process ps
+        ON ps.process_id = w.process_id
+        LEFT JOIN product pt
+        ON pt.product_id = w.product_id
+        LEFT JOIN device d
+        ON d.device_id = w.device_id
+        where work_id = #{workId}
+    </select>
 
     <update id="updateByExampleSelective" parameterType="map">
         update work
