@@ -58,4 +58,10 @@ public interface TechnologyMapper {
      * @return
      */
     List<Technology> searchTechnologyByCondition(@Param("technology") Technology technology, @Param("rows") int rows, @Param("offset") int offset);
+
+    /**
+     * 查询所有工艺
+     * @return
+     */
+    List<Technology> selectToTalTechnology();
 }

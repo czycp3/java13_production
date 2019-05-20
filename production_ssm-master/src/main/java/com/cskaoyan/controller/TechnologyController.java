@@ -102,4 +102,5 @@ public class TechnologyController {
     public BaseResultVo searchTechnologybyName(String searchValue,int page, int rows){
         return technologyService.searchTechnologyByName(searchValue,page,rows);
     }
+
 }

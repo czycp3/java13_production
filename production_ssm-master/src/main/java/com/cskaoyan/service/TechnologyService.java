@@ -66,4 +66,10 @@ public interface TechnologyService {
      * @return
      */
     BaseResultVo searchTechnologyByName(String searchValue, int page, int rows);
+
+    /**
+     * 查询所有工艺
+     * @return
+     */
+    List<Technology> selectByExample();
 }

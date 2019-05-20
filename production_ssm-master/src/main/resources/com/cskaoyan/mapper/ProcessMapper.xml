@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cskaoyan.mapper.ProcessMapper">
+    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.Process">
+        <id column="process_id" jdbcType="VARCHAR" property="processId" />
+        <result column="technology_plan_id" jdbcType="VARCHAR" property="technologyPlanId" />
+        <result column="sequence" jdbcType="VARCHAR" property="sequence" />
+        <result column="quota" jdbcType="VARCHAR" property="quota" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        process_id,
+        technology_plan_id,
+        sequence,
+        quota
+    </sql>
+
+    <!--查询工序列表-->
+    <select id="selectAllProcess" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from process
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="selectCountProcess" resultType="integer">
+        select count(*) from process
+    </select>
+
+    <!--插入一条工序-->
+    <select id="insert"  parameterType="com.cskaoyan.bean.Process">
+        insert into process(<include refid="Base_Column_List"/>)
+        values(#{processId},#{technologyPlanId},#{sequence},#{quota})
+    </select>
+
+    <!--按processId删除某个工序-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from process
+          where process_id = #{processId}
+  </delete>
+
+    <!--更新某个工序-->
+    <select id="updateAll" parameterType="com.cskaoyan.bean.Process">
+        update process
+          set technology_plan_id = #{technologyPlanId},
+            sequence = #{sequence},
+            quota = #{quota}
+          where process_id = #{processId}
+    </select>
+
+    <!--模糊查询-->
+    <select id="selectCountProcessByCondition" resultType="integer">
+        select count(*) from process
+        <where>
+            <if test="record.processId != null">
+                process_id like #{record.processId}
+            </if>
+            <if test="record.technologyPlanId != null">
+                technology_plan_id like #{record.technologyPlanId}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchProcessByCondition" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from process
+        <where>
+            <if test="process.processId != null">
+                process_id like #{process.processId}
+            </if>
+            <if test="process.technologyPlanId != null">
+                technology_plan_id like #{process.technologyPlanId}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+</mapper>

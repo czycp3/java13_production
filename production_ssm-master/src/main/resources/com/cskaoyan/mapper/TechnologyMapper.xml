@@ -94,4 +94,11 @@
         limit #{rows} offset #{offset}
     </select>
 
+    <!--查询所有工艺-->
+    <select id="selectToTalTechnology" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from technology
+    </select>
+
 </mapper>

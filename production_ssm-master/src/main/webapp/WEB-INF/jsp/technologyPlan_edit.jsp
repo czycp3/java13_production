@@ -10,7 +10,7 @@
 	            <td>工艺名称:</td>
 	            <td>
 	            	
-	            	<input class="easyui-combobox" name="technologyId" panelHeight="auto"  
+	            	<input class="easyui-combobox" name="technologyId" panelHeight="auto"
     					data-options="required:true,valueField:'technologyId',textField:'technologyName',
     						url:'technology/get_data',editable:false" /> 
 	            </td>
@@ -44,13 +44,13 @@
 	        <tr>
 	            <td>工艺计划开始时间:</td>
 	            <td>
-	            	<input class="easyui-datetimebox" name="technologyStartPlan"/>
+	            	<input class="easyui-datetimebox" name="technologyPlanStart"/>
 	            </td>
 	        </tr>
 	        <tr>
 	            <td>工艺计划结束时间:</td>
 	            <td>
-		            <input class="easyui-datetimebox" name="technologyEndPlan"/>
+		            <input class="easyui-datetimebox" name="technologyPlanEnd"/>
 				</td>
 	        </tr>
 	         
@@ -66,9 +66,9 @@
 	
 	function submitTechnologyPlanEditForm(){
 		$.get("technologyPlan/edit_judge",'',function(data){
-    		/* if(data.msg != null){
+    		if(data.msg != null){
     			$.messager.alert('提示', data.msg);
-    		}else{ */
+    		}else{
     			if(!$('#technologyPlanEditForm').form('validate')){
     				$.messager.alert('提示','表单还未填写完成!');
     				return ;

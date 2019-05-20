@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cskaoyan.mapper.TechnologyPlanMapper">
+    <resultMap id="BaseResultMap" type="com.cskaoyan.bean.TechnologyPlan">
+        <id column="technology_plan_id" property="technologyPlanId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="batch_amount" property="batchAmount"/>
+        <result column="start_plan" property="startPlan"/>
+        <result column="end_plan" property="endPlan"/>
+        <result column="commit_plan" property="commitPlan"/>
+        <result column="technology_plan_start" property="technologyPlanStart"/>
+        <result column="technology_plan_end" property="technologyPlanEnd"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        technology_plan_id,
+        technology_id,
+        batch_amount,
+        start_plan,
+        end_plan,
+        commit_plan,
+        technology_plan_start，
+        technology_plan_end
+    </sql>
+
+    <!--查询所有工艺计划-->
+    <select id="selectToTalTechnologyPlan" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from technology_plan
+    </select>
+
+    <!--根据Id更新某个工艺计划-->
+    <select id="updateAllByTechnologyPlanId" parameterType="com.cskaoyan.bean.TechnologyPlan">
+        update technology_plan
+        set
+            technology_id = #{technologyId},
+            batch_amount = #{batchAmount},
+            start_plan = #{startPlan},
+            end_plan = #{endPlan},
+            commit_plan = #{commitPlan},
+            technology_plan_start = #{technologyPlanStart},
+            technology_plan_end = #{technologyPlanEnd}
+          where technology_plan_id = #{technologyPlanId}
+    </select>
+</mapper>

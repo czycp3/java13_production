@@ -1,13 +1,11 @@
 package com.cskaoyan.service.impl;
 
 import com.cskaoyan.bean.BaseResultVo;
+import com.cskaoyan.bean.Process;
 import com.cskaoyan.bean.QueryStatus;
-import com.cskaoyan.bean.Technology;
 import com.cskaoyan.exception.TechnologyException;
-import com.cskaoyan.mapper.TechnologyMapper;
-import com.cskaoyan.service.TechnologyService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cskaoyan.mapper.ProcessMapper;
+import com.cskaoyan.service.ProcessService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,45 +13,36 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * @Author cly
- */
 @Service
-public class TechnologyServiceImpl implements TechnologyService {
+public class ProcessServiceImpl implements ProcessService {
+    private ProcessMapper processMapper;
 
-    private final TechnologyMapper technologyMapper;
-    Logger logger = Logger.getLogger(this.getClass());
-
-    @Autowired
-    public TechnologyServiceImpl(TechnologyMapper technologyMapper){
-        this.technologyMapper = technologyMapper;
+    public ProcessServiceImpl(ProcessMapper processMapper) {
+        this.processMapper = processMapper;
     }
 
     @Override
-    public List<Technology> selectAllTechnology(int page, int rows) {
-        //查询technology总记录数
-        int total = technologyMapper.selectCountTechnology();
-        //如果总数小于单页条目数，则修改查询数目为total
-        rows = total < rows ? total : rows;
+    public List<Process> selectAllProcess(int page, int rows) {
         int offset = (page - 1) * rows;
-        return technologyMapper.selectAllTechnology(rows,offset);
+        return processMapper.selectAllProcess(rows,offset);
     }
 
     @Override
-    public int selectCountTechnology() {
-        return technologyMapper.selectCountTechnology();
+    public int selectCountProcess() {
+        return processMapper.selectCountProcess();
     }
 
     @Override
-    public QueryStatus insert(Technology record) {
+    public QueryStatus insert(Process record) {
         QueryStatus queryStatus = new QueryStatus();
         try {
-            technologyMapper.insert(record);
+            processMapper.insert(record);
+
             queryStatus.setStatus(200);
             queryStatus.setMsg("OK");
         }catch (Exception e){
             queryStatus.setStatus(0);
-            queryStatus.setMsg("该工艺编号已经存在，请更换工艺编号！");
+            queryStatus.setMsg("该工序编号已经存在，请更换工艺编号！");
         }
         return queryStatus;
     }
@@ -64,7 +53,7 @@ public class TechnologyServiceImpl implements TechnologyService {
         QueryStatus queryStatus = new QueryStatus();
         try {
             for (String id : ids) {
-                technologyMapper.deleteByPrimaryKey(id);
+                processMapper.deleteByPrimaryKey(id);
             }
             queryStatus.setStatus(200);
             queryStatus.setMsg("OK");
@@ -77,10 +66,10 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public QueryStatus updateAll(Technology technology) {
+    public QueryStatus updateAll(Process process) {
         QueryStatus queryStatus = new QueryStatus();
         try {
-            technologyMapper.updateAll(technology);
+            processMapper.updateAll(process);
             queryStatus.setStatus(200);
             queryStatus.setMsg("OK");
         } catch (SQLException e) {
@@ -91,18 +80,18 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public BaseResultVo searchTechnologyById(String searchValue, int page, int rows) {
-        BaseResultVo<Technology> baseResultVo = new BaseResultVo<>();
+    public BaseResultVo searchProcessByProcessId(String searchValue, int page, int rows) {
+        BaseResultVo<Process> baseResultVo = new BaseResultVo<>();
         //按条件查询总条目
-        Technology technology = new Technology();
-        technology.setTechnologyId("%" + searchValue +"%");
-        int total = technologyMapper.selectCountTechnologyByCondition(technology);
+        Process process = new Process();
+        process.setProcessId("%" + searchValue +"%");
+        int total = processMapper.selectCountProcessByCondition(process);
         //查询分页信息
         //如果总数小于单页条目数，则修改查询数目为total
         rows = total < rows ? total : rows;
         int offset = (page - 1) * rows;
-        List<Technology> technologys = technologyMapper.searchTechnologyByCondition(technology, rows, offset);
-        logger.debug(technologys);
+        List<Process> technologys = processMapper.searchProcessByCondition(process, rows, offset);
+//        logger.debug(technologys);
         //封装list和total
         baseResultVo.setRows(technologys);
         baseResultVo.setTotal(total);
@@ -110,27 +99,20 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public BaseResultVo searchTechnologyByName(String searchValue, int page, int rows) {
-        BaseResultVo<Technology> baseResultVo = new BaseResultVo<>();
+    public BaseResultVo searchProcessByTechnologyPlanId(String searchValue, int page, int rows) {
+        BaseResultVo<Process> baseResultVo = new BaseResultVo<>();
         //按条件查询总条目
-        Technology technology = new Technology();
-        technology.setTechnologyName("%" + searchValue +"%");
-        int total = technologyMapper.selectCountTechnologyByCondition(technology);
+        Process technology = new Process();
+        technology.setTechnologyPlanId("%" + searchValue +"%");
+        int total = processMapper.selectCountProcessByCondition(technology);
         //查询分页信息
         //如果总数小于单页条目数，则修改查询数目为total
         rows = total < rows ? total : rows;
         int offset = (page - 1) * rows;
-        List<Technology> technologys = technologyMapper.searchTechnologyByCondition(technology, rows, offset);
-        logger.debug(technologys);
+        List<Process> technologys = processMapper.searchProcessByCondition(technology, rows, offset);
         //封装list和total
         baseResultVo.setRows(technologys);
         baseResultVo.setTotal(total);
         return baseResultVo;
     }
-
-    @Override
-    public List<Technology> selectByExample() {
-        return technologyMapper.selectToTalTechnology();
-    }
-
 }
