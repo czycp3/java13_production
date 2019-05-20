@@ -35,4 +35,20 @@ public interface ManufactureMapper {
      * @return
      */
     List<Manufacture> selectAllManufacture(@Param("rows")int rows, @Param("offset") int offset);
+
+    /**
+     * 条件查询
+     * @param manufacture
+     * @return 条目数
+     */
+    int selectCountOrderByCondition(@Param("manufacture") Manufacture manufacture);
+
+    /**
+     * 条件查询
+     * @param manufacture
+     * @param rows
+     * @param offset
+     * @return 条目数
+     */
+    List<Manufacture> searchOrderByCondition(@Param("manufacture") Manufacture manufacture, @Param("rows") int rows, @Param("offset") int offset);
 }

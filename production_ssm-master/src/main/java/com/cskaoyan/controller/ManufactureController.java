@@ -92,4 +92,24 @@ public class ManufactureController {
     public QueryStatus deleteJudge(){
         return new QueryStatus();
     }
+
+    /**********查询生产计划*****************/
+
+    @RequestMapping("/manufacture/search_manufacture_by_manufactureSn")
+    @ResponseBody
+    public BaseResultVo searchManufactureByManufactureSn(String searchValue,int page, int rows){
+        return manufactureService.searchManufactureByManufactureSn(searchValue,page,rows);
+    }
+
+    @RequestMapping("/manufacture/search_manufacture_by_manufactureOrderId")
+    @ResponseBody
+    public BaseResultVo searchManufactureByManufactureOrderId(String searchValue,int page, int rows){
+        return manufactureService.searchManufactureByManufactureOrderId(searchValue,page,rows);
+    }
+
+    @RequestMapping("/manufacture/search_manufacture_by_manufactureTechnologyName")
+    @ResponseBody
+    public BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue,int page, int rows){
+        return manufactureService.searchManufactureByManufactureTechnologyName(searchValue,page,rows);
+    }
 }

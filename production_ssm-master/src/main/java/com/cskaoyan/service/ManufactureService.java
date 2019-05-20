@@ -37,4 +37,31 @@ public interface ManufactureService {
      * @return
      */
     QueryStatus deleteBatch(String[] ids) throws ManufactureException;
+
+    /**
+     * 按生产批号查询
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchManufactureByManufactureSn(String searchValue, int page, int rows);
+
+    /**
+     * 按订单号查询
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchManufactureByManufactureOrderId(String searchValue, int page, int rows);
+
+    /**
+     * 按工艺查询
+     * @param searchValue
+     * @param page
+     * @param rows
+     * @return BaseResultVo
+     */
+    BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue, int page, int rows);
 }

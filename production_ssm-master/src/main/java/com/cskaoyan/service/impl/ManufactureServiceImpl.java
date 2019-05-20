@@ -1,9 +1,6 @@
 package com.cskaoyan.service.impl;
 
-import com.cskaoyan.bean.BaseResultVo;
-import com.cskaoyan.bean.Manufacture;
-import com.cskaoyan.bean.ManufactureExample;
-import com.cskaoyan.bean.QueryStatus;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.exception.ManufactureException;
 import com.cskaoyan.mapper.ManufactureMapper;
 import com.cskaoyan.service.ManufactureService;
@@ -87,5 +84,55 @@ public class ManufactureServiceImpl implements ManufactureService {
             throw new ManufactureException("删除出现故障，请重新尝试");
         }
         return queryStatus;
+    }
+
+    public BaseResultVo pageHandle(Manufacture manufacture,int rows,int page){
+        BaseResultVo<Manufacture> baseResultVo = new BaseResultVo<>();
+        int total = manufactureMapper.selectCountOrderByCondition(manufacture);
+        //查询分页信息
+        //如果总数小于单页条目数，则修改查询数目为total
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<Manufacture> orders = manufactureMapper.searchOrderByCondition(manufacture, rows, offset);
+        //封装list和total
+        baseResultVo.setRows(orders);
+        baseResultVo.setTotal(total);
+        return baseResultVo;
+    }
+
+    @Override
+    public BaseResultVo searchManufactureByManufactureSn(String searchValue, int page, int rows) {
+        Manufacture manufacture = new Manufacture();
+        Order order = new Order();
+        Technology technology = new Technology();
+
+        manufacture.setManufactureSn("%" + searchValue +"%");
+        manufacture.setcOrder(order);
+        manufacture.setTechnology(technology);
+        return pageHandle(manufacture,rows,page);
+    }
+
+    @Override
+    public BaseResultVo searchManufactureByManufactureOrderId(String searchValue, int page, int rows) {
+        Manufacture manufacture = new Manufacture();
+        Order order = new Order();
+        Technology technology = new Technology();
+
+        order.setOrderId("%" + searchValue +"%");
+        manufacture.setcOrder(order);
+        manufacture.setTechnology(technology);
+        return pageHandle(manufacture,rows,page);
+    }
+
+    @Override
+    public BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue, int page, int rows) {
+        Manufacture manufacture = new Manufacture();
+        Order order = new Order();
+        Technology technology = new Technology();
+
+        technology.setTechnologyName("%" + searchValue +"%");
+        manufacture.setcOrder(order);
+        manufacture.setTechnology(technology);
+        return pageHandle(manufacture,rows,page);
     }
 }

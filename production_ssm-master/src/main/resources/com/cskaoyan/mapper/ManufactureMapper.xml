@@ -183,6 +183,47 @@
         ON m.technology_id = t.technology_id
         limit #{rows} offset #{offset}
     </select>
+    <select id="selectCountOrderByCondition" resultType="java.lang.Integer">
+        select count(*) FROM manufacture m
+        LEFT JOIN c_order o
+        ON m.order_id = o.order_id
+        LEFT JOIN technology t
+        ON m.technology_id = t.technology_id
+        <where>
+            <if test="manufacture.manufactureSn != null">
+                and manufacture_sn like #{manufacture.manufactureSn}
+            </if>
+            <if test="manufacture.cOrder.orderId != null">
+                and o.order_id like #{manufacture.cOrder.orderId}
+            </if>
+            <if test="manufacture.technology.technologyName != null">
+                and technology_name like #{manufacture.technology.technologyName}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchOrderByCondition" resultMap="manuResultMap">
+        SELECT m.manufacture_sn,m.order_id,m.technology_id,t.technology_name,
+        m.launch_quantity,m.begin_date,m.end_date
+        FROM manufacture m
+        LEFT JOIN c_order o
+        ON m.order_id = o.order_id
+        LEFT JOIN technology t
+        ON m.technology_id = t.technology_id
+        <where>
+            <if test="manufacture.manufactureSn != null">
+                and manufacture_sn like #{manufacture.manufactureSn}
+            </if>
+            <if test="manufacture.cOrder.orderId != null">
+                and o.order_id like #{manufacture.cOrder.orderId}
+            </if>
+            <if test="manufacture.technology.technologyName != null">
+                and technology_name like #{manufacture.technology.technologyName}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
     <update id="updateByExampleSelective" parameterType="map">
         update manufacture
         <set>
