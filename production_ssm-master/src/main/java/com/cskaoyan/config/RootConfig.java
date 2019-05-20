@@ -19,6 +19,7 @@ import java.sql.SQLException;
 @Configuration
 @ImportResource("classpath:application.xml")
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.cskaoyan",
 		excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {Controller.class,EnableWebMvc.class})})
 public class RootConfig {

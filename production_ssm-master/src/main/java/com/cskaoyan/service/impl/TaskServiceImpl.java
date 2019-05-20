@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.exception.TaskException;
 import com.cskaoyan.mapper.TaskMapper;
@@ -26,6 +27,7 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
+    @ProceedTime
     public BaseResultVo selectAllTask(int page, int rows) {
         BaseResultVo<Task> baseResultVo = new BaseResultVo<>();
         TaskExample taskExample = new TaskExample();
@@ -41,6 +43,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Task task) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -57,6 +60,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Task task) {
 
         QueryStatus queryStatus = new QueryStatus();
@@ -74,6 +78,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws TaskException {
         QueryStatus queryStatus = new QueryStatus();
@@ -105,6 +110,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchTaskByTaskId(String searchValue, int page, int rows) {
         Task task = new Task();
         Work work = new Work();
@@ -116,6 +122,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchTaskByWorkId(String searchValue, int page, int rows) {
         Task task = new Task();
         Work work = new Work();
@@ -129,6 +136,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchTaskByManufactureSn(String searchValue, int page, int rows) {
         Task task = new Task();
         Work work = new Work();

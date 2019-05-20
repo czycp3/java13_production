@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.Custom;
 import com.cskaoyan.bean.QueryStatus;
@@ -33,6 +34,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public List<Custom> selectAllCustom(int page,int rows) {
         //查询custom总记录数
         int total = customMapper.selectCountCustom();
@@ -43,6 +45,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Custom record) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -59,6 +62,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws CustomException {
         QueryStatus queryStatus = new QueryStatus();
@@ -77,6 +81,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Custom record) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -98,6 +103,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchCustomById(String searchValue, int page, int rows) {
         BaseResultVo<Custom> baseResultVo = new BaseResultVo<>();
         //按条件查询总条目
@@ -119,6 +125,7 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchCustomByName(String searchValue, int page, int rows) {
         BaseResultVo<Custom> baseResultVo = new BaseResultVo<>();
         //按条件查询总条目
@@ -136,11 +143,13 @@ public class CustomServiceImpl implements CustomService {
     }
 
     @Override
+    @ProceedTime
     public Custom searchCustomDetail(String customID) {
         return customMapper.selectByPrimaryKey(customID);
     }
 
     @Override
+    @ProceedTime
     public List<Custom> selectByExample() {
         return customMapper.selectTotalCustom();
     }

@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.exception.ManufactureException;
 import com.cskaoyan.mapper.ManufactureMapper;
@@ -25,6 +26,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo selectAllManufacture(int page, int rows) {
         BaseResultVo<Manufacture> baseResultVo = new BaseResultVo<>();
         ManufactureExample manufactureExample = new ManufactureExample();
@@ -40,6 +42,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Manufacture manufacture) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -56,6 +59,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Manufacture manufacture) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -72,6 +76,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws ManufactureException {
         QueryStatus queryStatus = new QueryStatus();
@@ -104,6 +109,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchManufactureByManufactureSn(String searchValue, int page, int rows) {
         Manufacture manufacture = new Manufacture();
         Order order = new Order();
@@ -116,6 +122,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchManufactureByManufactureOrderId(String searchValue, int page, int rows) {
         Manufacture manufacture = new Manufacture();
         Order order = new Order();
@@ -128,6 +135,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchManufactureByManufactureTechnologyName(String searchValue, int page, int rows) {
         Manufacture manufacture = new Manufacture();
         Order order = new Order();
@@ -140,11 +148,13 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @ProceedTime
     public Manufacture searchManufactureDetail(String manufactureId) {
         return manufactureMapper.selectByPrimaryKey(manufactureId);
     }
 
     @Override
+    @ProceedTime
     public List<Manufacture> searchManufactureList() {
         return manufactureMapper.selectManufacture();
     }

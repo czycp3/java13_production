@@ -1,5 +1,6 @@
 package com.cskaoyan.service.impl;
 
+import com.cskaoyan.annotation.ProceedTime;
 import com.cskaoyan.bean.*;
 import com.cskaoyan.bean.Process;
 import com.cskaoyan.exception.WorkException;
@@ -26,6 +27,7 @@ public class WorkServiceImpl implements WorkService {
 
 
     @Override
+    @ProceedTime
     public BaseResultVo selectAllWork(int page, int rows) {
         BaseResultVo<Work> baseResultVo = new BaseResultVo<>();
         WorkExample workExample = new WorkExample();
@@ -41,6 +43,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus insert(Work work) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -57,6 +60,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public QueryStatus updateByPrimaryKeySelective(Work work) {
         QueryStatus queryStatus = new QueryStatus();
         try {
@@ -73,6 +77,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws WorkException {
         QueryStatus queryStatus = new QueryStatus();
@@ -105,6 +110,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchWorkById(String searchValue, int page, int rows) {
         Work work = new Work();
         Product product = new Product();
@@ -118,6 +124,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchWorkByProduct(String searchValue, int page, int rows) {
         Work work = new Work();
         Product product = new Product();
@@ -132,6 +139,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchWorkByDevice(String searchValue, int page, int rows) {
         Work work = new Work();
         Product product = new Product();
@@ -146,6 +154,7 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public BaseResultVo searchWorkByProcess(String searchValue, int page, int rows) {
         Work work = new Work();
         Product product = new Product();
@@ -160,11 +169,13 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
+    @ProceedTime
     public Work searchWorkDetail(String workId) {
         return workMapper.selectMultByPrimaryKey(workId);
     }
 
     @Override
+    @ProceedTime
     public List<Work> searchWorkList() {
         return workMapper.selectWork();
     }
