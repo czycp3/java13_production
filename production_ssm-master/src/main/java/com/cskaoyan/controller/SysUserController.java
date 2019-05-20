@@ -29,7 +29,7 @@ public class SysUserController {
         }
 
     }
-    
+
 
     @RequestMapping("/ajaxLogin")
     @ResponseBody
@@ -40,9 +40,11 @@ public class SysUserController {
             map.put("msg","account_error");
         }else if (!password.equals(sysUser.getPassword())){
             map.put("msg","password_error");
+        } else {
+            session.setAttribute("activeUser",sysUser);
         }
 
-        session.setAttribute("activeUser",sysUser);
+
         return map;
     }
 
