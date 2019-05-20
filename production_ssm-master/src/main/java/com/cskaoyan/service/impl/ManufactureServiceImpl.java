@@ -6,6 +6,8 @@ import com.cskaoyan.mapper.ManufactureMapper;
 import com.cskaoyan.service.ManufactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -70,6 +72,7 @@ public class ManufactureServiceImpl implements ManufactureService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public QueryStatus deleteBatch(String[] ids) throws ManufactureException {
         QueryStatus queryStatus = new QueryStatus();
         try {

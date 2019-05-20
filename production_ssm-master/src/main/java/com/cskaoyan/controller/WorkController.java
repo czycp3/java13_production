@@ -74,7 +74,7 @@ public class WorkController {
     }
 
 
-    /**********删除订单*****************/
+    /**********删除作业*****************/
 
     @RequestMapping("/work/delete_batch")
     @ResponseBody

@@ -93,8 +93,7 @@ public class OrderServiceImpl implements OrderService {
     public BaseResultVo pageHandle(Order order,int rows,int page){
         BaseResultVo<Order> baseResultVo = new BaseResultVo<>();
         int total = orderMapper.selectCountOrderByCondition(order);
-        //查询分页信息
-        //如果总数小于单页条目数，则修改查询数目为total
+
         rows = total < rows ? total : rows;
         int offset = (page - 1) * rows;
         List<Order> orders = orderMapper.searchOrderByCondition(order, rows, offset);
