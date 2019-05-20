@@ -62,4 +62,16 @@ public interface ProcessService {
      */
     BaseResultVo searchProcessByTechnologyPlanId(String searchValue, int page, int rows);
 
+    /**
+     * 接口，返回所有工序
+     * @return
+     */
+    List<Process> selectAll();
+
+    /**
+     * 接口，按ID返回某个工序
+     * @param processId
+     * @return
+     */
+    Process selectByProcessId(String processId);
 }

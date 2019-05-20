@@ -15,11 +15,12 @@ public class TechnologyPlan {
     private String commitPlan;
     private String technologyPlanStart;
     private String technologyPlanEnd;
+    private String technologyName;
 
     public TechnologyPlan() {
     }
 
-    public TechnologyPlan(String technologyPlanId, String technologyId, Integer batchAmount, String startPlan, String endPlan, String commitPlan, String technologyPlanStart, String technologyPlanEnd) {
+    public TechnologyPlan(String technologyPlanId, String technologyId, Integer batchAmount, String startPlan, String endPlan, String commitPlan, String technologyPlanStart, String technologyPlanEnd, String technologyName) {
         this.technologyPlanId = technologyPlanId;
         this.technologyId = technologyId;
         this.batchAmount = batchAmount;
@@ -28,6 +29,7 @@ public class TechnologyPlan {
         this.commitPlan = commitPlan;
         this.technologyPlanStart = technologyPlanStart;
         this.technologyPlanEnd = technologyPlanEnd;
+        this.technologyName = technologyName;
     }
 
     public String getTechnologyPlanId() {
@@ -94,6 +96,14 @@ public class TechnologyPlan {
         this.technologyPlanEnd = technologyPlanEnd;
     }
 
+    public String getTechnologyName() {
+        return technologyName;
+    }
+
+    public void setTechnologyName(String technologyName) {
+        this.technologyName = technologyName;
+    }
+
     @Override
     public String toString() {
         return "TechnologyPlan{" +
@@ -105,6 +115,7 @@ public class TechnologyPlan {
                 ", commitPlan='" + commitPlan + '\'' +
                 ", technologyPlanStart='" + technologyPlanStart + '\'' +
                 ", technologyPlanEnd='" + technologyPlanEnd + '\'' +
+                ", technologyName='" + technologyName + '\'' +
                 '}';
     }
 }

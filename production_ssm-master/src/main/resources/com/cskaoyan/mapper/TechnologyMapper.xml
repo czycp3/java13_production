@@ -101,4 +101,9 @@
         from technology
     </select>
 
+    <!--接口-->
+    <select id="selectByTechnologyId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from technology where technology_id = #{technologyId}
+    </select>
+
 </mapper>

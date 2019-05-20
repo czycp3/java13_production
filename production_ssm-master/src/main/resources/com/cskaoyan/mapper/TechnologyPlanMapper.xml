@@ -13,6 +13,7 @@
         <result column="commit_plan" property="commitPlan"/>
         <result column="technology_plan_start" property="technologyPlanStart"/>
         <result column="technology_plan_end" property="technologyPlanEnd"/>
+        <result column="technology_name" property="technologyName"/>
     </resultMap>
     <sql id="Base_Column_List">
         technology_plan_id,
@@ -28,8 +29,38 @@
     <!--查询所有工艺计划-->
     <select id="selectToTalTechnologyPlan" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
-        from technology_plan
+			technology_plan_id,
+			technology_name,
+			a.technology_id,
+            batch_amount,
+            start_plan,
+            end_plan,
+            commit_plan,
+            technology_plan_start,
+            technology_plan_end
+		from technology_plan a,technology b
+		where a.technology_id = b.technology_id
+    </select>
+
+    <!--分页查询工艺计划列表-->
+    <select id="selectAllTechnologyPlan" resultMap="BaseResultMap">
+        select
+			technology_name,
+			technology_plan_id,
+			a.technology_id,
+            batch_amount,
+            start_plan,
+            end_plan,
+            commit_plan,
+            technology_plan_start,
+            technology_plan_end
+		from technology_plan a,technology b
+		where a.technology_id = b.technology_id
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="selectCountTechnologyPlan" resultType="integer">
+        select count(*) from technology_plan
     </select>
 
     <!--根据Id更新某个工艺计划-->
@@ -45,4 +76,52 @@
             technology_plan_end = #{technologyPlanEnd}
           where technology_plan_id = #{technologyPlanId}
     </select>
+
+    <!--添加-->
+    <select id="insert"  parameterType="com.cskaoyan.bean.TechnologyPlan">
+        insert into technology_plan (<include refid="Base_Column_List"/>)
+        values (#{technologyPlanId},#{technologyId},#{batchAmount},#{startPlan},#{endPlan},#{commitPlan},#{technologyPlanStart},#{technologyPlanEnd})
+    </select>
+
+    <!--批量删除-->
+     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from technology_plan
+          where technology_plan_id = #{technologyPlanId}
+    </delete>
+
+    <select id="selectCountTechnologyPlanByCondition" resultType="integer">
+        <if test="technologyPlan.technologyPlanId != null">
+            select count(*) from technology_plan
+              where technology_plan_id like #{technologyPlan.technologyPlanId}
+        </if>
+        <if test="technologyPlan.technologyName != null">
+            select count(*) from technology_plan a,technology b
+            where a.technology_id = b.technology_id and technology_name like #{technologyPlan.technologyName}
+        </if>
+    </select>
+
+    <select id="searchTechnologyPlanByCondition" resultMap="BaseResultMap">
+        select
+            technology_plan_id,
+            technology_name,
+            a.technology_id,
+            batch_amount,
+            start_plan,
+            end_plan,
+            commit_plan,
+            technology_plan_start,
+            technology_plan_end
+        from technology_plan a,technology b
+        <where>
+            a.technology_id = b.technology_id
+            <if test="technologyPlan.technologyPlanId != null">
+                and technology_plan_id like #{technologyPlan.technologyPlanId}
+            </if>
+            <if test="technologyPlan.technologyName != null">
+                and technology_name like #{technologyPlan.technologyName}
+            </if>
+        </where>
+        limit #{rows} offset #{offset}
+    </select>
+
 </mapper>

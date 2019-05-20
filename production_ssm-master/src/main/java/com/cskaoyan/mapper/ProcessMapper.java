@@ -55,4 +55,8 @@ public interface ProcessMapper {
      * @return
      */
     List<Process> searchProcessByCondition(@Param("process") Process process, @Param("rows") int rows,@Param("offset") int offset);
+
+    List<Process> selectAll();
+
+    Process selectByProcessId(@Param("processId") String processId);
 }

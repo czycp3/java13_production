@@ -77,4 +77,12 @@
         </where>
         limit #{rows} offset #{offset}
     </select>
+
+    <!--接口-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from process
+    </select>
+    <select id="selectByProcessId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from process where process_id = #{processId}
+    </select>
 </mapper>

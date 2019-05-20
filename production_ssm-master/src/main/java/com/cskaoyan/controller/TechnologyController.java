@@ -5,8 +5,10 @@ import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.bean.Technology;
 import com.cskaoyan.exception.TechnologyException;
 import com.cskaoyan.service.TechnologyService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,6 +18,13 @@ import java.util.List;
 public class TechnologyController {
     @Autowired
     TechnologyService technologyService;
+
+    //------接口--------
+    @RequestMapping("/technology/get/{technologyId}")
+    @ResponseBody
+    public Technology getData(@PathVariable("technologyId") String technologyId){
+        return technologyService.selectByTechnologyId(technologyId);
+    }
 
     //------查询列表--------
     @RequestMapping("/technology/list")

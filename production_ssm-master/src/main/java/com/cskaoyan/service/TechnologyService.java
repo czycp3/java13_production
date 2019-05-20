@@ -72,4 +72,11 @@ public interface TechnologyService {
      * @return
      */
     List<Technology> selectByExample();
+
+    /**
+     * 接口，通过Id查询某个工艺
+     * @param technologyId
+     * @return
+     */
+    Technology selectByTechnologyId(String technologyId);
 }

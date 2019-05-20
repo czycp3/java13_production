@@ -115,4 +115,14 @@ public class ProcessServiceImpl implements ProcessService {
         baseResultVo.setTotal(total);
         return baseResultVo;
     }
+
+    @Override
+    public List<Process> selectAll() {
+        return processMapper.selectAll();
+    }
+
+    @Override
+    public Process selectByProcessId(String processId) {
+        return processMapper.selectByProcessId(processId);
+    }
 }
