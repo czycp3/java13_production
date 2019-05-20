@@ -1,0 +1,19 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.SysUserMapper">
+
+    <resultMap id="sysUser" type="com.cskaoyan.bean.SysUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="locked" property="locked" />
+    </resultMap>
+
+    <select id="findByUsername" resultMap="sysUser" >
+        select id,username,password,locked
+        from sys_user
+        where username = #{username}
+    </select>
+
+
+
+</mapper>
