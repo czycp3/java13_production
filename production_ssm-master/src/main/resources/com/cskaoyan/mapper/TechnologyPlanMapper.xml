@@ -21,7 +21,7 @@
         start_plan,
         end_plan,
         commit_plan,
-        technology_plan_start，
+        technology_plan_start,
         technology_plan_end
     </sql>
 
