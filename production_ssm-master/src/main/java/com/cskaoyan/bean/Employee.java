@@ -20,6 +20,23 @@ public class Employee {
     String major;
     String sex;
     String status;
+    String departmentId;
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate;
+    }
 
     @Override
     public String toString() {
@@ -37,6 +54,7 @@ public class Employee {
                 ", major='" + major + '\'' +
                 ", sex='" + sex + '\'' +
                 ", status='" + status + '\'' +
+                ", departmentId='" + departmentId + '\'' +
                 '}';
     }
 

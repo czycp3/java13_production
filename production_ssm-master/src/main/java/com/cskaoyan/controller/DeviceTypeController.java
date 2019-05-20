@@ -32,8 +32,8 @@ public class DeviceTypeController {
     }
     @RequestMapping("/deviceType/list")
     @ResponseBody
-    public BaseResultVo queryDeviceTypeList(){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeList();
+    public BaseResultVo queryDeviceTypeList(int rows,int page){
+        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeList(rows,page);
         baseResultVo.setTotal(deviceTypeList.size());
         baseResultVo.setRows(deviceTypeList);
         return baseResultVo;
@@ -44,8 +44,8 @@ public class DeviceTypeController {
     * */
     @RequestMapping("/deviceType/search_deviceType_by_deviceTypeId")
     @ResponseBody
-    public BaseResultVo queryDeviceTypeById(String searchValue){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeById(searchValue);
+    public BaseResultVo queryDeviceTypeById(String searchValue,int rows,int page){
+        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeById(searchValue,rows,page);
         baseResultVo.setTotal(deviceTypeList.size());
         baseResultVo.setRows(deviceTypeList);
         return baseResultVo;
@@ -56,8 +56,8 @@ public class DeviceTypeController {
     * */
     @RequestMapping("/deviceType/search_deviceType_by_deviceTypeName")
     @ResponseBody
-    public BaseResultVo queryDeviceTypeByName(String searchValue){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeByName(searchValue);
+    public BaseResultVo queryDeviceTypeByName(String searchValue,int rows,int page){
+        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeByName(searchValue,rows,page);
         baseResultVo.setTotal(deviceTypeList.size());
         baseResultVo.setRows(deviceTypeList);
         return baseResultVo;
@@ -65,10 +65,12 @@ public class DeviceTypeController {
 
     @RequestMapping("/deviceType/edit_judge")
     @ResponseBody
-    public BaseResultVo deviceTypeEditJudge(){
+    /*public BaseResultVo deviceTypeEditJudge(){
         return new BaseResultVo();
+    }*/
+    public Object deviceTypeEditJudge(){
+        return "";
     }
-
     /*
     * 编辑deviceType
     * */
@@ -77,7 +79,6 @@ public class DeviceTypeController {
     public QueryStatus updateDeviceType(DeviceType deviceType){
         QueryStatus queryStatus = deviceTypeService.updateDeviceType(deviceType);
         return queryStatus;
-
     }
 
 
@@ -89,6 +90,51 @@ public class DeviceTypeController {
     public DeviceType selectDeviceTypeById(@PathVariable("deviceTypeId")String deviceTypeId){
         DeviceType deviceType =deviceTypeService.selectDeviceTypeById(deviceTypeId);
         return deviceType;
+    }
+
+    /*
+    * 新增设备类型
+    * */
+    @RequestMapping("/deviceType/add_judge")
+    @ResponseBody
+    /*public BaseResultVo deviceTypeAddJudge(){
+        return new BaseResultVo();
+    }*/
+    public Object deviceTypeAddJudge(){
+        return null;
+    }
+
+    @RequestMapping("/deviceType/add")
+    public String deviceTypeAdd(){
+        return "deviceType_add";
+    }
+
+    @RequestMapping("/deviceType/insert")
+    @ResponseBody
+    public QueryStatus insertDeviceType(DeviceType deviceType){
+        return deviceTypeService.insertDeviceType(deviceType);
+    }
+
+    /*
+    * 编辑设备种类
+    * */
+    @RequestMapping("/deviceType/edit")
+    public String deviceTypeEdit(){
+        return "deviceType_add";
+    }
+
+    /*
+    * 批量删除设备种类
+    * */
+    @RequestMapping("/deviceType/delete_judge")
+    @ResponseBody
+    public BaseResultVo deviceTypeDeleteJudge(){
+        return new BaseResultVo();
+    }
+    @RequestMapping("/deviceType/delete_batch")
+    @ResponseBody
+    public QueryStatus deleteDeviceType(String[] ids){
+        return deviceTypeService.deleteDeviceType(ids);
     }
 }
 

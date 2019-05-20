@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.DeviceCheckMapper">
+    <resultMap id="baseMap" type="deviceCheck">
+        <result property="deviceCheckId" column="device_check_id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="deviceCheckEmpId" column="device_check_emp_id"/>
+        <result property="deviceCheckDate" column="device_check_date"/>
+        <result property="deviceCheckFaultId" column="device_check_fault_id"/>
+        <result property="deviceCheckResult" column="device_check_result"/>
+        <result property="deviceParams" column=""/>
+        <result property="deviceName" column="device_name"/>
+        <result property="deviceCheckEmp" column="emp_name"/>
+
+    </resultMap>
+    <sql id="baseSqlColumn">
+        device_check_id,device_check.device_id,device_check_emp_id,device_check_date,device_check_fault_id,device_check_result,
+        device.device_name,employee.emp_name
+    </sql>
+    <select id="getDeviceCheckList" resultMap="baseMap">
+        select
+        <include refid="baseSqlColumn"/>
+        from device_check
+        left join device on device_check.device_id=device.device_id
+        left join employee on device_check_emp_id=employee.emp_id
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="searchDeviceCheckById" resultMap="baseMap">
+        select
+        <include refid="baseSqlColumn"/>
+        from device_check
+        left join device on device_check.device_id=device.device_id
+        left join employee on device_check_emp_id=employee.emp_id
+        where device_check_id like concat('%',#{deviceCheckId},'%')
+        limit #{rows} offset #{offset}
+    </select>
+
+    <select id="searchDeviceCheckByName" resultMap="baseMap">
+        select
+        <include refid="baseSqlColumn"/>
+        from device_check
+        left join device on device_check.device_id=device.device_id
+        left join employee on device_check_emp_id=employee.emp_id
+        where device_name like concat('%',#{deviceCheckName},'%')
+        limit #{rows} offset #{offset}
+    </select>
+
+    <insert id="insertDeviceCheck">
+        insert into device_check (device_check_id,device_id,device_check_emp_id,device_check_date,device_check_result,device_check_fault_id)
+        values
+        (#{insertDeviceCheckBean.deviceCheckId},
+        #{insertDeviceCheckBean.deviceId},
+        #{insertDeviceCheckBean.deviceCheckEmpId},
+        #{insertDeviceCheckBean.deviceCheckDate},
+        #{insertDeviceCheckBean.deviceCheckResult},
+        #{insertDeviceCheckBean.deviceCheckFaultId})
+    </insert>
+
+    <update id="updateDeviceCheck">
+        update device_check
+        <set>
+            <if test="updateDeviceCheckBean.deviceId != null">
+                device_id = #{updateDeviceCheckBean.deviceId},
+            </if>
+            <if test="updateDeviceCheckBean.deviceCheckEmpId != null">
+                device_check_emp_id = #{updateDeviceCheckBean.deviceCheckEmpId},
+            </if>
+            <if test="updateDeviceCheckBean.deviceCheckDate != null">
+                device_check_date = #{updateDeviceCheckBean.deviceCheckDate},
+            </if>
+            <if test="updateDeviceCheckBean.deviceCheckResult != null">
+                device_check_result = #{updateDeviceCheckBean.deviceCheckResult},
+            </if>
+            <if test="updateDeviceCheckBean.deviceCheckFaultId != null">
+                device_check_fault_id = #{updateDeviceCheckBean.deviceCheckFaultId},
+            </if>
+        </set>
+        where device_check_id = #{updateDeviceCheckBean.deviceCheckId}
+    </update>
+
+    <delete id="deleteDeviceCheck" parameterType="java.lang.String">
+        delete from device_check
+        <where>
+            device_check_id in
+            <foreach collection="ids" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+    </delete>
+</mapper>

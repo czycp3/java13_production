@@ -11,7 +11,7 @@
     </sql>
     <resultMap id="baseMap" type="deviceType">
         <result property="deviceTypeId" column="device_type_id"/>
-        <result property="deviceTypeIdd" column=""/>
+        <result property="deviceTypeIdd" column="device_type_id"/><!--这个是给勾选框用的id-->
         <result property="deviceTypeModel" column="device_type_model"/>
         <result property="deviceTypeName" column="device_type_name"/>
         <result property="deviceTypeProducer" column="device_type_producer"/>
@@ -22,6 +22,7 @@
     </resultMap>
     <select id="getDeviceTypeList" resultMap="baseMap">
         <include refid="baseSql"/>
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="getDeviceTypes" resultMap="baseMap">
@@ -31,11 +32,13 @@
     <select id="getDeviceTypeById" resultMap="baseMap">
         <include refid="baseSql"/>
         where device_type_id like concat('%',#{deviceTypeId},'%')
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="getDeviceTypeByName" resultMap="baseMap">
         <include refid="baseSql"/>
         where device_type_name like concat('%',#{deviceTypeName},'%')
+        limit #{rows} offset #{offset}
     </select>
 
     <select id="selectDeviceTypeById" resultMap="baseMap">
@@ -70,4 +73,33 @@
         </set>
        where device_type_id = #{updateDeviceTypeBean.deviceTypeId}
     </update>
+
+    <insert id="insertDeviceType">
+        insert into device_type
+        (device_type_id,device_type_name,device_type_model,device_type_spec,device_type_supplier,
+        device_type_producer,device_type_quantity,device_type_warranty)
+        values
+        (#{insertDeviceTypeBean.deviceTypeId},
+        #{insertDeviceTypeBean.deviceTypeName},
+        #{insertDeviceTypeBean.deviceTypeModel},
+        #{insertDeviceTypeBean.deviceTypeSpec},
+        #{insertDeviceTypeBean.deviceTypeSupplier},
+        #{insertDeviceTypeBean.deviceTypeProducer},
+        #{insertDeviceTypeBean.deviceTypeQuantity},
+        #{insertDeviceTypeBean.deviceTypeWarranty})
+    </insert>
+
+    <delete id="deleteDeviceType" parameterType="java.lang.String">
+        delete from device_type
+        <choose>
+            <when test="ids!=null">
+                <where>
+                    device_type_id in
+                    <foreach collection="ids" item="item" open="(" close=")" separator=",">
+                        #{item}
+                    </foreach>
+                </where>
+            </when>
+        </choose>
+    </delete>
 </mapper>

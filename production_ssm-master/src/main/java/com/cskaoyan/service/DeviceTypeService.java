@@ -12,15 +12,20 @@ import java.util.List;
  * @Version 1.0
  */
 public interface DeviceTypeService {
-    List<DeviceType> getDeviceTypeList();
+    List<DeviceType> getDeviceTypeList(int rows, int page);
 
-    List<DeviceType> getDeviceTypeById(String searchValue);
+    List<DeviceType> getDeviceTypeById(String searchValue, int rows, int page);
 
-    List<DeviceType> getDeviceTypeByName(String searchValue);
+    List<DeviceType> getDeviceTypeByName(String searchValue, int rows, int page);
 
     DeviceType[] getDeviceTypes();
 
     DeviceType selectDeviceTypeById(String deviceTypeId);
 
     QueryStatus updateDeviceType(DeviceType deviceType);
+
+    QueryStatus insertDeviceType(DeviceType deviceType);
+
+    QueryStatus deleteDeviceType(String[] ids);
+
 }

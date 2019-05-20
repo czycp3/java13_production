@@ -15,7 +15,16 @@ public class DeviceType {
     String deviceTypeSpec;//规格
     String deviceTypeSupplier;//供应商
     String deviceTypeWarranty;//保修期
+    /*Object deviceTypeParams;*/
 
+   /* public Object getDeviceTypeParams() {
+        return deviceTypeParams;
+    }
+
+    public void setDeviceTypeParams(Object deviceTypeParams) {
+        this.deviceTypeParams = deviceTypeParams;
+    }
+*/
     @Override
     public String toString() {
         return "DeviceType{" +
@@ -28,6 +37,7 @@ public class DeviceType {
                 ", deviceTypeSpec='" + deviceTypeSpec + '\'' +
                 ", deviceTypeSupplier='" + deviceTypeSupplier + '\'' +
                 ", deviceTypeWarranty='" + deviceTypeWarranty + '\'' +
+               /* ", deviceTypeParams=" + deviceTypeParams +*/
                 '}';
     }
 
