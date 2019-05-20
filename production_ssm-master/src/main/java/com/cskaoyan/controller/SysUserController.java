@@ -49,4 +49,12 @@ public class SysUserController {
     }
 
 
+    @RequestMapping("logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("activeUser");
+
+        return "login";
+    }
+
+
 }
