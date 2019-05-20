@@ -7,6 +7,7 @@ import com.cskaoyan.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,5 +39,12 @@ public class EmployeeController {
     @ResponseBody
     public QueryStatus updateEmployee(Employee employee){
         return employeeService.updateEmployee(employee);
+    }
+
+    @RequestMapping("/employee/get/{deviceKeeperId}")
+    @ResponseBody
+    public Employee selectEmployeeById(@PathVariable("deviceKeeperId")String deviceKeeperId){
+        Employee employee = employeeService.selectEmployeeById(deviceKeeperId);
+        return employee;
     }
 }

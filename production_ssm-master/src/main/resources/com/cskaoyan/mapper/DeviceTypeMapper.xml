@@ -102,4 +102,7 @@
             </when>
         </choose>
     </delete>
+    <select id="queryTotalDeviceType" resultType="int">
+        select count(*) from device_type
+    </select>
 </mapper>

@@ -4,15 +4,12 @@ import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.service.DeviceTypeService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
 
 /**
  * @Author: zero
@@ -33,10 +30,7 @@ public class DeviceTypeController {
     @RequestMapping("/deviceType/list")
     @ResponseBody
     public BaseResultVo queryDeviceTypeList(int rows,int page){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeList(rows,page);
-        baseResultVo.setTotal(deviceTypeList.size());
-        baseResultVo.setRows(deviceTypeList);
-        return baseResultVo;
+        return deviceTypeService.getDeviceTypeList(rows,page);
     }
 
     /*
@@ -45,10 +39,7 @@ public class DeviceTypeController {
     @RequestMapping("/deviceType/search_deviceType_by_deviceTypeId")
     @ResponseBody
     public BaseResultVo queryDeviceTypeById(String searchValue,int rows,int page){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeById(searchValue,rows,page);
-        baseResultVo.setTotal(deviceTypeList.size());
-        baseResultVo.setRows(deviceTypeList);
-        return baseResultVo;
+        return deviceTypeService.getDeviceTypeById(searchValue,rows,page);
     }
 
     /*
@@ -57,24 +48,19 @@ public class DeviceTypeController {
     @RequestMapping("/deviceType/search_deviceType_by_deviceTypeName")
     @ResponseBody
     public BaseResultVo queryDeviceTypeByName(String searchValue,int rows,int page){
-        List<DeviceType> deviceTypeList = deviceTypeService.getDeviceTypeByName(searchValue,rows,page);
-        baseResultVo.setTotal(deviceTypeList.size());
-        baseResultVo.setRows(deviceTypeList);
-        return baseResultVo;
+        return deviceTypeService.getDeviceTypeByName(searchValue,rows,page);
     }
 
     @RequestMapping("/deviceType/edit_judge")
     @ResponseBody
-    /*public BaseResultVo deviceTypeEditJudge(){
+    public BaseResultVo deviceTypeEditJudge(){
         return new BaseResultVo();
-    }*/
-    public Object deviceTypeEditJudge(){
-        return "";
     }
+
     /*
     * 编辑deviceType
     * */
-    @RequestMapping("/deviceType/update_all")
+    @RequestMapping(value = {"/deviceType/update_all","/deviceType/update"})
     @ResponseBody
     public QueryStatus updateDeviceType(DeviceType deviceType){
         QueryStatus queryStatus = deviceTypeService.updateDeviceType(deviceType);
@@ -97,11 +83,8 @@ public class DeviceTypeController {
     * */
     @RequestMapping("/deviceType/add_judge")
     @ResponseBody
-    /*public BaseResultVo deviceTypeAddJudge(){
+    public BaseResultVo deviceTypeAddJudge(){
         return new BaseResultVo();
-    }*/
-    public Object deviceTypeAddJudge(){
-        return null;
     }
 
     @RequestMapping("/deviceType/add")
@@ -120,7 +103,7 @@ public class DeviceTypeController {
     * */
     @RequestMapping("/deviceType/edit")
     public String deviceTypeEdit(){
-        return "deviceType_add";
+        return "deviceType_edit";
     }
 
     /*

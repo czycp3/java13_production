@@ -1,8 +1,6 @@
 package com.cskaoyan.service.impl;
 
-import com.cskaoyan.bean.BaseResultVo;
-import com.cskaoyan.bean.DeviceType;
-import com.cskaoyan.bean.QueryStatus;
+import com.cskaoyan.bean.*;
 import com.cskaoyan.mapper.DeviceTypeMapper;
 import com.cskaoyan.service.DeviceTypeService;
 import org.apache.log4j.Logger;
@@ -27,30 +25,39 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     Logger logger;
     @Override
-    public List<DeviceType> getDeviceTypeList(int rows, int page) {
-        int offset = (page-1)*rows;
-        List<DeviceType> deviceTypeList = deviceTypeMapper.getDeviceTypeList(rows,offset);
-        logger = this.logger.getLogger(this.getClass());
-        logger.info(deviceTypeList);
-        return deviceTypeList;
+    public BaseResultVo getDeviceTypeList(int rows, int page) {
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceTypeMapper.queryTotalDeviceType();
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceType> deviceList = deviceTypeMapper.getDeviceTypeList(rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
+        return baseResultVo;
     }
 
     @Override
-    public List<DeviceType> getDeviceTypeById(String searchValue,int rows,int page) {
-        int offset = (page-1)*rows;
-        List<DeviceType> deviceTypeList = deviceTypeMapper.getDeviceTypeById(searchValue,rows,offset);
-        logger = this.logger.getLogger(this.getClass());
-        logger.info(deviceTypeList);
-        return deviceTypeList;
+    public BaseResultVo getDeviceTypeById(String searchValue,int rows,int page) {
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceTypeMapper.queryTotalDeviceType();
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceType> deviceList = deviceTypeMapper.getDeviceTypeById(searchValue,rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
+        return baseResultVo;
     }
 
     @Override
-    public List<DeviceType> getDeviceTypeByName(String searchValue,int rows,int page) {
-        int offset = (page-1)*rows;
-        List<DeviceType> deviceTypeList = deviceTypeMapper.getDeviceTypeByName(searchValue,rows,offset);
-        logger = this.logger.getLogger(this.getClass());
-        logger.info(deviceTypeList);
-        return deviceTypeList;
+    public BaseResultVo getDeviceTypeByName(String searchValue,int rows,int page) {
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceTypeMapper.queryTotalDeviceType();
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceType> deviceList = deviceTypeMapper.getDeviceTypeByName(searchValue,rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
+        return baseResultVo;
     }
 
     @Override

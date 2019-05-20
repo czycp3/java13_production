@@ -12,11 +12,11 @@ import java.util.List;
  * @Version 1.0
  */
 public interface DeviceTypeService {
-    List<DeviceType> getDeviceTypeList(int rows, int page);
+    BaseResultVo getDeviceTypeList(int rows, int page);
 
-    List<DeviceType> getDeviceTypeById(String searchValue, int rows, int page);
+    BaseResultVo getDeviceTypeById(String searchValue, int rows, int page);
 
-    List<DeviceType> getDeviceTypeByName(String searchValue, int rows, int page);
+    BaseResultVo getDeviceTypeByName(String searchValue, int rows, int page);
 
     DeviceType[] getDeviceTypes();
 

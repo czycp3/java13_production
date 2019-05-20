@@ -120,4 +120,7 @@
         where device_id = #{deviceId}
     </select>
 
+    <select id="queryTotalDevice" resultType="int">
+        select count(*) from device
+    </select>
 </mapper>

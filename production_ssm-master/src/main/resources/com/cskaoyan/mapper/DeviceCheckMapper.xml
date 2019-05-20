@@ -90,4 +90,16 @@
             </foreach>
         </where>
     </delete>
+    <select id="queryTotalDeviceCheck" resultType="int">
+        select count(*) from device_check
+    </select>
+    <select id="queryTotalDeviceCheckById" resultType="int">
+        select count(*) from device_check
+        where device_check_id like concat('%',#{deviceCheckId},'%')
+    </select>
+    <select id="queryTotalDeviceCheckByName" resultType="int">
+        select count(*) from device_check
+        left join device on device_check.device_id=device.device_id
+        where device.device_name like concat('%',#{deviceName},'%')
+    </select>
 </mapper>

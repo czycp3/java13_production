@@ -2,6 +2,7 @@ package com.cskaoyan.service.impl;
 
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceCheck;
+import com.cskaoyan.bean.DeviceType;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.mapper.DeviceCheckMapper;
 import com.cskaoyan.service.DeviceCheckService;
@@ -24,31 +25,37 @@ public class DeviceCheckServiceImpl implements DeviceCheckService {
     DeviceCheckMapper deviceCheckMapper;
     @Override
     public BaseResultVo getDeviceCheckList(int rows,int page) {
-        int offset = (page-1)*rows;
-        BaseResultVo<DeviceCheck> baseResultVo = new BaseResultVo<>();
-        List<DeviceCheck> deviceCheckList = deviceCheckMapper.getDeviceCheckList(rows,offset);
-        baseResultVo.setTotal(deviceCheckList.size());
-        baseResultVo.setRows(deviceCheckList);
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceCheckMapper.queryTotalDeviceCheck();
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceCheck> deviceList = deviceCheckMapper.getDeviceCheckList(rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
         return baseResultVo;
     }
 
     @Override
     public BaseResultVo searchDeviceCheckById(String searchValue, int rows, int page) {
-        int offset = (page-1)*rows;
-        BaseResultVo<DeviceCheck> baseResultVo = new BaseResultVo<>();
-        List<DeviceCheck> deviceCheckList = deviceCheckMapper.searchDeviceCheckById(searchValue,rows,offset);
-        baseResultVo.setTotal(deviceCheckList.size());
-        baseResultVo.setRows(deviceCheckList);
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceCheckMapper.queryTotalDeviceCheckById(searchValue);
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceCheck> deviceList = deviceCheckMapper.searchDeviceCheckById(searchValue,rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
         return baseResultVo;
     }
 
     @Override
     public BaseResultVo searchDeviceCheckByName(String searchValue, int rows, int page) {
-        int offset = (page-1)*rows;
-        BaseResultVo<DeviceCheck> baseResultVo = new BaseResultVo<>();
-        List<DeviceCheck> deviceCheckList = deviceCheckMapper.searchDeviceCheckByName(searchValue,rows,offset);
-        baseResultVo.setTotal(deviceCheckList.size());
-        baseResultVo.setRows(deviceCheckList);
+        BaseResultVo baseResultVo = new BaseResultVo();
+        int total = deviceCheckMapper.queryTotalDeviceCheckByName(searchValue);
+        rows = total < rows ? total : rows;
+        int offset = (page - 1) * rows;
+        List<DeviceCheck> deviceList = deviceCheckMapper.searchDeviceCheckByName(searchValue,rows, offset);
+        baseResultVo.setTotal(total);
+        baseResultVo.setRows(deviceList);
         return baseResultVo;
     }
 

@@ -99,5 +99,7 @@ public class DeviceCheckController {
     public QueryStatus deleteDeviceCheck(String[] ids){
         return deviceCheckService.deleteDeviceCheck(ids);
     }
+
+
 }
 

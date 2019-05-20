@@ -26,4 +26,7 @@ public interface DeviceTypeMapper {
     void insertDeviceType(@Param("insertDeviceTypeBean") DeviceType deviceType);
 
     void deleteDeviceType(@Param("ids") String[] ids);
+
+    int queryTotalDeviceType();
+
 }

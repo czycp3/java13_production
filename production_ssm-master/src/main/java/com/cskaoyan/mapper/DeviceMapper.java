@@ -28,4 +28,6 @@ public interface DeviceMapper {
     List<Device> getDeviceList();
 
     Device selectDeviceById(@Param("deviceId") String deviceId);
+
+    int queryTotalDevice();
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.DeviceMaintainMapper">
+    <resultMap id="baseMap" type="deviceMaintain">
+        <result property="deviceFaultId" column="device_fault_id"/>
+        <result property="deviceMaintainCost" column="device_maintain_cost"/>
+        <result property="deviceMaintainDate" column="device_maintain_date"/>
+        <result property="deviceMaintainEmpId" column="device_maintain_emp_id"/>
+        <result property="deviceMaintainId" column="device_maintain_id"/>
+        <result property="deviceMaintainResult" column="device_maintain_result"/>
+        <result property="note" column="note"/>
+        <result property="deviceMaintainEmp" column="emp_name"/>
+    </resultMap>
+    <sql id="baseSql">
+        select device_maintain_id,device_fault_id,device_maintain_emp_id,device_maintain_date,device_maintain_result,device_maintain_cost,note,
+                emp_name
+                from device_maintain
+                left join employee on device_maintain.device_maintain_emp_id=employee.emp_id
+    </sql>
+
+    <select id="getTotalDeviceMaintain" resultType="int">
+        select count(*) from device_maintain
+    </select>
+    <select id="getDeviceMaintainList" resultMap="baseMap">
+        <include refid="baseSql"/>
+        limit #{rows} offset #{offset}
+    </select>
+    <insert id="insertDeviceMaintain">
+        insert into device_maintain
+        (device_maintain_id,device_fault_id,device_maintain_emp_id,device_maintain_date,device_maintain_result,device_maintain_cost,note)
+        values
+        (#{insertDeviceMaintain.deviceMaintainId},
+        #{insertDeviceMaintain.deviceFaultId},
+        #{insertDeviceMaintain.deviceMaintainEmpId},
+        #{insertDeviceMaintain.deviceMaintainDate},
+        #{insertDeviceMaintain.deviceMaintainResult},
+        #{insertDeviceMaintain.deviceMaintainCost},
+        #{insertDeviceMaintain.note})
+    </insert>
+    <update id="UpdateDeviceMaintain">
+        update device_maintain
+        <set>
+            <if test="updateDeviceMaintain.deviceFaultId != null">
+                device_fault_id=#{updateDeviceMaintain.deviceFaultId},
+            </if>
+            <if test="updateDeviceMaintain.deviceMaintainEmpId != null">
+                device_maintain_emp_id=#{updateDeviceMaintain.deviceMaintainEmpId},
+            </if>
+            <if test="updateDeviceMaintain.deviceMaintainDate != null">
+                device_maintain_date=#{updateDeviceMaintain.deviceMaintainDate},
+            </if>
+            <if test="updateDeviceMaintain.deviceMaintainResult != null">
+                device_maintain_result=#{updateDeviceMaintain.deviceMaintainResult},
+            </if>
+            <if test="updateDeviceMaintain.deviceMaintainCost != null">
+                device_maintain_cost=#{updateDeviceMaintain.deviceMaintainCost},
+            </if>
+            <if test="updateDeviceMaintain.note != null">
+                note=#{updateDeviceMaintain.note}
+            </if>
+        </set>
+        where device_maintain_id=#{updateDeviceMaintain.deviceMaintainId}
+    </update>
+    <delete id="deleteDeviceMaintain" parameterType="java.lang.String">
+        delete from device_maintain
+        where device_maintain_id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="getTotalDeviceMaintainById" resultType="int">
+        select count(*) from device_maintain
+        where device_maintain_id like concat('%',#{deviceMaintainId},'%')
+    </select>
+    <select id="searchDeviceMaintainById" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_maintain_id like concat('%',#{deviceMaintainId},'%')
+    </select>
+    <select id="getTotalDeviceMaintainByDeviceFaultId" resultType="int">
+        select count(*) from device_maintain
+        where device_fault_id like concat('%',#{deviceFaultId},'%')
+    </select>
+    <select id="searchDeviceMaintainByDeviceFaultId" resultMap="baseMap">
+        <include refid="baseSql"/>
+        where device_fault_id like concat('%',#{deviceFaultId},'%')
+    </select>
+    <update id="updateDeviceMaintainNote">
+        update device_maintain set note=#{note} where device_maintain_id=#{deviceMaintainId}
+    </update>
+</mapper>

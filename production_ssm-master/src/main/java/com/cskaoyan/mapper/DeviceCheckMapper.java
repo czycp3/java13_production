@@ -22,4 +22,10 @@ public interface DeviceCheckMapper {
     void updateDeviceCheck(@Param("updateDeviceCheckBean") DeviceCheck deviceCheck);
 
     void deleteDeviceCheck(@Param("ids") String[] ids);
+
+    int queryTotalDeviceCheck();
+
+    int queryTotalDeviceCheckById(@Param("deviceCheckId") String searchValue);
+
+    int queryTotalDeviceCheckByName(@Param("deviceName")String searchValue);
 }

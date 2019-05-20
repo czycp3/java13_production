@@ -36,11 +36,7 @@ public class DeviceController {
     @RequestMapping("/deviceList/list")
     @ResponseBody
     public BaseResultVo deviceList(int rows,int page) {
-        BaseResultVo baseResultVo = new BaseResultVo();
-        List<Device> deviceList = deviceService.queryDeviceList(rows,page);
-        baseResultVo.setTotal(deviceList.size());
-        baseResultVo.setRows(deviceList);
-        return baseResultVo;
+        return deviceService.queryDeviceList(rows,page);
     }
 
 
@@ -55,11 +51,7 @@ public class DeviceController {
     @RequestMapping("/deviceList/search_device_by_deviceId")
     @ResponseBody
     public BaseResultVo getBaseResultVoById(String searchValue,int rows,int page) {
-        BaseResultVo baseResultVo = new BaseResultVo();
-        List<Device> deviceList = deviceService.queryDeviceByDeviceId(searchValue,rows,page);
-        baseResultVo.setTotal(deviceList.size());
-        baseResultVo.setRows(deviceList);
-        return baseResultVo;
+        return deviceService.queryDeviceByDeviceId(searchValue,rows,page);
     }
 
     /*
@@ -68,11 +60,7 @@ public class DeviceController {
     @RequestMapping("/deviceList/search_device_by_deviceName")
     @ResponseBody
     public BaseResultVo getBaseResultVoByName(String searchValue,int rows,int page) {
-        BaseResultVo baseResultVo = new BaseResultVo();
-        List<Device> deviceList = deviceService.queryDeviceByDeviceName(searchValue,rows,page);
-        baseResultVo.setTotal(deviceList.size());
-        baseResultVo.setRows(deviceList);
-        return baseResultVo;
+        return deviceService.queryDeviceByDeviceName(searchValue, rows, page);
     }
 
     /*
@@ -80,12 +68,8 @@ public class DeviceController {
      * */
     @RequestMapping("/deviceList/search_device_by_deviceTypeName")
     @ResponseBody
-    public BaseResultVo getBaseResultVoByTypeName(String searchValue,int rows,int page) {
-        BaseResultVo baseResultVo = new BaseResultVo();
-        List<Device> deviceList = deviceService.queryDeviceByDeviceTypeName(searchValue,rows,page);
-        baseResultVo.setTotal(deviceList.size());
-        baseResultVo.setRows(deviceList);
-        return baseResultVo;
+    public BaseResultVo getBaseResultVoByTypeName(String searchValue,int rows,int page){
+        return deviceService.queryDeviceByDeviceTypeName(searchValue,rows,page);
     }
 
     /*
@@ -129,7 +113,7 @@ public class DeviceController {
         return new BaseResultVo();
     }
 
-    @RequestMapping("/deviceList/update")
+    @RequestMapping(value = {"/deviceList/update","/deviceList/update_all"})
     @ResponseBody
     public QueryStatus updateDevice(Device device) {
         QueryStatus queryStatus = deviceService.updateDevice(device);
@@ -153,13 +137,6 @@ public class DeviceController {
     }
 
 
-    @RequestMapping("/employee/get/{deviceKeeperId}")
-    @ResponseBody
-    public Employee selectEmployeeById(@PathVariable("deviceKeeperId")String deviceKeeperId){
-        Employee employee = employeeService.selectEmployeeById(deviceKeeperId);
-        return employee;
-    }
-
     @RequestMapping("/deviceList/get_data")
     @ResponseBody
     public List<Device> getDeviceList(){
@@ -172,5 +149,6 @@ public class DeviceController {
     public Device selectDeviceById(@PathVariable("deviceId")String deviceId){
         return deviceService.selectDeviceById(deviceId);
     }
+
 
 }
