@@ -138,4 +138,14 @@ public class ManufactureServiceImpl implements ManufactureService {
         manufacture.setTechnology(technology);
         return pageHandle(manufacture,rows,page);
     }
+
+    @Override
+    public Manufacture searchManufactureDetail(String manufactureId) {
+        return manufactureMapper.selectByPrimaryKey(manufactureId);
+    }
+
+    @Override
+    public List<Manufacture> searchManufactureList() {
+        return manufactureMapper.selectManufacture();
+    }
 }

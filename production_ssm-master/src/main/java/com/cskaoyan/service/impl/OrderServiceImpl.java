@@ -142,4 +142,9 @@ public class OrderServiceImpl implements OrderService {
     public Order searchOrderDetail(String orderId) {
         return orderMapper.selectByPrimaryKey(orderId);
     }
+
+    @Override
+    public List<Order> searchOrderList() {
+        return orderMapper.selectOrderList();
+    }
 }

@@ -51,4 +51,6 @@ public interface ManufactureMapper {
      * @return 条目数
      */
     List<Manufacture> searchOrderByCondition(@Param("manufacture") Manufacture manufacture, @Param("rows") int rows, @Param("offset") int offset);
+
+    List<Manufacture> selectManufacture();
 }

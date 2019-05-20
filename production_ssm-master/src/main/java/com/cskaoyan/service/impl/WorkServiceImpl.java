@@ -158,4 +158,14 @@ public class WorkServiceImpl implements WorkService {
         work.setProcess(process);
         return pageHandle(work,rows,page);
     }
+
+    @Override
+    public Work searchWorkDetail(String workId) {
+        return workMapper.selectMultByPrimaryKey(workId);
+    }
+
+    @Override
+    public List<Work> searchWorkList() {
+        return workMapper.selectWork();
+    }
 }

@@ -5,6 +5,8 @@ import com.cskaoyan.bean.Order;
 import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.exception.OrderException;
 
+import java.util.List;
+
 /**
  * @author CZY-Y7000P
  */
@@ -71,4 +73,6 @@ public interface OrderService {
      * @return Order
      */
     Order searchOrderDetail(String orderId);
+
+    List<Order> searchOrderList();
 }

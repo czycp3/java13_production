@@ -7,8 +7,11 @@ import com.cskaoyan.exception.WorkException;
 import com.cskaoyan.service.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author CZY-Y7000P
@@ -119,5 +122,19 @@ public class WorkController {
     @ResponseBody
     public BaseResultVo searchWorkByProcess(String searchValue,int page, int rows){
         return workService.searchWorkByProcess(searchValue,page,rows);
+    }
+
+    /**********查询其它表的详情****************/
+
+    @RequestMapping("/work/get/{workId}")
+    @ResponseBody
+    public Work searchOrderDetail(@PathVariable("workId") String workId){
+        return workService.searchWorkDetail(workId);
+    }
+
+    @RequestMapping("/work/get_data")
+    @ResponseBody
+    public List<Work> searchOrderData() {
+        return workService.searchWorkList();
     }
 }

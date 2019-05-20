@@ -5,6 +5,8 @@ import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.bean.Work;
 import com.cskaoyan.exception.WorkException;
 
+import java.util.List;
+
 /**
  * @author CZY-Y7000P
  */
@@ -73,4 +75,9 @@ public interface WorkService {
      * @return BaseResultVo
      */
     BaseResultVo searchWorkByProcess(String searchValue, int page, int rows);
+
+    Work searchWorkDetail(String workId);
+
+    List<Work> searchWorkList();
+
 }

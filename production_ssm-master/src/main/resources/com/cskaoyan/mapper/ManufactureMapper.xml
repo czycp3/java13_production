@@ -223,6 +223,9 @@
         </where>
         limit #{rows} offset #{offset}
     </select>
+    <select id="selectManufacture" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from manufacture
+    </select>
 
     <update id="updateByExampleSelective" parameterType="map">
         update manufacture
