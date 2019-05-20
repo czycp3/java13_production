@@ -1,0 +1,96 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.PMeasureCheckMapper">
+    <resultMap id="pMeasureCheckMapper" type="com.cskaoyan.bean.PMeasureCheck" >
+        <id column="p_measure_check_id" property="pMeasureCheckId" />
+        <result column="process_id" property="processId" />
+        <result column="check_item" property="checkItem" />
+        <result column="cdate" property="cdate" />
+        <result column="measure_data" property="measureData" />
+        <result column="emp_id" property="empId" />
+        <result column="result" property="result" />
+        <result column="note" property="note" />
+        <result column="emp_name" property="empName" />
+    </resultMap>
+
+    <!--分页查找-->
+    <select id="findList" resultMap="pMeasureCheckMapper" >
+        select  pm.p_measure_check_id,
+                pm.process_id,
+                pm.check_item,
+                pm.cdate,
+                pm.measure_data,
+                pm.emp_id,
+                pm.result,
+                pm.note,
+                e.emp_name
+
+ 				from process_measure_check pm
+ 				left join employee e on pm.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--查找所有信息-->
+    <select id="findAllList" resultMap="pMeasureCheckMapper" >
+        select p_measure_check_id from process_measure_check
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" >
+        insert into process_measure_check
+        (p_measure_check_id,process_id,check_item,cdate,measure_data,emp_id,result,note)
+        value
+        (#{pMeasureCheck.pMeasureCheckId},#{pMeasureCheck.processId},#{pMeasureCheck.checkItem},#{pMeasureCheck.cdate},
+        #{pMeasureCheck.measureData},#{pMeasureCheck.empId},#{pMeasureCheck.result},#{pMeasureCheck.note})
+    </insert>
+
+    <!-- 修改 -->
+    <update id="updateAll">
+        update process_measure_check set     process_id= #{pMeasureCheck.processId},
+                                        check_item= #{pMeasureCheck.checkItem},
+                                        cdate= #{pMeasureCheck.cdate},
+                                        measure_data= #{pMeasureCheck.measureData},
+                                        emp_id= #{pMeasureCheck.empId},
+                                        result= #{pMeasureCheck.result},
+                                        note= #{pMeasureCheck.note}
+                                        where p_measure_check_id = #{pMeasureCheck.pMeasureCheckId}
+    </update>
+
+    <!--修改备注信息-->
+    <update id="update_note">
+         update process_measure_check set note = #{note} where p_measure_check_id = #{fCountCheckIdpMeasureCheckId,}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete_batch">
+        delete from process_measure_check where p_measure_check_id = #{id}
+    </delete>
+
+    <!--根据ID分页查询-->
+    <select id="searchById" resultMap="pMeasureCheckMapper">
+        select  pm.p_measure_check_id,
+                pm.process_id,
+                pm.check_item,
+                pm.cdate,
+                pm.measure_data,
+                pm.emp_id,
+                pm.result,
+                pm.note,
+                e.emp_name
+
+ 				from process_measure_check pm
+ 				left join employee e on pm.emp_id = e.emp_id
+ 				where p_measure_check_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据ID所有-->
+    <select id="searchAllById" resultMap="pMeasureCheckMapper">
+        select p_measure_check_id from process_measure_check where p_measure_check_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+
+
+</mapper>

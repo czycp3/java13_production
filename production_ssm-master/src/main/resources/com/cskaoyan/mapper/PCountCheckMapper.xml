@@ -1,0 +1,114 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.PCountCheckMapper">
+    <resultMap id="pCountCheckMapper" type="com.cskaoyan.bean.PCountCheck" >
+        <id column="p_count_check_id" property="pCountCheckId" />
+        <result column="process_id" property="processId" />
+        <result column="check_item" property="checkItem" />
+        <result column="sample" property="sample" />
+        <result column="check_number" property="checkNumber" />
+        <result column="unqualify" property="unqualify" />
+        <result column="qualify" property="qualify" />
+        <result column="cdate" property="cdate" />
+        <result column="measure_data" property="measureData" />
+        <result column="emp_id" property="empId" />
+        <result column="result" property="result" />
+        <result column="note" property="note" />
+        <result column="emp_name" property="empName" />
+    </resultMap>
+
+
+    <!--分页查找-->
+    <select id="findList" resultMap="pCountCheckMapper" >
+        select  pc.p_count_check_id,
+                pc.process_id,
+                pc.check_item,
+                pc.sample,
+                pc.check_number,
+                pc.unqualify,
+                pc.qualify,
+                pc.cdate,
+                pc.measure_data,
+                pc.emp_id,
+                pc.result,
+                pc.note,
+                e.emp_name
+
+ 				from process_count_check pc
+ 				left join employee e on pc.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--查找所有信息-->
+    <select id="findAllList" resultMap="pCountCheckMapper" >
+        select p_count_check_id from process_count_check
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" >
+        insert into process_count_check
+        (p_count_check_id,process_id,check_item,sample,check_number,unqualify,qualify,cdate,measure_data,emp_id,result,note)
+        value
+        (#{pCountCheck.pCountCheckId},#{pCountCheck.processId},#{pCountCheck.checkItem},#{pCountCheck.sample},
+        #{pCountCheck.checkNumber},#{pCountCheck.unqualify},#{pCountCheck.qualify},#{pCountCheck.cdate},
+        #{pCountCheck.measureData},#{pCountCheck.empId},#{pCountCheck.result},#{pCountCheck.note})
+    </insert>
+
+    <!-- 修改 -->
+    <update id="updateAll">
+        update process_count_check set     process_id = #{pCountCheck.processId},
+                                             check_item = #{pCountCheck.checkItem},
+                                             sample = #{pCountCheck.sample},
+                                             check_number = #{pCountCheck.checkNumber},
+                                             unqualify = #{pCountCheck.unqualify},
+                                             qualify = #{pCountCheck.qualify},
+                                             cdate = #{pCountCheck.cdate},
+                                             measure_data = #{pCountCheck.measureData},
+                                             emp_id = #{pCountCheck.empId},
+                                             result = #{pCountCheck.result},
+                                             note = #{pCountCheck.note}
+                                      where  p_count_check_id = #{pCountCheck.pCountCheckId}
+    </update>
+
+    <!--修改备注信息-->
+    <update id="updateNote">
+         update process_count_check set note = #{note} where p_count_check_id = #{pCountCheckId}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteBatch">
+        delete from process_count_check where p_count_check_id = #{id}
+    </delete>
+
+    <!--根据ID分页查询-->
+    <select id="searchById" resultMap="pCountCheckMapper">
+         select  pc.p_count_check_id,
+                pc.process_id,
+                pc.check_item,
+                pc.sample,
+                pc.check_number,
+                pc.unqualify,
+                pc.qualify,
+                pc.cdate,
+                pc.measure_data,
+                pc.emp_id,
+                pc.result,
+                pc.note,
+                e.emp_name
+
+ 				from process_count_check pc
+ 				left join employee e on pc.emp_id = e.emp_id
+ 				where p_count_check_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据ID所有-->
+    <select id="searchAllById" resultMap="pCountCheckMapper">
+        select p_count_check_id from process_count_check where p_count_check_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+
+
+</mapper>

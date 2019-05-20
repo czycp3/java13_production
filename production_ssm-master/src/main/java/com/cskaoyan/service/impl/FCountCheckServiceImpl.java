@@ -1,9 +1,9 @@
 package com.cskaoyan.service.impl;
 
-import com.cskaoyan.bean.Measure;
+import com.cskaoyan.bean.FCountCheck;
 import com.cskaoyan.bean.QueryStatus;
-import com.cskaoyan.mapper.MeasureMapper;
-import com.cskaoyan.service.MeasureService;
+import com.cskaoyan.mapper.FCountCheckMapper;
+import com.cskaoyan.service.FCountCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,36 +11,35 @@ import java.util.List;
 
 /**
  * @auther 芮狼Dan
- * @date 2019-05-19 11:30
+ * @date 2019-05-19 19:30
  */
 @Service
-public class MeasureServiceImpl implements MeasureService {
-    @Autowired
-    MeasureMapper measureMapper;
+public class FCountCheckServiceImpl implements FCountCheckService {
 
+    @Autowired
+    FCountCheckMapper fCountCheckMapper;
 
     //分页查找
     @Override
-    public List<Measure> findList(int rows, int offset) {
-        List<Measure> measureList = measureMapper.findList(rows, offset);
+    public List<FCountCheck> findList(Integer rows, int offset) {
+        List<FCountCheck> measureList = fCountCheckMapper.findList(rows, offset);
         return measureList;
     }
 
     //查找所有
     @Override
-    public List<Measure> findAllList() {
-        List<Measure> measureAllList = measureMapper.findAllList();
-        return measureAllList;
+    public List<FCountCheck> findAllList() {
+        List<FCountCheck> measureList = fCountCheckMapper.findAllList();
+        return measureList;
     }
-
 
     //增加
     @Override
-    public QueryStatus insert(Measure measure) {
+    public QueryStatus insert(FCountCheck fCountCheck) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = measureMapper.insert(measure);
+            int i = fCountCheckMapper.insert(fCountCheck);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -58,11 +57,11 @@ public class MeasureServiceImpl implements MeasureService {
 
     //修改所有
     @Override
-    public QueryStatus update_all(Measure measure) {
+    public QueryStatus update_all(FCountCheck fCountCheck) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = measureMapper.update_all(measure);
+            int i = fCountCheckMapper.update_all(fCountCheck);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -79,11 +78,11 @@ public class MeasureServiceImpl implements MeasureService {
 
     //修改备注信息
     @Override
-    public QueryStatus update_note(String fMeasureCheckId, String note) {
+    public QueryStatus update_note(String fCountCheckId, String note) {
         QueryStatus queryStatus = new QueryStatus();
 
         try {
-            int i = measureMapper.update_note(fMeasureCheckId , note);
+            int i = fCountCheckMapper.update_note(fCountCheckId , note);
             if (i == 1){
                 queryStatus.setStatus(200);
                 queryStatus.setMsg("OK");
@@ -105,7 +104,7 @@ public class MeasureServiceImpl implements MeasureService {
 
         try {
             for (int i = 0; i < ids.length; i++) {
-                measureMapper.delete_batch(ids[i]);
+                fCountCheckMapper.delete_batch(ids[i]);
             }
             queryStatus.setStatus(200);
             queryStatus.setMsg("OK");
@@ -118,30 +117,30 @@ public class MeasureServiceImpl implements MeasureService {
         return queryStatus;
     }
 
+
     //根据id查询-分页
     @Override
-    public List<Measure> searchfMeasureCheckByfMeasureCheckId(String searchValue, Integer rows, int offset) {
-        List<Measure> measureList = measureMapper.searchfMeasureCheckByfMeasureCheckId(searchValue,rows,offset);
+    public List<FCountCheck> searchfMeasureCheckByfMeasureCheckId(String searchValue, Integer rows, int offset) {
+        List<FCountCheck> measureList = fCountCheckMapper.searchfMeasureCheckByfMeasureCheckId(searchValue,rows,offset);
         return measureList;
     }
 
     //根据id查询-所有
     @Override
-    public List<Measure> searchAllfMeasureCheckByfMeasureCheckId(String searchValue) {
-        List<Measure> measureAllList = measureMapper.searchAllfMeasureCheckByfMeasureCheckId(searchValue);
+    public List<FCountCheck> searchAllfMeasureCheckByfMeasureCheckId(String searchValue) {
+        List<FCountCheck> measureAllList = fCountCheckMapper.searchAllfMeasureCheckByfMeasureCheckId(searchValue);
         return measureAllList;
     }
 
     @Override
-    public List<Measure> searchfMeasureCheckByOrderId(String searchValue, Integer rows, int offset) {
-        List<Measure> measureList = measureMapper.searchfMeasureCheckByOrderId(searchValue,rows,offset);
+    public List<FCountCheck> searchfMeasureCheckByOrderId(String searchValue, Integer rows, int offset) {
+        List<FCountCheck> measureList = fCountCheckMapper.searchfMeasureCheckByOrderId(searchValue,rows,offset);
         return measureList;
     }
 
     @Override
-    public List<Measure> searchAllfMeasureCheckByOrderId(String searchValue) {
-        List<Measure> measureAllList = measureMapper.searchAllfMeasureCheckByOrderId(searchValue);
+    public List<FCountCheck> searchAllfMeasureCheckByOrderId(String searchValue) {
+        List<FCountCheck> measureAllList = fCountCheckMapper.searchAllfMeasureCheckByOrderId(searchValue);
         return measureAllList;
     }
-
 }

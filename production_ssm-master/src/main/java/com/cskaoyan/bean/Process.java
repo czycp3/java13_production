@@ -1,8 +1,7 @@
 package com.cskaoyan.bean;
 
 /**
- * 工序表
- * @Author cly
+ * @author cly
  */
 public class Process {
     private String processId;
@@ -26,14 +25,6 @@ public class Process {
         this.technologyPlanId = technologyPlanId;
     }
 
-    public Integer getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
-    }
-
     public Integer getQuota() {
         return quota;
     }
@@ -42,13 +33,21 @@ public class Process {
         this.quota = quota;
     }
 
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
     @Override
     public String toString() {
         return "Process{" +
                 "processId='" + processId + '\'' +
                 ", technologyPlanId='" + technologyPlanId + '\'' +
-                ", sequence=" + sequence +
                 ", quota=" + quota +
+                ", sequence=" + sequence +
                 '}';
     }
 }

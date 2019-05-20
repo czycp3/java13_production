@@ -2,6 +2,7 @@ package com.cskaoyan.controller;
 
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
+import com.cskaoyan.bean.QueryStatus;
 import com.cskaoyan.service.DeviceTypeService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,22 @@ public class DeviceTypeController {
         return baseResultVo;
     }
 
+    @RequestMapping("/deviceType/edit_judge")
+    @ResponseBody
+    public BaseResultVo deviceTypeEditJudge(){
+        return new BaseResultVo();
+    }
 
+    /*
+    * 编辑deviceType
+    * */
+    @RequestMapping("/deviceType/update_all")
+    @ResponseBody
+    public QueryStatus updateDeviceType(DeviceType deviceType){
+        QueryStatus queryStatus = deviceTypeService.updateDeviceType(deviceType);
+        return queryStatus;
+
+    }
 
 
     /*

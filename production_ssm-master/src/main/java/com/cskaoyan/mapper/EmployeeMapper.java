@@ -12,4 +12,6 @@ public interface EmployeeMapper {
     Employee[] getEmployees();
 
     Employee selectEmployeeById(@Param("deviceKeeperId") String deviceKeeperId);
+
+    int updateEmployee(@Param("updateEmployeeBean") Employee employee);
 }

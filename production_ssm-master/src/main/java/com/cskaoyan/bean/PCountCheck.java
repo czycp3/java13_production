@@ -2,32 +2,29 @@ package com.cskaoyan.bean;
 
 /**
  * @auther 芮狼Dan
- * @date 2019-05-19 18:02
+ * @date 2019-05-20 00:28
  */
-public class FCountCheck {
+public class PCountCheck {
+    private  String  pCountCheckId;
+    private  String  processId;
+    private  String  checkItem;
+    private  int  sample;
+    private  int checkNumber;
+    private  int  unqualify;
+    private  double  qualify;
+    private  String  cdate;
+    private  String  measureData;
+    private  String  empId;
+    private  String  result;
+    private  String  note;
+    private  String  empName;
 
-    private String fCountCheckId; //成品计数质检编号
-    private String orderId; //订单编号
-    private String checkItem; //检验项目
-    private int sample; //样本总数
-    private int checkNumber; //抽检数
-    private int unqualify; //不合格数
-    private double qualify; //合格率
-    private String cdate; //检验时间
-    private String measureData; //实际测量数据
-    private String empId; //检验人ID
-    private String empName; //检验人姓名
-    private String result; //检验结果
-    private String note; //备注
-
-
-
-    public FCountCheck() {
+    public PCountCheck() {
     }
 
-    public FCountCheck(String fCountCheckId, String orderId, String checkItem, int sample, int checkNumber, int unqualify, double qualify, String cdate, String measureData, String empId, String empName, String result, String note) {
-        this.fCountCheckId = fCountCheckId;
-        this.orderId = orderId;
+    public PCountCheck(String pCountCheckId, String processId, String checkItem, int sample, int checkNumber, int unqualify, double qualify, String cdate, String measureData, String empId, String result, String note, String empName) {
+        this.pCountCheckId = pCountCheckId;
+        this.processId = processId;
         this.checkItem = checkItem;
         this.sample = sample;
         this.checkNumber = checkNumber;
@@ -36,25 +33,25 @@ public class FCountCheck {
         this.cdate = cdate;
         this.measureData = measureData;
         this.empId = empId;
-        this.empName = empName;
         this.result = result;
         this.note = note;
+        this.empName = empName;
     }
 
-    public String getfCountCheckId() {
-        return fCountCheckId;
+    public String getpCountCheckId() {
+        return pCountCheckId;
     }
 
-    public void setfCountCheckId(String fCountCheckId) {
-        this.fCountCheckId = fCountCheckId;
+    public void setpCountCheckId(String pCountCheckId) {
+        this.pCountCheckId = pCountCheckId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getProcessId() {
+        return processId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 
     public String getCheckItem() {
@@ -121,14 +118,6 @@ public class FCountCheck {
         this.empId = empId;
     }
 
-    public String getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
-
     public String getResult() {
         return result;
     }
@@ -145,11 +134,19 @@ public class FCountCheck {
         this.note = note;
     }
 
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
     @Override
     public String toString() {
-        return "FCountCheck{" +
-                "fCountCheckId='" + fCountCheckId + '\'' +
-                ", orderId='" + orderId + '\'' +
+        return "PCountCheck{" +
+                "pCountCheckId='" + pCountCheckId + '\'' +
+                ", processId='" + processId + '\'' +
                 ", checkItem='" + checkItem + '\'' +
                 ", sample=" + sample +
                 ", checkNumber=" + checkNumber +
@@ -158,9 +155,9 @@ public class FCountCheck {
                 ", cdate='" + cdate + '\'' +
                 ", measureData='" + measureData + '\'' +
                 ", empId='" + empId + '\'' +
-                ", empName='" + empName + '\'' +
                 ", result='" + result + '\'' +
                 ", note='" + note + '\'' +
+                ", empName='" + empName + '\'' +
                 '}';
     }
 }

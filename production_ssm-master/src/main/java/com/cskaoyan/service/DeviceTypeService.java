@@ -2,6 +2,7 @@ package com.cskaoyan.service;
 
 import com.cskaoyan.bean.BaseResultVo;
 import com.cskaoyan.bean.DeviceType;
+import com.cskaoyan.bean.QueryStatus;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface DeviceTypeService {
     DeviceType[] getDeviceTypes();
 
     DeviceType selectDeviceTypeById(String deviceTypeId);
+
+    QueryStatus updateDeviceType(DeviceType deviceType);
 }

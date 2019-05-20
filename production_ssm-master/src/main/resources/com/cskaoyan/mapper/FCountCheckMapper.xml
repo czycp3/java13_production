@@ -1,0 +1,137 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cskaoyan.mapper.FCountCheckMapper">
+    <resultMap id="fCountCheckMapper" type="com.cskaoyan.bean.FCountCheck">
+        <id column="f_count_check_id" property="fCountCheckId" />
+        <result column="order_id" property="orderId" />
+        <result column="check_item" property="checkItem" />
+        <result column="sample" property="sample" />
+        <result column="check_number" property="checkNumber" />
+        <result column="unqualify" property="unqualify" />
+        <result column="cdate" property="cdate" />
+        <result column="measure_data" property="measureData" />
+        <result column="emp_id" property="empId" />
+        <result column="result" property="result" />
+        <result column="note" property="note" />
+        <result column="emp_name" property="empName" />
+    </resultMap>
+
+    <!--分页查找-->
+    <select id="findList" resultMap="fCountCheckMapper" >
+        select  fc.f_count_check_id,
+                fc.order_id,
+                fc.check_item,
+                fc.sample,
+                fc.check_number,
+                fc.unqualify,
+                fc.cdate,
+                fc.measure_data,
+                fc.emp_id,
+                fc.result,
+                fc.note,
+                e.emp_name
+
+ 				from final_count_check fc
+ 				left join employee e on fc.emp_id = e.emp_id
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--查找所有信息-->
+    <select id="findAllList" resultMap="fCountCheckMapper" >
+        select f_count_check_id from final_count_check
+    </select>
+
+    <!-- 新增 -->
+    <insert id="insert" >
+        insert into final_count_check
+        (f_count_check_id,order_id,check_item,sample,check_number,unqualify,cdate,measure_data,emp_id,result,note)
+        value
+        (#{fCountCheck.fCountCheckId},#{fCountCheck.orderId},#{fCountCheck.checkItem},#{fCountCheck.sample},
+        #{fCountCheck.checkNumber},#{fCountCheck.unqualify},#{fCountCheck.cdate},#{fCountCheck.measureData},
+        #{fCountCheck.empId},#{fCountCheck.result},#{fCountCheck.note})
+
+    </insert>
+
+    <!-- 修改 -->
+    <update id="update_all">
+        update final_count_check set     order_id = #{fCountCheck.orderId},
+                                        check_item = #{fCountCheck.checkItem},
+                                        sample = #{fCountCheck.sample},
+                                        check_number = #{fCountCheck.checkNumber},
+                                        unqualify = #{fCountCheck.unqualify},
+                                        cdate = #{fCountCheck.cdate},
+                                        measure_data = #{fCountCheck.measureData},
+                                        emp_id = #{fCountCheck.empId},
+                                        result = #{fCountCheck.result},
+                                        note = #{fCountCheck.note}
+                                        where f_count_check_id = #{fCountCheck.fCountCheckId}
+    </update>
+
+    <!--修改备注信息-->
+    <update id="update_note">
+         update final_count_check set note = #{note} where f_count_check_id = #{fCountCheckId}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="delete_batch">
+        delete from final_count_check where f_count_check_id = #{id}
+    </delete>
+
+    <!--根据ID分页查询-->
+    <select id="searchfMeasureCheckByfMeasureCheckId" resultMap="fCountCheckMapper">
+        select  fc.f_count_check_id,
+                fc.order_id,
+                fc.check_item,
+                fc.sample,
+                fc.check_number,
+                fc.unqualify,
+                fc.cdate,
+                fc.measure_data,
+                fc.emp_id,
+                fc.result,
+                fc.note,
+                e.emp_name
+
+ 				from final_count_check fc
+ 				left join employee e on fc.emp_id = e.emp_id
+ 				where f_count_check_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据ID所有-->
+    <select id="searchAllfMeasureCheckByfMeasureCheckId" resultMap="fCountCheckMapper">
+        select f_count_check_id from final_count_check where f_count_check_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+    <!--根据订单ID分页查询-->
+    <select id="searchfMeasureCheckByOrderId" resultMap="fCountCheckMapper">
+        select  fc.f_count_check_id,
+                fc.order_id,
+                fc.check_item,
+                fc.sample,
+                fc.check_number,
+                fc.unqualify,
+                fc.cdate,
+                fc.measure_data,
+                fc.emp_id,
+                fc.result,
+                fc.note,
+                e.emp_name
+
+ 				from final_count_check fc
+ 				left join employee e on fc.emp_id = e.emp_id
+ 				where order_id LIKE '%${searchValue}%'
+                limit #{offset} , #{rows}
+    </select>
+
+    <!--根据订单ID所有-->
+    <select id="searchAllfMeasureCheckByOrderId" resultMap="fCountCheckMapper">
+        select order_id from final_count_check where order_id LIKE '%${searchValue}%'
+    </select>
+
+
+
+
+</mapper>

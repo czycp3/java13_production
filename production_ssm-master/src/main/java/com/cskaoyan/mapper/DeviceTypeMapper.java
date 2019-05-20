@@ -20,4 +20,6 @@ public interface DeviceTypeMapper {
     DeviceType[] getDeviceTypes();
 
     DeviceType selectDeviceTypeById(@Param("deviceTypeId") String deviceTypeId);
+
+    int updateDeviceType(@Param("updateDeviceTypeBean") DeviceType deviceType);
 }

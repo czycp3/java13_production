@@ -1,6 +1,7 @@
 package com.cskaoyan.service;
 
 import com.cskaoyan.bean.Employee;
+import com.cskaoyan.bean.QueryStatus;
 
 /**
  * @Author: zero
@@ -12,4 +13,6 @@ public interface EmployeeService {
     Employee[] getEmployees();
 
     Employee selectEmployeeById(String deviceKeeperId);
+
+    QueryStatus updateEmployee(Employee employee);
 }

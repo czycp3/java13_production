@@ -13,7 +13,7 @@ public interface MeasureMapper {
     //分页查找
     List<Measure> findList(@Param("rows") int rows, @Param("offset") int offset);
 
-    //分页查找
+    //查找所有
     List<Measure> findAllList();
 
     //插入
