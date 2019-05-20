@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  *
@@ -39,10 +40,11 @@ public class RootConfig {
 	 * @return dataSource
 	 */
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws SQLException {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/production_ssm?serverTimezone=GMT&useSSL=false&rewriteBatchedStatements=true&useServerPrepStmts=true&cachePrepStmts=true");
+		dataSource.setFilters("stat");
 		dataSource.setUsername("root");
 		dataSource.setPassword("123456");
 		return dataSource;
